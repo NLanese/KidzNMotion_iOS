@@ -1,7 +1,6 @@
 // Reaact
-import { View, Text, SafeAreaView, ScrollView, Image, ImageBackground, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, Image, ImageBackground, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import React, {useState} from "react";
-import { TextInput } from "react-native-gesture-handler";
 import { Icon } from "@material-ui/core";
 
 

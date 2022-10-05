@@ -31,7 +31,6 @@
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-error-boundary": "^1.1.16",
     "react-native-fast-image": "^8.6.1",
-    "react-native-gesture-handler": "^2.7.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal": "^13.0.1",
