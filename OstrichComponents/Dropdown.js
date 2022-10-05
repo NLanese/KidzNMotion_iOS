@@ -3,7 +3,6 @@ import { View, Text, SafeAreaView, ScrollView, Image, ImageBackground, Touchable
 import React, {useState} from "react";
 import { TextInput } from "react-native-gesture-handler";
 import { Icon } from "@material-ui/core";
-import zIndex from "@material-ui/core/styles/zIndex";
 
 
 ///////////////////////
