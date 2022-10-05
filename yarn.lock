@@ -4478,7 +4478,7 @@ expo-modules-autolinking@^0.0.3:
     find-up "~5.0.0"
     fs-extra "^9.1.0"
 
-expo-modules-core@0.11.6:
+expo-modules-core@0.11.6, expo-modules-core@^0.11.6:
   version "0.11.6"
   resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-0.11.6.tgz#0fb166ce6c18def4bfef7a617d4ba8b20cd87d9f"
   integrity sha512-Z3DSfyLCag5JxMas+rdPbb8PzhN0F7v0GGx2VuaiC3QvIITrybdRS5lJaXlsfqrJZ36j80p3ZKzfMjMX/RF9kA==
@@ -4491,7 +4491,7 @@ expo-modules-core@~0.2.0:
   resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-0.2.0.tgz#68e5b6e53d0afbf8d131578831aed657589a2d42"
   integrity sha512-inpfZ5X/BaTtbj2wG9PA9AC0MN8VyId6KSRlVuEg7+ziurHBy/kKDFxpOddUokhwiln2uhoYPSStJjR/tKypdw==
 
-expo@^46.0.14:
+expo@^46.0.0:
   version "46.0.14"
   resolved "https://registry.yarnpkg.com/expo/-/expo-46.0.14.tgz#bdb134fbc73f806f3d92a385c00d34a778e11973"
   integrity sha512-l44Dn1/eXLoUOyXevffpKgQhqsf4PEB8bUp7aR97C7Hlcg7Rx9dbv7sTh8wV0M6ylJ+2M1kB5GgNX+CCuIwiSQ==
