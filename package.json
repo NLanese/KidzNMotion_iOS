@@ -23,7 +23,7 @@
     "graphql": "^16.6.0",
     "metro": "^0.73.0",
     "react": "18.1.0",
-    "react-native": "0.69.5",
+    "react-native": "0.70.0",
     "react-native-bouncy-checkbox": "^3.0.4",
     "react-native-bouncy-checkbox-group": "^0.1.1",
     "react-native-calendars": "^1.1289.0",
