@@ -13,36 +13,36 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1F7C478FD08F4D838B0E4495 /* Spartan-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7B2DF2C8C0944289A985192 /* Spartan-ExtraBold.ttf */; };
+		374730AD15104138810D52A6 /* Spartan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4CF362398F8468B88A44C63 /* Spartan-SemiBold.ttf */; };
+		37F921F22ED44DB2BAE8FF87 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5412925F819144B5B5466294 /* Gilroy-Bold.ttf */; };
+		3921D0423EFF4FAF98627AFC /* Spartan-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2858A35A94694B08B2860F42 /* Spartan-ExtraLight.ttf */; };
+		3A0BDF1AA6C84E7A8DD737DC /* Spartan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0F36AB5F6B48F280F4F33C /* Spartan-Medium.ttf */; };
+		3B22B1C94F20420484AD1862 /* Gilroy-UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26746532FBAF49E9AEB6027C /* Gilroy-UltraLight.ttf */; };
+		4434232D6C5D4F9C9ECDE89F /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */; };
+		49FCD3C103194752AA8A57C1 /* Gilroy-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */; };
+		55D53996A7684D8295E7E3D6 /* Spartan-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */; };
+		5DBE30DA5BCC44FA87490E5C /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A70BD0A57AB4C68954517FE /* Lato-Semibold.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */; };
 		787D0BE85D11AD425ABF7905 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3942CFBA3009524E800873 /* ExpoModulesProvider.swift */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		D192AEE391144850B8B83D55 /* Gilroy-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AE72B3C1254469C81568721 /* Gilroy-Black.ttf */; };
-		37F921F22ED44DB2BAE8FF87 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5412925F819144B5B5466294 /* Gilroy-Bold.ttf */; };
-		49FCD3C103194752AA8A57C1 /* Gilroy-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */; };
-		B76A69A77A1C4E558DF32BDC /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09BDF5289213455EB41FB546 /* Gilroy-Heavy.ttf */; };
-		ADE5491B866645F68AE0880C /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EBD0CA5412E4A398403E098 /* Gilroy-Light.ttf */; };
-		E683543F032C4428801E2038 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30115C0B88974C3CBED76E93 /* Gilroy-Medium.ttf */; };
-		4434232D6C5D4F9C9ECDE89F /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */; };
-		C64134BC3FF04B5F8953A41B /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0D20C165EC34FC9BA6724B5 /* Gilroy-SemiBold.ttf */; };
-		F522138792C64B5FB9EDDB89 /* Gilroy-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE0488AA4A441A9EEF2826 /* Gilroy-Thin.ttf */; };
-		3B22B1C94F20420484AD1862 /* Gilroy-UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26746532FBAF49E9AEB6027C /* Gilroy-UltraLight.ttf */; };
-		F9AC72B25878494F8C9B143F /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC39E87949FC4F809E865915 /* Lato-Bold.ttf */; };
 		7EA4612BFBE34CE88788759F /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DFCC198F149457D994981F4 /* Lato-Medium.ttf */; };
-		D8CAB8BEF1E948499C70E52B /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11FDC4AE64994266BE4961B5 /* Lato-Regular.ttf */; };
-		5DBE30DA5BCC44FA87490E5C /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A70BD0A57AB4C68954517FE /* Lato-Semibold.ttf */; };
-		98CEA8C37D224F80B89FC623 /* LeagueSpartan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9D20C91F7ED48EEAD9DC0BB /* LeagueSpartan-Bold.ttf */; };
-		A26945D252E049EAA4287E74 /* LeagueSpartan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */; };
-		9C55392D68F64E2D86DD22D2 /* LeagueSpartan-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2D4F8FFCC5E48B4BB5F1D1F /* LeagueSpartan-Regular.ttf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8522AB75EC5A488BAA0B181F /* LeagueSpartan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */; };
-		F6BE8F7085C14CE8B0D923BF /* Spartan-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 818BBA8F7DEE4A99B4B915F7 /* Spartan-Black.ttf */; };
+		98CEA8C37D224F80B89FC623 /* LeagueSpartan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9D20C91F7ED48EEAD9DC0BB /* LeagueSpartan-Bold.ttf */; };
+		9C55392D68F64E2D86DD22D2 /* LeagueSpartan-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2D4F8FFCC5E48B4BB5F1D1F /* LeagueSpartan-Regular.ttf */; };
+		A26945D252E049EAA4287E74 /* LeagueSpartan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */; };
 		A918215E74F7410A930E2C50 /* Spartan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */; };
-		1F7C478FD08F4D838B0E4495 /* Spartan-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7B2DF2C8C0944289A985192 /* Spartan-ExtraBold.ttf */; };
-		3921D0423EFF4FAF98627AFC /* Spartan-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2858A35A94694B08B2860F42 /* Spartan-ExtraLight.ttf */; };
+		ADE5491B866645F68AE0880C /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EBD0CA5412E4A398403E098 /* Gilroy-Light.ttf */; };
 		B2CCD33406564A749E145FE4 /* Spartan-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */; };
-		3A0BDF1AA6C84E7A8DD737DC /* Spartan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0F36AB5F6B48F280F4F33C /* Spartan-Medium.ttf */; };
+		B76A69A77A1C4E558DF32BDC /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09BDF5289213455EB41FB546 /* Gilroy-Heavy.ttf */; };
+		C64134BC3FF04B5F8953A41B /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0D20C165EC34FC9BA6724B5 /* Gilroy-SemiBold.ttf */; };
+		D192AEE391144850B8B83D55 /* Gilroy-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AE72B3C1254469C81568721 /* Gilroy-Black.ttf */; };
+		D8CAB8BEF1E948499C70E52B /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11FDC4AE64994266BE4961B5 /* Lato-Regular.ttf */; };
 		D8E61DDB22DA471E97784871 /* Spartan-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BC3940E0B204A40BA73C6FA /* Spartan-Regular.ttf */; };
-		374730AD15104138810D52A6 /* Spartan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4CF362398F8468B88A44C63 /* Spartan-SemiBold.ttf */; };
-		55D53996A7684D8295E7E3D6 /* Spartan-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */; };
+		E683543F032C4428801E2038 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30115C0B88974C3CBED76E93 /* Gilroy-Medium.ttf */; };
+		F522138792C64B5FB9EDDB89 /* Gilroy-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE0488AA4A441A9EEF2826 /* Gilroy-Thin.ttf */; };
+		F6BE8F7085C14CE8B0D923BF /* Spartan-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 818BBA8F7DEE4A99B4B915F7 /* Spartan-Black.ttf */; };
+		F9AC72B25878494F8C9B143F /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC39E87949FC4F809E865915 /* Lato-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +59,8 @@
 		00E356EE1AD99517003FC87E /* KidzNMotion_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KidzNMotion_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* KidzNMotion_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KidzNMotion_iOSTests.m; sourceTree = "<group>"; };
+		09BDF5289213455EB41FB546 /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Heavy.ttf"; path = "../assets/fonts/Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
+		11FDC4AE64994266BE4961B5 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* KidzNMotion_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KidzNMotion_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = KidzNMotion_iOS/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = KidzNMotion_iOS/AppDelegate.mm; sourceTree = "<group>"; };
@@ -66,42 +68,40 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = KidzNMotion_iOS/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = KidzNMotion_iOS/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EBD0CA5412E4A398403E098 /* Gilroy-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Light.ttf"; path = "../assets/fonts/Gilroy-Light.ttf"; sourceTree = "<group>"; };
+		221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Thin.ttf"; path = "../assets/fonts/Spartan-Thin.ttf"; sourceTree = "<group>"; };
+		26746532FBAF49E9AEB6027C /* Gilroy-UltraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-UltraLight.ttf"; path = "../assets/fonts/Gilroy-UltraLight.ttf"; sourceTree = "<group>"; };
+		2858A35A94694B08B2860F42 /* Spartan-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-ExtraLight.ttf"; path = "../assets/fonts/Spartan-ExtraLight.ttf"; sourceTree = "<group>"; };
 		2D1E5CF28753469A7858FE5F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-KidzNMotion_iOS/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		30115C0B88974C3CBED76E93 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
+		31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Light.ttf"; path = "../assets/fonts/Spartan-Light.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-KidzNMotion_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-SemiBold.ttf"; path = "../assets/fonts/LeagueSpartan-SemiBold.ttf"; sourceTree = "<group>"; };
+		47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Bold.ttf"; path = "../assets/fonts/Spartan-Bold.ttf"; sourceTree = "<group>"; };
+		47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-Medium.ttf"; path = "../assets/fonts/LeagueSpartan-Medium.ttf"; sourceTree = "<group>"; };
+		5412925F819144B5B5466294 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-KidzNMotion_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.release.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-KidzNMotion_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KidzNMotion_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5ECE0488AA4A441A9EEF2826 /* Gilroy-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Thin.ttf"; path = "../assets/fonts/Gilroy-Thin.ttf"; sourceTree = "<group>"; };
+		6A70BD0A57AB4C68954517FE /* Lato-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Semibold.ttf"; path = "../assets/fonts/Lato-Semibold.ttf"; sourceTree = "<group>"; };
+		6AE72B3C1254469C81568721 /* Gilroy-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Black.ttf"; path = "../assets/fonts/Gilroy-Black.ttf"; sourceTree = "<group>"; };
+		6DFCC198F149457D994981F4 /* Lato-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Medium.ttf"; path = "../assets/fonts/Lato-Medium.ttf"; sourceTree = "<group>"; };
+		7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Regular.ttf"; path = "../assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
+		7A0F36AB5F6B48F280F4F33C /* Spartan-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Medium.ttf"; path = "../assets/fonts/Spartan-Medium.ttf"; sourceTree = "<group>"; };
+		7BC3940E0B204A40BA73C6FA /* Spartan-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Regular.ttf"; path = "../assets/fonts/Spartan-Regular.ttf"; sourceTree = "<group>"; };
+		818BBA8F7DEE4A99B4B915F7 /* Spartan-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Black.ttf"; path = "../assets/fonts/Spartan-Black.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = KidzNMotion_iOS/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-ExtraBold.ttf"; path = "../assets/fonts/Gilroy-ExtraBold.ttf"; sourceTree = "<group>"; };
 		8D3942CFBA3009524E800873 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		A0D20C165EC34FC9BA6724B5 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-SemiBold.ttf"; path = "../assets/fonts/Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
+		A4CF362398F8468B88A44C63 /* Spartan-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-SemiBold.ttf"; path = "../assets/fonts/Spartan-SemiBold.ttf"; sourceTree = "<group>"; };
+		D2D4F8FFCC5E48B4BB5F1D1F /* LeagueSpartan-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-Regular.ttf"; path = "../assets/fonts/LeagueSpartan-Regular.ttf"; sourceTree = "<group>"; };
+		E7B2DF2C8C0944289A985192 /* Spartan-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-ExtraBold.ttf"; path = "../assets/fonts/Spartan-ExtraBold.ttf"; sourceTree = "<group>"; };
+		E9D20C91F7ED48EEAD9DC0BB /* LeagueSpartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-Bold.ttf"; path = "../assets/fonts/LeagueSpartan-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		6AE72B3C1254469C81568721 /* Gilroy-Black.ttf */ = {isa = PBXFileReference; name = "Gilroy-Black.ttf"; path = "../assets/fonts/Gilroy-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5412925F819144B5B5466294 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Gilroy-ExtraBold.ttf"; path = "../assets/fonts/Gilroy-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		09BDF5289213455EB41FB546 /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; name = "Gilroy-Heavy.ttf"; path = "../assets/fonts/Gilroy-Heavy.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1EBD0CA5412E4A398403E098 /* Gilroy-Light.ttf */ = {isa = PBXFileReference; name = "Gilroy-Light.ttf"; path = "../assets/fonts/Gilroy-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		30115C0B88974C3CBED76E93 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; name = "Gilroy-Regular.ttf"; path = "../assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A0D20C165EC34FC9BA6724B5 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; name = "Gilroy-SemiBold.ttf"; path = "../assets/fonts/Gilroy-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5ECE0488AA4A441A9EEF2826 /* Gilroy-Thin.ttf */ = {isa = PBXFileReference; name = "Gilroy-Thin.ttf"; path = "../assets/fonts/Gilroy-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		26746532FBAF49E9AEB6027C /* Gilroy-UltraLight.ttf */ = {isa = PBXFileReference; name = "Gilroy-UltraLight.ttf"; path = "../assets/fonts/Gilroy-UltraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FC39E87949FC4F809E865915 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6DFCC198F149457D994981F4 /* Lato-Medium.ttf */ = {isa = PBXFileReference; name = "Lato-Medium.ttf"; path = "../assets/fonts/Lato-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		11FDC4AE64994266BE4961B5 /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6A70BD0A57AB4C68954517FE /* Lato-Semibold.ttf */ = {isa = PBXFileReference; name = "Lato-Semibold.ttf"; path = "../assets/fonts/Lato-Semibold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E9D20C91F7ED48EEAD9DC0BB /* LeagueSpartan-Bold.ttf */ = {isa = PBXFileReference; name = "LeagueSpartan-Bold.ttf"; path = "../assets/fonts/LeagueSpartan-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */ = {isa = PBXFileReference; name = "LeagueSpartan-Medium.ttf"; path = "../assets/fonts/LeagueSpartan-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D2D4F8FFCC5E48B4BB5F1D1F /* LeagueSpartan-Regular.ttf */ = {isa = PBXFileReference; name = "LeagueSpartan-Regular.ttf"; path = "../assets/fonts/LeagueSpartan-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */ = {isa = PBXFileReference; name = "LeagueSpartan-SemiBold.ttf"; path = "../assets/fonts/LeagueSpartan-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		818BBA8F7DEE4A99B4B915F7 /* Spartan-Black.ttf */ = {isa = PBXFileReference; name = "Spartan-Black.ttf"; path = "../assets/fonts/Spartan-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */ = {isa = PBXFileReference; name = "Spartan-Bold.ttf"; path = "../assets/fonts/Spartan-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E7B2DF2C8C0944289A985192 /* Spartan-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Spartan-ExtraBold.ttf"; path = "../assets/fonts/Spartan-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2858A35A94694B08B2860F42 /* Spartan-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Spartan-ExtraLight.ttf"; path = "../assets/fonts/Spartan-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */ = {isa = PBXFileReference; name = "Spartan-Light.ttf"; path = "../assets/fonts/Spartan-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7A0F36AB5F6B48F280F4F33C /* Spartan-Medium.ttf */ = {isa = PBXFileReference; name = "Spartan-Medium.ttf"; path = "../assets/fonts/Spartan-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7BC3940E0B204A40BA73C6FA /* Spartan-Regular.ttf */ = {isa = PBXFileReference; name = "Spartan-Regular.ttf"; path = "../assets/fonts/Spartan-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A4CF362398F8468B88A44C63 /* Spartan-SemiBold.ttf */ = {isa = PBXFileReference; name = "Spartan-SemiBold.ttf"; path = "../assets/fonts/Spartan-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */ = {isa = PBXFileReference; name = "Spartan-Thin.ttf"; path = "../assets/fonts/Spartan-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FC39E87949FC4F809E865915 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +139,41 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		02602CD7A9044722A93A5E56 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6AE72B3C1254469C81568721 /* Gilroy-Black.ttf */,
+				5412925F819144B5B5466294 /* Gilroy-Bold.ttf */,
+				8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */,
+				09BDF5289213455EB41FB546 /* Gilroy-Heavy.ttf */,
+				1EBD0CA5412E4A398403E098 /* Gilroy-Light.ttf */,
+				30115C0B88974C3CBED76E93 /* Gilroy-Medium.ttf */,
+				7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */,
+				A0D20C165EC34FC9BA6724B5 /* Gilroy-SemiBold.ttf */,
+				5ECE0488AA4A441A9EEF2826 /* Gilroy-Thin.ttf */,
+				26746532FBAF49E9AEB6027C /* Gilroy-UltraLight.ttf */,
+				FC39E87949FC4F809E865915 /* Lato-Bold.ttf */,
+				6DFCC198F149457D994981F4 /* Lato-Medium.ttf */,
+				11FDC4AE64994266BE4961B5 /* Lato-Regular.ttf */,
+				6A70BD0A57AB4C68954517FE /* Lato-Semibold.ttf */,
+				E9D20C91F7ED48EEAD9DC0BB /* LeagueSpartan-Bold.ttf */,
+				47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */,
+				D2D4F8FFCC5E48B4BB5F1D1F /* LeagueSpartan-Regular.ttf */,
+				40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */,
+				818BBA8F7DEE4A99B4B915F7 /* Spartan-Black.ttf */,
+				47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */,
+				E7B2DF2C8C0944289A985192 /* Spartan-ExtraBold.ttf */,
+				2858A35A94694B08B2860F42 /* Spartan-ExtraLight.ttf */,
+				31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */,
+				7A0F36AB5F6B48F280F4F33C /* Spartan-Medium.ttf */,
+				7BC3940E0B204A40BA73C6FA /* Spartan-Regular.ttf */,
+				A4CF362398F8468B88A44C63 /* Spartan-SemiBold.ttf */,
+				221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		0E5CB8E113A8E3722D734CEB /* ExpoModulesProviders */ = {
@@ -232,41 +267,6 @@
 			);
 			name = KidzNMotion_iOS;
 			sourceTree = "<group>";
-		};
-		02602CD7A9044722A93A5E56 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				6AE72B3C1254469C81568721 /* Gilroy-Black.ttf */,
-				5412925F819144B5B5466294 /* Gilroy-Bold.ttf */,
-				8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */,
-				09BDF5289213455EB41FB546 /* Gilroy-Heavy.ttf */,
-				1EBD0CA5412E4A398403E098 /* Gilroy-Light.ttf */,
-				30115C0B88974C3CBED76E93 /* Gilroy-Medium.ttf */,
-				7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */,
-				A0D20C165EC34FC9BA6724B5 /* Gilroy-SemiBold.ttf */,
-				5ECE0488AA4A441A9EEF2826 /* Gilroy-Thin.ttf */,
-				26746532FBAF49E9AEB6027C /* Gilroy-UltraLight.ttf */,
-				FC39E87949FC4F809E865915 /* Lato-Bold.ttf */,
-				6DFCC198F149457D994981F4 /* Lato-Medium.ttf */,
-				11FDC4AE64994266BE4961B5 /* Lato-Regular.ttf */,
-				6A70BD0A57AB4C68954517FE /* Lato-Semibold.ttf */,
-				E9D20C91F7ED48EEAD9DC0BB /* LeagueSpartan-Bold.ttf */,
-				47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */,
-				D2D4F8FFCC5E48B4BB5F1D1F /* LeagueSpartan-Regular.ttf */,
-				40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */,
-				818BBA8F7DEE4A99B4B915F7 /* Spartan-Black.ttf */,
-				47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */,
-				E7B2DF2C8C0944289A985192 /* Spartan-ExtraBold.ttf */,
-				2858A35A94694B08B2860F42 /* Spartan-ExtraLight.ttf */,
-				31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */,
-				7A0F36AB5F6B48F280F4F33C /* Spartan-Medium.ttf */,
-				7BC3940E0B204A40BA73C6FA /* Spartan-Regular.ttf */,
-				A4CF362398F8468B88A44C63 /* Spartan-SemiBold.ttf */,
-				221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
