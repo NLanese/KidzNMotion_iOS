@@ -447,6 +447,8 @@ const Styles = StyleSheet.create({
                     style={{height: '100%'}}
                     value={textEntered}
                     onChangeText={(content) => setTextEntered(content)}
+                    onChange={() => setMsgAreaHeight(0.5)}
+                    onEndEditing={() => setMsgAreaHeight(0.72)}
                     multiline={true}
                 />
             </View>
@@ -456,7 +458,7 @@ const Styles = StyleSheet.create({
     // Renders the Send Button
     function renderSendButton(){
         return(
-            <TouchableOpacity onPress={() => handleSendMessage()} style={{marginTop: 60}}>
+            <TouchableOpacity onPress={() => handleSendMessage()} style={{marginTop: 40}}>
                 <Gradient
                     style={{height: 50, width: 50, borderRadius: 100, justifyContent: 'center', borderColor: 'black', borderWidth: 1}}
                     colorOne={COLORS.gradientColor1}
@@ -471,52 +473,26 @@ const Styles = StyleSheet.create({
     // Combines the Text Input and Send Button into one display
     function renderInputSpace(){
         return(
-            <View style={Styles.textBubbleView}>
-                {renderTextInput()}
-                {renderSendButton()}
-            </View>
+
+                <View style={Styles.textBubbleView}>
+                    {renderTextInput()}
+                    {renderSendButton()}
+                </View>
         )
     }
 
     // Main Render
     function MainRender(){
-        if (!imported){
-            if (hardCodedAndOwned){
-                console.log("1")
-                return(
-                    <View style={{height: maxHeight * 0.85, marginRight: 7, backgroundColor: COLORS.gradientColor2, borderRadius: 15, marginRight: 7,}}>
-                        {/* All messages */}
-                        <ScrollView style={{...Styles.messageSpace, height: '90%'}} contentContainerStyle={{height: 'auto', paddingBottom: maxHeight * .10, }}>
-                            {renderAllMessages()}
-                        </ScrollView>
-                        {renderInputSpace()}
-                    </View>
-                )
-            }
-            console.log("2")
-            return(
-                <View>
-                    <ScrollView style={Styles.messageSpace} contentContainerStyle={{height: 'auto', paddingBottom: maxHeight * .10, }}>
-                        {renderAllMessages()}
-                    </ScrollView>
-                </View>
-            )
-        }
-        else{
-            console.log("#")
-            return(
-                <View>
-                    {/* All messages */}
-                    <ScrollView style={Styles.messageSpace} contentContainerStyle={{height: 'auto', paddingBottom: maxHeight * .10, }}>
-                        {renderAllMessages()}
-                    </ScrollView>
-                    {renderInputSpace()}
-                </View>
-            )
-        }
+        return(
+            <View>
+                {/* All messages */}
+                <ScrollView style={Styles.messageSpace} contentContainerStyle={{height: maxHeight * 0.70, paddingBottom: maxHeight * .10}}>
+                    {renderAllMessages()}
+                </ScrollView>
+                {renderInputSpace()}
+            </View>
+        )
     }
-
-
 
 
 ///////////////////////
@@ -529,14 +505,17 @@ const Styles = StyleSheet.create({
     // Returns all of the messages, but grouped by sender
     function chopAtDifferentSenders(messageArray){
 
-        console.clear()
-
         ///////////////
         // Constants //
         let user1 = user
         let user2 = contact
         let returnArrayOfMessages = []
         let arrayOfSameSender = []
+
+        // messageArray.forEach( (msg, i) => {
+        //     console.log(i, " : ", msg.content, msg.createdAt)
+        //     console.log("\n---")
+        // })
 
         ///////////////////////////////////
         // Iterates through all messages //
@@ -590,6 +569,7 @@ const Styles = StyleSheet.create({
         .then( async (resolved) => {
             setTextEntered("")
             await getAndSetUser()
+            await fetchChatDetail()
         })
     }
 
@@ -600,7 +580,8 @@ const Styles = StyleSheet.create({
                 content: textEntered,
                 chatRoomID: chatroom.id
             }
-        }).catch(err => console.log(err))
+        }).catch(err => console.log(err, "============\n575\n==========="))
+        .then(() => console.log("message sent technically (2 - 572"))
     }
 
     async function getAndSetUser(){
