@@ -38,47 +38,33 @@ export default function MessageThread(props) {
 ///                 ///
 ///////////////////////
 
-    const COLORS = useRecoilValue(colorState)
-    const FONTS = useRecoilValue(fontState)
-    const SIZES = useRecoilValue(sizeState)
-    const AVATAR = useRecoilValue(avatarState)
-    const navigation = useNavigation();
+const COLORS = useRecoilValue(colorState)
+const FONTS = useRecoilValue(fontState)
+const SIZES = useRecoilValue(sizeState)
+const AVATAR = useRecoilValue(avatarState)
+const token = useRecoilValue(tokenState)
+const navigation = useNavigation();
 
-    let OgChatroom 
-    let color2
-    let imported
-    let hardCodedAndOwned = false
+// User
+const [user, setUser] = useRecoilState(userState)
 
-    if (!props.hardCodedChat){
-        OgChatroom = props.route.params?.item
-        color2 = COLORS.gradientColor1
-        imported = true
-    }
-    else{
-        OgChatroom = props.hardCodedChat[0]
-        color2 = COLORS.gradientColor2
-        imported = false
-    }
+// Chatroom (active)
+const [chatroom, setChatroom] = useRecoilState(activeChatroom)
 
-    if (props.isItMe){
-        hardCodedAndOwned = true
-    }
+// Contact Filler
+const [contact, setContact] = useState({
+    firstName: false,
+    lastName: false,
+    profilePic: "null"
+})
 
-    const [user, setUser] = useRecoilState(userState)
+const [notis, setNotis] = useRecoilState(messageNotifications)
 
-    const [contact, setContact] = useState({
-        firstName: "null",
-        lastName: "null",
-        profilePic: "null"
-    })
+const [textEntered, setTextEntered] = useState()
 
-    const [chatroom, setChatroom] = useState(OgChatroom)
+const [reset, setReset] = useState(props.reset)
 
-    const [chatToRender, setChatToRender] = useState(chatroom)
-
-    const [textEntered, setTextEntered] = useState()
-
-    const [reset, setReset] = useState(props.reset)
+const [msgAreaHeight, setMsgAreaHeight] = useState(0.72)
 
 
 ///////////////////////
@@ -87,45 +73,43 @@ export default function MessageThread(props) {
 ///                 ///
 ///////////////////////
 
-    // Populates Contact
+    // Populates Contact State
     useEffect(() => {
         setContact(chatroom.users.filter(person => {
             if (person.id !== user.id){
                 return person
             }
         })[0])
-    }, [])
+    }, [chatroom])
 
-    // Resets feed on render
-    // useEffect(() => {
-    //     user.chatRooms.forEach(chat => {
-    //         if (chat.id === chatroom.id){
-    //             setChatroom(chat)
-    //             return null
-    //         }
-    //     })
-    // }, [user])
-
+    // Utilizes Pusher API in order to refresh chat on newly recieved messages
     useEffect(() => {
-        let OgChatroom 
-        let color2
-        let imported
-        let hardCodedAndOwned = false
-
+        // // Creates a connection to pusher, which will send a signal here once IT recieves a signal from another message sender
+        // // For example, if this is a chat between person X and person Y, and this file is being used by person X, 
+        // // if person Y were to send a messaage, that message is now in the db (duh) and a signal is sent to pusher
+        // // which sends a signal to this new client. This will then allow me to trigger a rerender on signal recieving
+        // const chatRoomChannel = pusherClient.subscribe(
+        //   chatroom.id.toString()
+        // );
     
-        if (!props.hardCodedChat){
-            OgChatroom = props.route.params?.item
-            color2 = COLORS.gradientColor1
-            imported = true
-        }
-        else{
-            OgChatroom = props.hardCodedChat[0]
-            color2 = COLORS.gradientColor2
-            imported = false
-        }
-        setChatroom(OgChatroom)
-    }, [reset])
+        // chatRoomChannel.bind("new-message", function (data) {
+        //   fetchChatDetail();
+        // });
+    
+        // return () => {
+        //   pusherClient.unsubscribe(chatroom.id.toString());
+        // };
+    }, [chatroom.id]);
+    
+    // Backup for live refresh
+    useEffect(() => {
+        fetchChatDetail();
+    }, [chatroom.id]);
 
+    // Handles Notification Dismissal
+    useEffect(() => {
+        handleNotifications()
+    }, [contact])
 
 
 ///////////////////////
@@ -134,7 +118,33 @@ export default function MessageThread(props) {
 ///                 ///
 ///////////////////////
 
+    // Sends Message
     const [sendMessage, { loading: loadingAdd, error: errorAdd, data: typeAdd }] =useMutation(SEND_MESSAGE);
+
+    // Dismisses Notifications
+    const [dismissNotifications, { loading: loadingDis, error: errorDis, data: typeDis }] =useMutation(DISMISS_NOTIFICATION);
+
+    // Refreshes the Chat when you send a message
+    const fetchChatDetail = async () => {
+        if (token) {
+          await client
+            .query({
+              query: GET_CHAT_FROM_ID,
+              fetchPolicy: "network-only",
+              variables: {
+                id: chatroom.id,
+              },
+            })
+            .then(async (resolved) => {
+              setChatroom(resolved.data.getChatFromId);
+            })
+            .catch((error) => {
+                console.log("Sorry, there was an error getting this information\n", error);
+            });
+        } else {
+            console.log("No token?")
+        }
+    };
 
 ///////////////////////
 ///                 ///
@@ -142,79 +152,76 @@ export default function MessageThread(props) {
 ///                 ///
 ///////////////////////
 
-    const Styles = StyleSheet.create({
-        yourMessageBubble: {
-            padding: maxWidth * 0.01,
-            paddingLeft: maxWidth * 0.03,
-            backgroundColor: COLORS.gradientColor1,
-            // backgroundColor: 'rgba(255, 255, 255, .40)',
-            borderRadius: 10,
-            // borderWidth: 1,
-            // borderColor: 'black',
-            flex: 7,
-            marginBottom: 8
-        },
-        yourMessageBubbleNA: {
-            padding: maxWidth * 0.01,
-            paddingLeft: maxWidth * 0.03,
-            marginLeft: maxWidth * 0.015,
-            borderRadius: 10,
-            flex: 7,
-            marginBottom: 8
-        },
-        messageProfilePic:{
-            flex: 2
-        },
-        theirMessageBubble: {
-            padding: maxWidth * 0.01,
-            marginRight: maxWidth * 0.015,
-            paddingLeft: maxWidth * 0.03,
-            backgroundColor: 'white',
-            borderRadius: 10,
-            flex: 7,
-            marginBottom: 8
-        },
-        theirMessageBubbleNA: {
-            padding: maxWidth * 0.01,
-            paddingRight: maxWidth * 0.03,
-            borderRadius: 10,
-            flex: 7,
-            marginBottom: 8
-        },
-        messageSpace: {
-            // position: 'relative',
-            marginRight: 2, 
-            marginLeft: 2, 
-            borderColor: COLORS.iconLight, 
-            height: maxHeight * .75, 
-            padding: 4, 
-            borderColor: COLORS.iconLight, 
-            borderWidth: 1, 
-            borderRadius: 10,
-            paddingTop: 30, 
-            paddingBottom: 20,
-        },
-        textBubbleView: {
-        //    position: 'relative',
-           height: maxHeight * .16,
-           backgroundColor: COLORS.gradientColor1,
-           flexDirection: 'row'
-        },
-        textInput: {
-            borderWidth: 1,
-            borderRadius: 10,
-            borderColor: 'black',
-            marginLeft: maxWidth * 0.07,
-            margin: 10,
-            height: maxHeight * 0.12,
-            width: maxWidth * .75,
-            backgroundColor: 'white',
-            paddingRight: 20,
-            paddingLeft: 20,
-            paddingTop: 10,
-            paddingBottom: 15
-        }
-    })
+const Styles = StyleSheet.create({
+    yourMessageBubble: {
+        padding: maxWidth * 0.01,
+        paddingLeft: maxWidth * 0.03,
+        backgroundColor: COLORS.gradientColor1,
+        borderRadius: 10,
+        flex: 7,
+        marginBottom: 8
+    },
+    yourMessageBubbleNA: {
+        padding: maxWidth * 0.01,
+        paddingLeft: maxWidth * 0.03,
+        marginLeft: maxWidth * 0.015,
+        borderRadius: 10,
+        flex: 7,
+        marginBottom: 8
+    },
+    messageProfilePic:{
+        flex: 2
+    },
+    theirMessageBubble: {
+        padding: maxWidth * 0.01,
+        marginRight: maxWidth * 0.015,
+        paddingLeft: maxWidth * 0.03,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        flex: 7,
+        marginBottom: 8
+    },
+    theirMessageBubbleNA: {
+        padding: maxWidth * 0.01,
+        paddingRight: maxWidth * 0.03,
+        borderRadius: 10,
+        flex: 7,
+        marginBottom: 8
+    },
+    messageSpace: {
+        // position: 'relative',
+        marginRight: 2, 
+        marginLeft: 2, 
+        borderColor: COLORS.iconLight, 
+        height: maxHeight * 0.72,
+        padding: 4, 
+        borderColor: COLORS.iconLight, 
+        borderWidth: 1, 
+        borderRadius: 10,
+        paddingTop: 30, 
+        paddingBottom: 20,
+    },
+    textBubbleView: {
+    //    position: 'relative',
+       height: maxHeight * .20,
+       backgroundColor: COLORS.gradientColor1,
+       flexDirection: 'row'
+    },
+    textInput: {
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: 'black',
+        marginLeft: maxWidth * 0.07,
+        margin: 10,
+        height: maxHeight * 0.12,
+        width: maxWidth * .75,
+        backgroundColor: 'white',
+        paddingRight: 20,
+        paddingLeft: 20,
+        paddingTop: 10,
+        paddingBottom: 15
+    }
+})
    
 ///////////////////////
 ///                 ///
@@ -224,9 +231,6 @@ export default function MessageThread(props) {
 
     // Renders the Header guy
     function renderHeader() {
-        if (!imported){
-            return null
-        }
         return (
             <View style={{marginTop: 40}}>
                 <Header
@@ -241,7 +245,7 @@ export default function MessageThread(props) {
     }
 
     // Renders a single message
-    function renderSingleMessage(message, thisUser, first, last){
+    function renderSingleMessage(message, thisUser, first, last, i){
 
 
         if (!message.sentBy){
@@ -256,7 +260,7 @@ export default function MessageThread(props) {
             // This is the first of the clump //
             if (first){
                 return(
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
                         <View style={Styles.messageProfilePic} />
 
                         <View style={Styles.theirMessageBubbleNA} />
@@ -276,7 +280,7 @@ export default function MessageThread(props) {
             // This is the last of the clump //
             if (last){
                 return(
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
                         <View style={Styles.messageProfilePic} />
 
                         <View style={Styles.theirMessageBubbleNA}>
@@ -298,7 +302,7 @@ export default function MessageThread(props) {
             // Neither first nor last of the clump //
             if (!last && !first){
                 return(
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
                         <View style={Styles.messageProfilePic} />
 
                         <View style={Styles.theirMessageBubbleNA}>
@@ -326,7 +330,7 @@ export default function MessageThread(props) {
             // This is the first of the clump //
             if (first){
                 return(
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
 
                         <View style={Styles.messageProfilePic}>
 
@@ -347,7 +351,7 @@ export default function MessageThread(props) {
             // This is the last of the clump //
             if (last){
                 return(
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
                         <View style={Styles.messageProfilePic} />
 
                         <View style={Styles.theirMessageBubble}>
@@ -366,7 +370,7 @@ export default function MessageThread(props) {
             // Neither first nor last of the clump //
             if (!last && !first){
                 return(
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
                         <View style={Styles.messageProfilePic} />
 
                         <View style={Styles.theirMessageBubble}>
@@ -392,9 +396,7 @@ export default function MessageThread(props) {
     function renderMessagesBySameSender(messageArray){
 
         let thisSend = user.id
-        if (!imported){
-            thisSend = props.hardCoderUserId
-        }
+
         ////////////////////////////////////////////
         // Iterates through all Supplied Messages //
         return messageArray.map((message, index) => {
@@ -414,16 +416,21 @@ export default function MessageThread(props) {
 
             ////////////
             // RETURN //
-            return renderSingleMessage(message, thisUser, first, last)
+            return renderSingleMessage(message, thisUser, first, last, index)
         })
     }
 
     // Renders all of the messages
     function renderAllMessages(){
 
+        let messageArray = [...chatroom.messages]
+
+        messageArray = (sortMessagesBySendDate(messageArray))
+
         /////////////////////////////////////////
         // Gets all consecutive message clumps //
-        let messageClumps = chopAtDifferentSenders(chatroom.messages)
+        let messageClumps = chopAtDifferentSenders(messageArray)
+
 
         //////////////////////////////////////////////////////////////////////////////////
         // Breaks up each message clump into an individual render to return all message //
