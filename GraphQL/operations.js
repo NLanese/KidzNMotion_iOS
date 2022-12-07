@@ -9,10 +9,10 @@ import { gql } from '@apollo/client';
 
 
 const GET_USER = gql`
-# Write your query or mutation here
 query Query{
     getUser{
       id
+      fcmToken
       email
       username
       firstName
@@ -26,6 +26,8 @@ query Query{
       colorSettings
       muteAllAssignments
       muteAllMessages
+      assignMuted
+      messagesMuted
       profilePic
       accessMessages
       accessSettings
@@ -38,10 +40,13 @@ query Query{
         lastName
         accessSettings
         accessMessages
+        assignMuted
         leaveApp
         guardian{
           role
           id
+          assignMuted
+          messagesMuted
           username
           firstName
           lastName
@@ -117,6 +122,7 @@ query Query{
 
       ownedOrganization {
         id
+        phoneNumber
         organizationUsers{
           user{
             role
@@ -199,6 +205,10 @@ query Query{
         dateDue
         title
         description
+        videos{
+          id
+          contentfulID
+        }
       }
     }
 
@@ -209,6 +219,12 @@ query Query{
       active
       level
       childId
+      comments{
+        id
+        content
+        createdAt
+        videoId
+      }
       child{
         id
         role
@@ -216,6 +232,7 @@ query Query{
         lastName
         childDateOfBirth
         profilePic
+        assignMuted
         guardian{
           role
           id
@@ -224,6 +241,8 @@ query Query{
           lastName
           email
           profilePic
+          messagesMuted
+          assignMuted
         }
         childCarePlans{
           id
@@ -239,30 +258,42 @@ query Query{
           id
           contentfulID
         }
+        childCarePlan{
+          id
+          child{
+            id
+            firstName
+            lastName
+          }
+        }
       }
     }
     
     organizations {
       id
       organization{
-      	organizationUsers{
         id
-        userId
-        user{
-          firstName
-          lastName
-          email
-          phoneNumber
-          role
-          children{
-            childCarePlans{
-            therapist{
+        name
+        phoneNumber
+      	organizationUsers{
+          id
+          userId
+          user{
+            firstName
+            lastName
+            email
+            phoneNumber
+            role
+            children{
               id
+              childCarePlans{
+                therapist{
+                  id
+                }
+              }
             }
           }
-          }
         }
-      }
       }
     }
     
@@ -345,28 +376,24 @@ const GET_CHATS = gql`
 `
 
 const GET_CHAT_FROM_ID = gql`
-  query Query(
-    $id: String
-  ){
-    getChatFromId(
-      id: String
-    ){
+query Query($id: String!) {
+  getChatFromId(id: $id) {
+    id
+    users {
       id
-      users{
-          firstName
-          lastName
-          title
-          id
-        }
-      messages{
-          content
-          createdAt
-          sentAt
-          sentBy
-      }
+      firstName
+      lastName
+      role
+    }
+    messages {
+      createdAt
+      content
+      sentAt
+      sentBy
     }
   }
-`
+}
+`;
 
 const GET_CHILD_VIDEO_STATISTICS = gql`
   query Query(
@@ -378,13 +405,18 @@ const GET_CHILD_VIDEO_STATISTICS = gql`
   }
 `
 
-// const GET_CHILD_VIDEO_STATISTICS = gql`
-//   query Query{
-//     getChildVideoStatistics(
-//       childID: $childID
-//     )
-//   }
-// `
+const GET_NOTIFICATIONS = gql `
+  query Query{
+    getNotifications{
+      id
+      createdAt
+      title
+      description
+      toUserId
+      fromUserId
+    }
+  }
+`
 
 
 //////////////////////////////////////////
@@ -392,7 +424,6 @@ const GET_CHILD_VIDEO_STATISTICS = gql`
 //     LOGIN SIGNUP FORGOT-PASSWORD     //   
 //                                      //
 //////////////////////////////////////////
-
 const USER_SIGN_UP = gql`
   mutation Mutation(
       $email: String!,
@@ -475,7 +506,6 @@ const SWAP_TO_CHILD_ACCOUNT = gql`
 //         EDITORS AND SETTINGS         //   
 //                                      //
 //////////////////////////////////////////
-
 const EDIT_USER = gql `
   mutation Mutation(
       $email: String
@@ -514,16 +544,12 @@ const EDIT_CHILD_SETTINGS = gql`
 `
 
 const EDIT_ORGANIZATION_SETTINGS = gql`
-  mutation Mutation(
-    $name: String,
-    $phoneNumber: String
-  ){
-    editOrganizationSettings(
-      name: $name,
-      phoneNumber: $phoneNumber
-    )
+  mutation Mutation($name: String!, $phoneNumber: String!) {
+    editOrganizationSettings(name: $name, phoneNumber: $phoneNumber) {
+      id
+    }
   }
-`
+`;
 
 const EDIT_USER_NOTIFICATION_SETTINGS = gql`
   mutation Mutation(
@@ -533,6 +559,22 @@ const EDIT_USER_NOTIFICATION_SETTINGS = gql`
     editUserNotificationSettings(
       muteMessageNotifications: $muteMessageNotifications
       muteAssignmentNotifications: $muteAssignmentNotifications,
+    ){
+      id
+    }
+  }
+`
+
+const CHANGE_USER_NOTIFICATIONS = gql`
+  mutation Mutation(
+    $userID: String!,
+    $messagesMuted: Boolean!,
+    $assignMuted: Boolean!
+  ){
+    changeUserNotifications(
+      userID: $userID
+      messagesMuted: $messagesMuted
+      assignMuted: $assignMuted
     ){
       id
     }
@@ -676,9 +718,10 @@ const CREATE_MEETING = gql`
   }
 `
 
+
 //////////////////////////////////////////
 //                                      //
-//              MESSAGES                //   
+//      MESSAGES AND NOTIFICATIONS      //   
 //                                      //
 //////////////////////////////////////////
 
@@ -706,6 +749,16 @@ const SEND_MESSAGE = gql`
   }
 `
 
+const DISMISS_NOTIFICATION = gql`
+  mutation Mutation(
+    $notificationID: String!
+  ){
+    dismissNotification(
+      notificationID: $notificationID
+    )
+  }
+`
+
 //////////////////////////////////////////
 //                                      //
 //              Security                //   
@@ -716,11 +769,9 @@ const REQUEST_RESET_PASSWORD = gql`
   mutation Mutation(
     $email: String!
   ){
-    request_reset_password(
+    requestResetPassword(
       email: $email
-    ){
-      Boolean
-    }
+    )
   }
 `
 
@@ -742,6 +793,16 @@ const CONFIRM_PASSWORD = gql`
   ){
     confirmPassword(
       password: $password
+    )
+  }
+`
+
+const UPDATE_PHONE_TOKEN = gql`
+  mutation Mutation(
+    $token: String!
+  ){
+    updatePhoneToken(
+      token: $token
     )
   }
 `
@@ -788,28 +849,86 @@ const CREATE_ASSIGNMENT = gql`
   }
 `
 
-const TOGGLE_ASSIGNMENR_SEEN = gql`
+const CREATE_COMMENT = gql`
   mutation Mutation(
-    $assignmentId: String!,
-    $hasSeen: Boolean!
+    $childCarePlanID: String!
+    $commentContent: String!
+    $videoID: String
+    $assignmentID: String
   ){
-    toggleAssignment(
-      assignmentId: $assignmentId,
-      hasSeen: $hasSeen
-    ){
-      id
-      createdAt
-      dateStart
-      dateDue
-      seen
-      title
-      description
-      childCarePlan
+    createComment(
+      childCarePlanID: $childCarePlanID,
+      commentContent: $commentContent,
+      videoID: $videoID,
+      assignmentID: $assignmentID
+    ) {  
+        id
+        allVideoStatus
+        weeklyVideoStatus
+        active
+        level
+        childId
+        comments{
+          id
+          content
+          createdAt
+          videoId
+        }
+        child{
+          id
+          role
+          firstName
+          lastName
+          childDateOfBirth
+          profilePic
+          guardian{
+            role
+            id
+            username
+            firstName
+            lastName
+            email
+            profilePic
+          }
+          childCarePlans{
+            id
+          }
+        }
+        assignments{
+          id
+          dateStart
+          dateDue
+          title
+          description
+          videos{
+            id
+            contentfulID
+          }
+          childCarePlan{
+            id
+            child{
+              firstName
+              lastName
+            }
+          }
+        }
+      }
     }
-  }
 `
 
-
+const TOGGLE_ASSGINMENT_SEEN = gql`
+    mutation Mutation(
+      $assignmentID: String!,
+      $hasSeen: Boolean!
+    ){
+      toggleAssignmentSeen(
+        assignmentID: $assignmentID,
+        hasSeen: $hasSeen
+      ){
+        id
+      }
+    }
+`
 
 /////////////
 // EXPORTS //
@@ -820,6 +939,8 @@ export {   //
   GET_CHATS,
   GET_CHAT_FROM_ID,
   GET_CHILD_VIDEO_STATISTICS,
+
+  GET_NOTIFICATIONS,
 
   USER_SIGN_UP,
   USER_LOGIN,
@@ -833,6 +954,7 @@ export {   //
   
   EDIT_CHILD_SETTINGS,
   EDIT_ORGANIZATION_SETTINGS,
+  CHANGE_USER_NOTIFICATIONS,
   EDIT_USER_NOTIFICATION_SETTINGS,
   CHANGE_PROFILE_PICTURE,
   EDIT_COLOR_SETTINGS,
@@ -840,15 +962,18 @@ export {   //
   REQUEST_RESET_PASSWORD,
   CHANGE_CHILD_PASSWORD,
   CONFIRM_PASSWORD,
+  UPDATE_PHONE_TOKEN,
 
   CREATE_CHATROOM,
   SEND_MESSAGE,
+  DISMISS_NOTIFICATION,
 
   CREATE_ASSIGNMENT,
   CREATE_MEETING,
-  TOGGLE_ASSIGNMENR_SEEN,
+  CREATE_COMMENT,
 
-  SET_VIDEO_COMPLETED
+  SET_VIDEO_COMPLETED,
+  TOGGLE_ASSGINMENT_SEEN
 }
 
 
