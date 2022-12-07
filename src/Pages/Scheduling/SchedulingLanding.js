@@ -26,8 +26,8 @@ import OptionsButtons from "../../../OstrichComponents/OptionsButtons"
 import LoadingComponent from "../../Global/LoadingComponent"
 
 // Hooks
-import getAllTherapistClients from "../../Hooks/value_extractors/getAllTherapistClients"
-import getAllTherapistClientGuardians from "../../Hooks/value_extractors/getAllTherapistClientGuardians"
+import getAllTherapistClients from "../../Hooks/value_extractors/therapistValues/getAllTherapistClients"
+import getAllTherapistClientGuardians from "../../Hooks/value_extractors/therapistValues/getAllTherapistClientGuardians"
 import convertMonthIntoNumber from "../../Hooks/date_and_time/convertMonthIntoNumber"
 import convertDateTimeToJavaScript from "../../Hooks/date_and_time/convertDateTimeToJavaScript"
 

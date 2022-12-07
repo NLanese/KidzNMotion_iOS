@@ -27,7 +27,7 @@ import { Header, ProfileEditCategoryComponent } from "../../../NutonComponents";
 import Gradient from "../../../OstrichComponents/Gradient";
 
 // Hooks
-import getChatroomFromTherapist from "../../Hooks/value_extractors/getChatroomFromTherapist"
+import getChatroomFromTherapist from "../../Hooks/value_extractors/therapistValues/getChatroomFromTherapist"
 
 // Dimensions
 let maxWidth = Dimensions.get('window').width
