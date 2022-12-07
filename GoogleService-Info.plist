@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>848810672627-ude4p0b5cuqevmje891t1negpuecl2gb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.848810672627-ude4p0b5cuqevmje891t1negpuecl2gb</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>848810672627-cg39qmeut7pd7hrsv98793gkmpal647i.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDUbYD9QL1tBGE2-J1fnAhMfmOVTb-slug</string>
+	<key>GCM_SENDER_ID</key>
+	<string>848810672627</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.KidzNMotionNative</string>
+	<key>PROJECT_ID</key>
+	<string>kidznmotion-43590</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kidznmotion-43590.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:848810672627:ios:60184cc58707bef6d21286</string>
+</dict>
+</plist>

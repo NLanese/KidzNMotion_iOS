@@ -2,8 +2,8 @@
 
 // Firebase
 #import <Firebase.h>
-#import <FirebaseCare/FirebaseCore.h>
-#import <FirebaseMessaging/FirebaseMessaging.h>
+// #import <FirebaseCare/FirebaseCore.h>
+// #import <FirebaseMessaging/FirebaseMessaging.h>
 //
 
 #import <React/RCTBridge.h>
@@ -44,7 +44,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-  [FIRApp configure]
+  [FIRApp configure];
 
   RCTAppSetupPrepareApp(application);
 
