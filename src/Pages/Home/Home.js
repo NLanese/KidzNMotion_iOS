@@ -1,5 +1,5 @@
 // Async
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // React
 import {  View, Text, Image, TextInput, TouchableOpacity, Dimensions, ScrollView} from "react-native";
