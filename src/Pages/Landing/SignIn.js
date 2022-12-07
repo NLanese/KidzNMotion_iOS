@@ -1,5 +1,5 @@
 // Async
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // React
 import React, { useState, useEffect } from "react";
@@ -320,6 +320,7 @@ export default function SignIn() {
             // Catches Error //
             .catch(error => {
                 console.log("hit")
+                console.log(error)
                 if (error.toString().includes("Error: Email/Password are incorrect.")){
                     setErrors({
                         email: "Email and Password do not match any users",
@@ -374,15 +375,6 @@ export default function SignIn() {
                     flexGrow: 1,
                 }}
             >
-                {/* <Image
-                    source={require("../../../assets/images/other/logo.png")}
-                    style={{
-                        width: 30,
-                        height: 30,
-                        alignSelf: "center",
-                        marginBottom: 20,
-                    }}
-                /> */}
                 <Text
                     style={{
                         textAlign: "center",
