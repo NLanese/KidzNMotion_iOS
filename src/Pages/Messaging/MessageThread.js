@@ -1,27 +1,33 @@
 // Reaact
-import { View, Text, SafeAreaView, ScrollView, Image, TextInput, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Dimensions, KeyboardAvoidingView } from "react-native";
 import React, {useState} from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
+// Pusher
+import pusherClient from "../../utils/pusherClient";
 
 // Nuton
 import { Header } from "../../../NutonComponents";
 
 // GraphQL
 import { useMutation } from "@apollo/client";
-import { SEND_MESSAGE, GET_USER } from "../../../GraphQL/operations";
+import { SEND_MESSAGE, GET_CHAT_FROM_ID, GET_USER, DISMISS_NOTIFICATION, GET_NOTIFICATIONS } from "../../../GraphQL/operations";
 import client from "../../utils/apolloClient";
 
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
-import {sizeState, userState, colorState, fontState, avatarState } from '../../../Recoil/atoms';
+import {sizeState, userState, colorState, fontState, avatarState, tokenState, activeChatroom, messageNotifications } from '../../../Recoil/atoms';
 
+// Hooks
+import getMsgNotificationsToBeDismissed from "../../Hooks/notifications/getMsgNotificationsToBeDismissed";
+import sortMessagesBySendDate from "../../Hooks/messages/sortMessages";
 
 // Ostrich
 import Gradient from "../../../OstrichComponents/Gradient";
 import { useEffect } from "react";
 
+// Dimensions 
 let maxWidth = Dimensions.get('window').width
 let maxHeight = Dimensions.get('window').height
 
