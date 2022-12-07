@@ -788,6 +788,27 @@ const CREATE_ASSIGNMENT = gql`
   }
 `
 
+const TOGGLE_ASSIGNMENR_SEEN = gql`
+  mutation Mutation(
+    $assignmentId: String!,
+    $hasSeen: Boolean!
+  ){
+    toggleAssignment(
+      assignmentId: $assignmentId,
+      hasSeen: $hasSeen
+    ){
+      id
+      createdAt
+      dateStart
+      dateDue
+      seen
+      title
+      description
+      childCarePlan
+    }
+  }
+`
+
 
 
 /////////////
@@ -825,6 +846,7 @@ export {   //
 
   CREATE_ASSIGNMENT,
   CREATE_MEETING,
+  TOGGLE_ASSIGNMENR_SEEN,
 
   SET_VIDEO_COMPLETED
 }
