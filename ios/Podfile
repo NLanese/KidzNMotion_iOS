@@ -1,12 +1,26 @@
+$RNFirebaseAsStaticFramework = true
+
 require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+# Firebase
+pod 'FBReactNativeSpec', :path => "../node_modules/react-native/React/FBReactNativeSpec"
+pod 'PushNotifications'
+# 
 
 platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'KidzNMotion_iOS' do
   use_expo_modules!
+
+  # Firebase
+    pod 'FirebaseCore', :modular_headers => true
+    pod 'Firebase', :modular_headers => true
+    pod 'GoogleUtilities', :modular_headers => true
+  # 
+
   post_integrate do |installer|
     begin
       expo_patch_react_imports!(installer)
@@ -47,6 +61,14 @@ target 'KidzNMotion_iOS' do
       # necessary for Mac Catalyst builds
       :mac_catalyst_enabled => false
     )
+    installer.pods_project.targets.each do |target|
+      if target.name == "RCT-Folly"
+        target.build_configurations.each do |config|
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'FOLLY_HAVE_CLOCK_GETTIME=1']
+        end
+      end
+    end
+
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
