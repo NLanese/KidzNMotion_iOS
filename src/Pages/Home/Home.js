@@ -1,5 +1,6 @@
+
 // Async
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // React
 import {  View, Text, Image, TextInput, TouchableOpacity, Dimensions, ScrollView} from "react-native";
@@ -9,16 +10,20 @@ import Modal from "react-native-modal";
 
 // Recoil
 import { useRecoilState, useRecoilValue } from "recoil";
-import { colorState, fontState, sizeState, userState, avatarState, tokenState, videoDataState, assignState, meetingState } from '../../../Recoil/atoms';
+import { colorState, fontState, sizeState, userState, avatarState, tokenState, videoDataState, assignState, meetingState, activeChatroom, messageNotifications, scheduleNotifications, organizationState, accessibleVideos } from '../../../Recoil/atoms';
 
 // Nuton
 import { Header, ProfileCategoryComponent, Button } from "../../../NutonComponents";
 import { Heart, Logo, CalendarTab, Bell, Play, MedalTab, UserTab, SettingsLarge, Message } from "../../../svg";
 import { COLORS as colorConstant }  from "../../../NutonConstants"
+import { DEFAULT_AVATAR } from '../../../NutonConstants';
+
+// Firebase
+import messaging from '@react-native-firebase/messaging';
 
 // GraphQL Apollo
 import { useMutation } from "@apollo/client";
-import { GET_USER, SWAP_TO_CHILD_ACCOUNT, USER_LOGIN } from "../../../GraphQL/operations";
+import { GET_USER, SWAP_TO_CHILD_ACCOUNT, USER_LOGIN, GET_NOTIFICATIONS, GET_CHILD_VIDEO_STATISTICS, UPDATE_PHONE_TOKEN } from "../../../GraphQL/operations";
 import client from '../../utils/apolloClient';
 
 // Ostrich
@@ -27,10 +32,16 @@ import SelectionButton from "../../../OstrichComponents/SelectionButton";
 import OptionsButtons from "../../../OstrichComponents/OptionsButtons"
 
 // Hooks
-import getAllChildAssignments from "../../Hooks/value_extractors/getAllChildAssignments"
-import getAllGuardianAssignments from "../../Hooks/value_extractors/getAllGuardianAssignments"
+import getAllChildAssignments from "../../Hooks/value_extractors/childAndGuardianValues/getAllChildAssignments"
+import getAllGuardianAssignments from "../../Hooks/value_extractors/childAndGuardianValues/getAllGuardianAssignments"
+import getAllTherapistAssignments from "../../Hooks/value_extractors/therapistValues/getAllTherapistAssignments"
+import getUserChatroom from "../../Hooks/value_extractors/getChatroom"
+import filterAssignments from "../../Hooks/value_extractors/filterAssignments"
+import findAllAssignedVideos from "../../Hooks/value_extractors/childAndGuardianValues/findAllAssignedVideos"
+import checkToken from "../../utils/firebase/checkToken"
 
 // Dimensions
+let maxWidth = Dimensions.get('window').width
 let maxHeight = Dimensions.get('window').height
 
 export default function Home() {
@@ -50,6 +61,10 @@ export default function Home() {
     // User Type Determination
     const [userLogin, { loading: loadingType, error: errorType, data: typeData }] = useMutation(USER_LOGIN);
 
+    // Updates Firebase Token
+    const [updatePhoneToken, { loading: loadingToken, error: errorToken, data: dataToken }] = useMutation(UPDATE_PHONE_TOKEN);
+
+
     ///////////////
     // Constants //
     ///////////////
@@ -64,28 +79,50 @@ export default function Home() {
     //  State //
     ////////////
 
-        // Duh
-        const [user, setUser] = useRecoilState(userState)
+        // Loading
+        const [loading, setLoading] = useState(true)
 
+        //////////
+        // User //
+        //////////
 
-        // Sets Selected Child if relevant
-        let XSelected
-        if (user.role === "GUARDIAN"){
-            XSelected = user.children[0]
-        }
-        else{
-            XSelected = false
-        }
-        const [selectedChild, setSelectedChild] = useState(XSelected)
+            // Duh
+            const [user, setUser] = useRecoilState(userState)
 
-        // Videos for Display and 
-        const [videos, setVideos] = useRecoilState(videoDataState)
+            // Sets Selected Child if relevant
+            let XSelected
+            if (user.role === "GUARDIAN"){
+                XSelected = user.children[0]
+            }
+            else{
+                XSelected = false
+            }
+            const [selectedChild, setSelectedChild] = useState(XSelected)
 
-        // Determines the Video to be displayed in Video Button
-        const rand = Math.floor(Math.random() * videos.length);
+        ////////////
+        // Videos //
+        ////////////
 
+            // Videos for Display and 
+            const [videos, setVideos] = useRecoilState(videoDataState)
 
-        const [videoForPicture, setVideoForPicture] = useState(videos[rand])
+            // Determines the Video to be displayed in Video Button
+            const rand = Math.floor(Math.random() * videos.length);
+            
+            // Determines which video will be shown as a preview
+            const [videoForPicture, setVideoForPicture] = useState(videos[rand])
+
+        ///////////////
+        // Chatrooms //
+        ///////////////
+
+            // Tracks the Chatroom(s) that are active. Parents will have one by default, children will be false, therapists will have an array
+            const [activeChat, setActiveChat] = useRecoilState(activeChatroom)
+
+            // Uses a hook to fill in active chat value upon reaching home
+            useEffect(() => {
+                setActiveChat(getUserChatroom(user))
+            }, [user])
 
 
         /////////////////////
@@ -112,68 +149,66 @@ export default function Home() {
 
             const [meetings, setMeetings] = useRecoilState(meetingState)
 
+            const [org, setOrg] = useRecoilState(organizationState)
+
+            const [validVids, setValidVids] = useRecoilState(accessibleVideos)
+
+
+            // Fires wehen switching accounts
             useEffect(() => {
                 handleColorInput(user.colorSettings)
                 setAvatar(user.profilePic)
-                if (user.role === "GUARDIAN" && !user.solo){
-                    setAssign(getAllGuardianAssignments(user))
+                if (user.role === "CHILD"){
+                    let assign = filterAssignments(getAllChildAssignments(user))
+                    setAssign(assign)
                 }
-                else if (user.role === "CHILD"){
-                    setAssign(getAllChildAssignments(user))
+                else if (user.role === "GUARDIAN"){
+                    let assign = filterAssignments(getAllGuardianAssignments(user)[0])
+                    setAssign(assign)
                 }
+                else if (user.role === "THERAPIST"){
+                    let assign = filterAssignments(getAllTherapistAssignments(user))
+                    setAssign(assign)
+                }
+                setOrg(user.organizations[0].organization)
             }, [user])
 
-///////////////////////
-///                 ///
-///    Firebase     ///
-///                 ///
-///////////////////////
+        ///////////////////
+        // NOTIFICATIONS //
+        ///////////////////
 
-  // Firebase Push Notificiations
-  useEffect(() => {
-    handleUpdatePhoneToken()
-    notificationConfigure()
-}, [])
+            const [msgNotis, setMsgNotis] = useRecoilState(messageNotifications)
 
-  async function handleUpdatePhoneToken(){
-    const fcmToken = await messaging().getToken();
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-}
+            const [schedNotis, setSchedNotis] = useRecoilState(scheduleNotifications)
 
-  notificationConfigure = async () => {
-    // check if we have permissions
-    let enabled = await messaging().hasPermission();
+            const [msgNotiLen, setMsgNotiLen] = useState(msgNotis.length)
 
-    if (enabled === messaging.AuthorizationStatus.AUTHORIZED) {
-      const fcmToken = await messaging().getToken();
-      console.log("TOKEN", fcmToken);
+            const [schedNotisLen, setSchedNotisLen] = useState(schedNotis.length)
 
-      if (fcmToken) {
-        console.log(fcmToken);
-      } else {
-        // user doesn't have a device token yet
-        console.warn("no token");
-      }
-    } else {
-      await messaging().requestPermission();
-      console.log("requested");
+            const clearNotiData = async () => {
+                let clear = []
+                setMsgNotis( msgNotis => ([...clear]))
+                setSchedNotis( schedNotis => ([...clear]))
+            } 
 
-      enabled = await messaging().hasPermission();
-      console.log("done", enabled);
-      if (!enabled) {
-        return false;
-      }
-    }
+            // Fires every reload in order to retain notifications
+            useEffect(() => {
+                getAndSetNotifications()
+                let acceptable = findAllAssignedVideos(user)
+                setValidVids(validVids => ([...acceptable]))
+            }, [user])
 
-    return true;
-  };
+            // Firess whenever there is a change to notifications so to properly measure the lengths for the counter
+            useEffect(() => {
+                setMsgNotiLen(msgNotis.length)
+                setSchedNotisLen(schedNotis.length)
+            }, [msgNotis, schedNotis])
+
+
+
+        /////////////
+        // Testing //
+        /////////////
 
 ///////////////////////
 ///                 ///
@@ -190,6 +225,12 @@ export default function Home() {
                         Please wait while we switch accounts
                     </Text>
                 </View>
+            )
+        }
+
+        if (loading){
+            return(
+                <View />
             )
         }
 
@@ -239,22 +280,24 @@ export default function Home() {
             <View style={{ marginBottom: 30 }}>
 
                 {/* Logo */}
-                <View style={{ marginTop: 40 }} >
-                    {/* <Image 
-                        source={require("../../../assets/images/background.png")}
+                <View style={{ marginTop: 70 }} >
+                    <Image 
+                        source={require("../../../assets/wIcon.png")}
                         style={{
-                            position: "absolute",
-                            width: SIZES.width,
-                            height: "100%",
+                            // position: "absolute",
+                            position: 'absolute',
+                            height: 70,
+                            width: 70,
+                            left: maxWidth * 0.5 - 35,
+                            borderRadius: 10
                         }}
-                    /> */}
+                    />
                    
                 </View>
                 
                 {/* Header Bar */}
                 <View style={{height: maxHeight * 0.1}}>
                     <Header
-                        title={<Logo fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
                         goBack={false}
                         profile={true}
                         // Sends to Settings
@@ -337,19 +380,21 @@ export default function Home() {
                     title={"Messaging"}
                     subtitle={"Communicate with your Therapist"}
                     image={"notification"}
-                    onSelect={() => navigation.navigate("MessagesLanding")}
+                    onSelect={() => navigation.navigate("MessageThread")}
                     icon={<Bell fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} style={{transform: [{ scale: 2 }, {translateX: 3.5}]}}/>}
+                    notificationCount={msgNotiLen}
                 />
             )
         }
-        else if (user.role === "CHILD" && user.accessMessages){
+        else if (user.role === "THERAPIST"){
             return(
                 <SelectionButton
                     title={"Messaging"}
-                    subtitle={"Communicate with your Therapist"}
+                    subtitle={"Communicate with your Client Guardians"}
                     image={"notification"}
-                    onSelect={() => navigation.navigate("MessagesLanding")}
+                    onSelect={() => navigation.navigate("Conversations")}
                     icon={<Bell fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} style={{transform: [{ scale: 2 }, {translateX: 3.5}]}}/>}
+                    notificationCount={msgNotiLen}
                 />
             )
         }
@@ -357,6 +402,9 @@ export default function Home() {
 
     // Renders all of the Menu Buttons
     function renderLinks() {
+        if (loading){
+            return null
+        }
         if (user.role === "GUARDIAN" || user.role === "CHILD"){  // role === "GUARDIAN"
             return(
                 <>
@@ -364,10 +412,9 @@ export default function Home() {
                         title={"Calendar"}
                         subtitle={"View weekly or monthly Calandar"}
                         image={"calandar"}
-                        onSelect={() => {
-                             navigation.navigate("Calendar")
-                        }}
+                        onSelect={() => { navigation.navigate("Calendar")} }
                         icon={<CalendarTab fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} />}
+                        notificationCount={schedNotisLen}
                     />
                     <SelectionButton
                         title={"Medals"}
@@ -405,6 +452,7 @@ export default function Home() {
                         image={"notification"}
                         onSelect={() => navigation.navigate("/")}
                         icon={<Bell fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} style={{transform: [{ scale: 2 }, {translateX: 3.5}]}}/>}
+                        notificationCount={msgNotisLen}
                     />
                     
                 </>
@@ -445,7 +493,7 @@ export default function Home() {
                     />
                     <SelectionButton
                         title={"Videos"}
-                        subtitle={"Assign, Restrict, and Analyze Videos"}
+                        subtitle={"Assign, Watch, and Analyze Videos"}
                         image={"video"}
                         onSelect={() => navigation.navigate("VideoLibrary", )}
                         icon={<Play fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
@@ -453,48 +501,6 @@ export default function Home() {
                 </>
             )
         }
-        // Defunct Return
-        return (
-            <View style={{ marginBottom: 30, marginLeft: -4}}>
-                 <ProfileCategoryComponent
-                    title="Calendar"
-                    icon={<Heart fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} />}
-                    onPress={() => navigation.navigate("MyCalendar")}
-                    arrow={true}
-                />
-                 <ProfileCategoryComponent
-                    title="Videos"
-                    icon={<Heart fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} />}
-                    onPress={() => navigation.navigate("/")}
-                    arrow={true}
-                />
-                 <ProfileCategoryComponent
-                    title="Notifications"
-                    icon={<Heart fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} />}
-                    onPress={() => navigation.navigate("/")}
-                    arrow={true}
-                />
-                 <ProfileCategoryComponent
-                    title="Medals"
-                    icon={<Heart fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} />}
-                    onPress={() => navigation.navigate("MyMedals")}
-                    arrow={true}
-                />
-                 <ProfileCategoryComponent
-                    title="Therapists"
-                    icon={<Heart fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} />}
-                    onPress={() => navigation.navigate("TherapistList")}
-                    arrow={true}
-                />
-                 <ProfileCategoryComponent
-                    title="Clients"
-                    icon={<Heart fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} />}
-                    onPress={() => navigation.navigate("ClientList")}
-                    arrow={true}
-                />
-                
-            </View>
-        );
     }
 
     // Renders the modal for switching accounts
@@ -753,9 +759,9 @@ export default function Home() {
             }).catch(err => {console.log(err)})
         }
     
-    //////////////////////////////
-    // General Switch Functions //
-    //////////////////////////////
+    /////////////////////////////
+    // General Query Functions //
+    /////////////////////////////
 
         // Gets and Sets the entire User Object
         async function getUserQuery(){
@@ -764,10 +770,37 @@ export default function Home() {
                 fetchPolicy: 'network-only'  
             })
             .then(async (resolved) => {
-                await setUser(resolved.data.getUser)
+                setUser(resolved.data.getUser)
             })
             .catch((error) => {
                 console.log(error)
+            })
+        }
+
+        // Gets and Sets Notifications, sets categorical notis too
+        async function getAndSetNotifications(){
+            await clearNotiData()
+            await client.query({
+                query: GET_NOTIFICATIONS,
+                fetchPolicy: 'network-only'
+            })
+            .catch(err => console.log(err))
+            .then((resolved) => {
+                let msgN = resolved.data.getNotifications.filter((noti, index) => {
+                    if (noti.title.includes("New Message")){
+                        return noti
+                    }
+                })
+                let schedN = resolved.data.getNotifications.filter((noti, index) => {
+                    if (noti.title.includes("New Meeting") || noti.title.includes("New Assignment")){
+                        return noti
+                    }
+                    else{
+                    }
+                })
+                setMsgNotis( msgNotis => ([...msgN]))
+                setSchedNotis( schedNotis => ([...schedN]))
+                setLoading(false)
             })
         }
 
@@ -797,22 +830,45 @@ export default function Home() {
             
         }
 
+    //////////////////////
+    // FCM Token Update //
+    //////////////////////
+
+        async function handleUpdatePhoneToken(){
+            const fcmToken = await messaging().getToken();
+            return await updatePhoneToken({
+                variables: {
+                    token: fcmToken
+                }
+            })
+            .then((resolved) => {
+                console.log(resolved)
+            })
+            .catch(err => console.log(err))
+        }
+
+
+
 ///////////////////////
 ///                 ///
 ///       Main      ///
 ///                 ///
 ///////////////////////
 
+
+
+
+////// TESTING //////// 
     return (
-            <Gradient
-                colorOne={COLORS.gradientColor1}
-                colorTwo={COLORS.gradientColor2}
-                style={{height: '110%', paddingTop: 5}}
-            >
-                {renderHeader()}
-                <ScrollView contentContainerStyle={{height: '120%', paddingBottom: '10%'}}>
-                    {MainRender()}
-                </ScrollView>
-            </Gradient>
+        <Gradient
+            colorOne={COLORS.gradientColor1}
+            colorTwo={COLORS.gradientColor2}
+            style={{height: '110%', paddingTop: 5}}
+        >
+            {renderHeader()}
+            <ScrollView contentContainerStyle={{height: '120%', paddingBottom: '10%'}}>
+                {MainRender()}
+            </ScrollView>
+        </Gradient>
     );
 }

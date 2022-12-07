@@ -1993,6 +1993,11 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
+"@react-native-firebase/messaging@^16.4.6":
+  version "16.4.6"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-16.4.6.tgz#dd1a1eccff39eac6cd201792c388fc11afd6b4bf"
+  integrity sha512-5XHc++UxK+wEYifyovemr+K5aUpcDuqzGPAqc2tqrVxtsELmGi9pCOFbCuFhkg5DzNGToNT9Z79DTd+XLCVemA==
+
 "@react-native-picker/picker@react-native-picker/picker":
   version "2.4.8"
   resolved "https://codeload.github.com/react-native-picker/picker/tar.gz/267de73e45b8fd8142316a1c43c94c9eec02ecb5"
