@@ -484,7 +484,7 @@ const Styles = StyleSheet.create({
         return(
             <View>
                 {/* All messages */}
-                <ScrollView style={Styles.messageSpace} contentContainerStyle={{height: maxHeight * 0.70, paddingBottom: maxHeight * .10}}>
+                <ScrollView style={Styles.messageSpace} contentContainerStyle={{paddingBottom: 40}}>
                     {renderAllMessages()}
                 </ScrollView>
                 {renderInputSpace()}
@@ -648,13 +648,12 @@ const Styles = StyleSheet.create({
         colorTwo={COLORS.gradientColor2}
         style={{width: maxWidth * 1.00, height: '100%'}}
         >
-            {renderHeader()}
             <KeyboardAvoidingView 
             enableAutomaticScroll={false}  
             enableOnAndroid         
             keyboardShouldPersistTaps='handled'
-            contentContainerStyle={{padding: 100000 }}
             >
+                {renderHeader()}
                 {MainRender()}
             </KeyboardAvoidingView>
         </Gradient>

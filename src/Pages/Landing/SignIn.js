@@ -549,7 +549,7 @@ export default function SignIn() {
                          alignItems: 'center'
                     }}>
                         <Image 
-                        source={require("../../../assets/wIcon.png")}
+                        source={require("../../../assets/icon.png")}
                         style={{
                             position: 'absolute',
                             marginTop: '45%',

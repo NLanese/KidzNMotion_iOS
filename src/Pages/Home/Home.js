@@ -282,7 +282,7 @@ export default function Home() {
                 {/* Logo */}
                 <View style={{ marginTop: 70 }} >
                     <Image 
-                        source={require("../../../assets/wIcon.png")}
+                        source={require("../../../assets/icon.png")}
                         style={{
                             // position: "absolute",
                             position: 'absolute',
