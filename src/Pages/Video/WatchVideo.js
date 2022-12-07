@@ -1,5 +1,5 @@
 // Reaact
-import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity, Dimensions } from "react-native";
 import React, {useState, useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import VideoPlayer from "react-native-video-controls";
@@ -22,6 +22,7 @@ import Gradient from "../../../OstrichComponents/Gradient";
 import TabBar from "../../../OstrichComponents/TabBar"
 import SelectionButton from "../../../OstrichComponents/SelectionButton"
 import OptionsButtons from "../../../OstrichComponents/OptionsButtons";
+import LoadingComponent from "../../Global/LoadingComponent";
 
 // SVG
 import { MedalTab } from "../../../svg";
@@ -45,7 +46,7 @@ export default function WatchVideo(props) {
     // Constants // 
     ///////////////
 
-        // const tabsArray = ["Earning Medals", "Therapist Comments"]
+        const tabsArray = ["Earning Medals", "Therapist Comments"]
         
         const navigation = useNavigation();
         const COLORS = useRecoilValue(colorState)
@@ -64,6 +65,7 @@ export default function WatchVideo(props) {
         ////////////////////////////////////////////////////////////////////////////////////////
         // Both turns the video to fullscreen and changes its view boundaries and orientation //
         const [isFullscreen, setIsFullscreen] = useState(false)     
+        const [changeDems, setChangeDems] = useState(false)
 
         /////////////////////////////////////////////////
         // Changes whether video is shown or thumbnail //
@@ -84,8 +86,15 @@ export default function WatchVideo(props) {
         const [gotBreaks, setGotBreaks] = useState(true)
         const [timeCompleted, setTimecompleted] = useState(0)
 
-        // 0 = Medals, 1 = Comments
+        //////////////////////////////
+        // 0 = Medals, 1 = Comments //
         const [tabState, setTabState] = useState(0)
+
+        ////////////////
+        // Gif Status //
+        const [gif, setGif] = useState(false)
+
+        const [gifMedal, setGifMedal] = useState(0)
 
     //////////////////
     // Recoil State //
@@ -125,9 +134,6 @@ export default function WatchVideo(props) {
             setIsFirstRender(false)
             return
         }
-        let temp = height
-        setHeight(width)
-        setWidth(temp)
         if (orientation === 'portrait'){
             setOrientation('landscape')
             Orientation.lockToLandscape()
@@ -136,7 +142,19 @@ export default function WatchVideo(props) {
             setOrientation('portrait')
             Orientation.lockToPortrait()
         }
+        console.log("Changed orientation")
+        setChangeDems(!changeDems)
     },[isFullscreen])
+
+    useEffect(() => {
+        if (isFirstRender){
+            return
+        }
+        let temp = height
+        setHeight(width)
+        setWidth(temp)
+        console.log("Reset height and width")
+    }, [changeDems])
         
     useEffect(() => {
         if (user.role === "THERAPIST"){
@@ -176,12 +194,33 @@ export default function WatchVideo(props) {
             if (isFullscreen){
                 return renderFullScreenVideo()
             }
+            else if (gif){
+                console.log(gif)
+                return(
+                    <Gradient
+                    colorOne={COLORS.gradientColor1}
+                    colorTwo={COLORS.gradientColor2}
+                    style={{paddingTop: 20, height: '100%'}}
+                    >
+                        {renderHeader()}
+                        <TouchableOpacity 
+                        onPress={() =>{
+                            setGif(false)
+                            console.log("dismiss gif")
+                        }}
+                        style={{height: maxHeight, width: maxWidth}}
+                        >
+                            <LoadingComponent loading={gif} source={gifMedal} label={"Congratulations!"} dismiss={true} setLoading={setGif}/>
+                        </TouchableOpacity>
+                    </Gradient>
+                )
+            }
             else{
                 return(
                     <Gradient
-                        colorOne={COLORS.gradientColor1}
-                        colorTwo={COLORS.gradientColor2}
-                        style={{paddingTop: 20, height: '100%'}}
+                    colorOne={COLORS.gradientColor1}
+                    colorTwo={COLORS.gradientColor2}
+                    style={{paddingTop: 20, height: '100%'}}
                     >  
                         {renderFirstView()}
                         {renderCompletionModal()}
@@ -295,7 +334,7 @@ export default function WatchVideo(props) {
                     return renderMedalDescriptioms()
                 }
                 else if (tabState === 1){
-                    return renderTherapistComments()
+                    // return renderTherapistComments()
                 }
             }
 
@@ -310,6 +349,7 @@ export default function WatchVideo(props) {
                             subtitleColor={COLORS.iconDark}
                             icon={<MedalTab fillColor={'brown'} strokeColor={COLORS.iconDark}/>}
                             opaque={true}
+                            selectable={false}
                         />
                         <SelectionButton
                             title={`Silver Medals`}
@@ -318,6 +358,7 @@ export default function WatchVideo(props) {
                             subtitleColor={COLORS.iconDark}
                             icon={<MedalTab fillColor={'silver'} strokeColor={COLORS.iconDark}/>}
                             opaque={true}
+                            selectable={false}
                         />
                         <SelectionButton
                             title={`Gold Medals`}
@@ -327,6 +368,7 @@ export default function WatchVideo(props) {
                             subTitle
                             icon={<MedalTab fillColor={'gold'} strokeColor={COLORS.iconDark}/>}
                             opaque={true}
+                            selectable={false}
                         />
                     </View>
                 )
@@ -600,7 +642,20 @@ export default function WatchVideo(props) {
             .then((resolved) => {
             })
             .then(() => {
+                let medal = determineMedal()
+                let source
+                if (medal === "bronze"){
+                    source = 2
+                }
+                else if (medal === "silver"){
+                    source = 3
+                }
+                else if (medal === "gold"){
+                    source = 4
+                }
+                setGifMedal(source)
                 setShowComplete(false)
+                setGif(true)
             })
         }
 

@@ -56,6 +56,8 @@ export default function VideoLibrary(props) {
     // Recoil //
     ////////////
 
+        console.log(userState)
+
         // User State
         const [user, setUser] = useRecoilState(userState)
 
@@ -90,6 +92,9 @@ export default function VideoLibrary(props) {
         // Videos that you are selecting
         const [videosToBeViewed, setVideosToBeViewed] = useState([])
 
+        // Loading
+        const [loading, setLoading] = useState(true)
+
 ///////////////////////////////
 ///                         ///
 ///        useEffect        ///
@@ -102,7 +107,16 @@ export default function VideoLibrary(props) {
             setChildState(prevState => ({...prevState, [client.id]: client }));
             setLevelState({1: client.level1, 2: client.level2})
         }
-    }, [props.route.params?.client]);
+        else if (user.role === "CHILD"){
+            setChildState(user)
+        }
+        else if (user.role === "GUARDIAN"){
+            if (user.children.length < 2){
+                setChildState(user.children[0])
+            }
+        }
+        setLoading(false)
+    }, [props.route.params?.client, user]);
 
 ///////////////////////////////
 ///                         ///
@@ -355,6 +369,11 @@ export default function VideoLibrary(props) {
 
         // Renders an Individual Level Box
         function renderSingleLevelBox(obj) {
+            if (user.role !== "THERAPIST"){
+                if (obj.id === 2 && childState.childCarePlans[0].level === 1){
+                    return null
+                }
+            }
             return(
                 <TouchableOpacity style={{
                     key: `level${obj.id}`,
@@ -442,7 +461,7 @@ export default function VideoLibrary(props) {
 
         // I mean... duh?
         function renderRecordVideoButton(){
-            if (user.role !== "GUARDIAN"){
+            if (user.role !== "GUARDIAN" && user.role !== "THERAPIST"){
                 return null
             }
             return(
@@ -572,6 +591,21 @@ export default function VideoLibrary(props) {
 ///                         ///
 ///////////////////////////////
 
+    function MAIN(){
+        console.log(loading)
+        if (loading){
+            return null
+        }
+        else{
+            return(
+                <>
+                    {selectContent()}
+                    {renderClientModal()}
+                </>
+            )
+        }
+    }
+
     return (
         <View>
             <Gradient
@@ -581,8 +615,7 @@ export default function VideoLibrary(props) {
             >
                 <View style={{marginBottom: 50}} />
                 {renderHeader()}
-                {selectContent()}
-                {renderClientModal()}
+                {MAIN()}
             </Gradient>
             {renderClientButton()}
         </View>
@@ -599,9 +632,3 @@ const styles = StyleSheet.create({
     marginBottom: 50
    }
 });
-
-
-
-
-
-
