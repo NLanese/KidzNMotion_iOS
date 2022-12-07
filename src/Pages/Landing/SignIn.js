@@ -272,136 +272,52 @@ export default function SignIn() {
             // Successful Login //   
             .then( async (resolved) => {
 
-            //////////////////////
-            // Successful Login //
-            if (resolved){
+                // Successful Login //
+                if (resolved){
 
-                /////////////////////////
-                // Clears Login Errors //
-                setErrors({                                     
-                    username: false,                            // Remove Error Messages
-                    password: false                             // Remove Error Messages
-                })
+                    // Clears Login Errors //
+                    await clearErrors()
 
-                /////////////////
-                // Async Stuff //
-                await AsyncStorage.setItem('@token', resolved.data.loginUser.token)
-
-                ////////////////////
-                // Sets the token //
-                await setToken(resolved.data.loginUser.token)
-                console.log(resolved.data.loginUser.token, "Set the Token, moving on")
-
-                //////////////
-                // Get User //
-                await client.query({
-                    query: GET_USER,
-                    fetchPolicy: 'network-only'  
-                })
-                .then(async (resolved) => {
-                    // console.log(resolved)
-                    await setUser(resolved.data.getUser)
-                    console.log("Set the user object, moving on")
-
-                    /////////////////
-                    // Sets Avatar //
-                    if (user.profilePic){
-                        console.log("Profile pic found and assigned. Moving on")
-                        await setAvatar(user.profilePic)
-                    }
-                    else{
-                        console.log("No profile pic, moving on")
-                        await setAvatar({...DEFAULT_AVATAR})
-                    }
-
-                    /////////////////
-                    // Sets Colors //
-                    console.log("Setting colors...")
-                    await handleColorInput(user.colorSettings)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-                .then(() => {
+                    // Async Stuff and Token //
+                    await setTokenAsyncAndRegular(resolved)
                     
-                    /////////////////////
-                    // Get Assignments //
-                    console.log("getting Assignments")
-                    if (user.role === "CHILD"){
-                        console.log(getAllChildAssignments(user), "\nASSIGNMENTS")
-                        setAssign(getAllChildAssignments(user))
-                    }
-                    else if (user.role === "GUARDIAN"){
-                        console.log(getAllGuardianAssignments(user)), "\NASSIGNMENTS"
-                        setAssign(getAllGuardianAssignments(user))
-                    }
-                    else if (user.role === "THERAPIST"){
-                        console.log(getAllTherapistAssignments(user))
-                        setAssign(getAllTherapistAssignments(user))
-                    }
-                    else{
-                        console.log(user.role)
-                        console.log("No user?")
-                    }
-                })
+                    // Get User, Avatar, and Colors //
+                    await getAndSetUserAndUserProps()
 
+                    // Gets Videos //
+                    await getVideos()
 
-                ////////////////
-                // Get Videos //
-                await client.query({
-                    query: GET_VIDEOS,
-                    fetchPolicy: 'network-only'
-                })
-                .then(async (resolved) => {
-                    await setVideos(resolved.data.getAllVideoFiles)
-                    await console.log("Setting Videos, moving on")
-                })
+                    // Get Meetings //
+                    await getUserMeetings()
 
-                //////////////////
-                // Get Meetings //
-                await client.query({
-                    query: GET_MEETINGS,
-                    fetchPolicy: 'network-only'
-                })
-                .catch(err => {
-                    console.log(err)
-                    setLoading(false)
-                    return null
-                })
-                .then(async (resolved) => {
-                    console.log(resolved.data.getMeetings)
-                    await setMeetings(resolved.data.getMeetings)
-                    await console.log("Setting Meetings, moving on")
-                })         
-                
-                ////////////////
-                // Sets Token //
-                await setToken(user.token)
-                // If Therapist User
-                if (user.role === "THERAPIST"){     
-                    setClientList(user.patientCarePlans)     // Sets Client List
+                    // Determines Client List //
+                    if (user.role === "THERAPIST"){     
+                        setClientList(user.patientCarePlans)     // Sets Client List
+                    }
+
+                    // Positive Return
+                    return true
                 }
-
-
-                return true
-            }
-            else {
-                return false
-            }
+                
+                // FAILED LOGIN //
+                else {
+                    return false
+                }
 
            ////////////////////////
            // Sends to Home Page //
            }).then( (resolved) => {
+
+                // If failed login, do not reroute
                 if (!resolved){
                     return "Error, you done goofed"
                 }
-                console.log("Should navigate next...")
+
+                // On Successful Login, reroute
                 setLoading(false)
                 navigation.navigate("Home")
 
-           ////////////////////////
-           // Unsuccessful Login //
-           })
+            })
         }
 
         // Determines which login Mutation to use 
@@ -415,8 +331,6 @@ export default function SignIn() {
             ///////////////////
             // Catches Error //
             .catch(error => {
-                console.log("hit")
-                console.log(error)
                 if (error.toString().includes("Error: Email/Password are incorrect.")){
                     setErrors({
                         email: "Email and Password do not match any users",
@@ -431,7 +345,6 @@ export default function SignIn() {
 
         // Determines color based on input
         function handleColorInput(color){
-            console.log(color)
             if (color === "Orange"){
                 setColors({...colorConstant.scheme0})
             }
@@ -448,6 +361,14 @@ export default function SignIn() {
                 setColors({...colorConstant.scheme4})
             }
             
+        }
+
+        // Starts the Splash Countdown
+        function startSplashCountdown(){
+            setTimeout(function(){
+                console.log("hit splash stop")
+                setSplashing(false)
+            }, 3000)
         }
 
 ///////////////////////////
@@ -611,6 +532,52 @@ export default function SignIn() {
         }
     }
 
+    // Main
+    function MAIN(){
+        if (splashing){
+            startSplashCountdown()
+            return(
+                // <View style={{backgroundColor: 'black', flex:1}}>
+                <Gradient
+                colorOne={COLORS.gradientColor1}
+                colorTwo={COLORS.gradientColor2}
+                style={{height: '100%'}}
+                >
+                    <View style={{
+                         flex: 1,
+                         justifyContent: 'center',
+                         alignItems: 'center'
+                    }}>
+                        <Image 
+                        source={require("../../../assets/wIcon.png")}
+                        style={{
+                            position: 'absolute',
+                            marginTop: '45%',
+                            width: '60%'
+                        }}
+                        resizeMode={'contain'}
+                    />
+                    </View>
+                </Gradient>
+            // </View>
+            )
+        }
+        else{
+            return(
+                <Gradient
+                colorOne={COLORS.gradientColor1}
+                colorTwo={COLORS.gradientColor2}
+                style={{height: '100%'}}
+                >
+                    <LoadingComponent loading={loading} label = "LOADING..."/>
+                    <View style={{marginTop: maxHeight * 0.05}} />
+                    {renderHeader()}
+                    {renderContent()}
+                </Gradient>
+            )
+        }
+    }
+
 ///////////////////////////
 ///                     ///
 ///     Main Render     ///
@@ -618,16 +585,5 @@ export default function SignIn() {
 ///////////////////////////
     
    
-    return (
-        <Gradient
-            colorOne={COLORS.gradientColor1}
-            colorTwo={COLORS.gradientColor2}
-            style={{height: '100%'}}
-        >
-            <LoadingComponent loading={loading} label = "LOADING..."/>
-            <View style={{marginTop: maxHeight * 0.05}} />
-            {renderHeader()}
-            {renderContent()}
-        </Gradient>
-    );
+    return MAIN()
 }
