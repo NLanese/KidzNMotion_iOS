@@ -9,7 +9,7 @@ pod 'FBReactNativeSpec', :path => "../node_modules/react-native/React/FBReactNat
 pod 'PushNotifications'
 # 
 
-platform :ios, '12.4'
+platform :ios, '14.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'KidzNMotion_iOS' do
