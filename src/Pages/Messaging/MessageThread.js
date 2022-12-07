@@ -584,16 +584,57 @@ const Styles = StyleSheet.create({
         .then(() => console.log("message sent technically (2 - 572"))
     }
 
+    // Gets Refreshed User Object and Updates the User Atom
     async function getAndSetUser(){
         await client.query({
             query: GET_USER,
             fetchPolicy: 'network-only'  
         })
         .then(async (resolved) => {
-            await setUser(resolved.data.getUser)
+            // setUser(resolved.data.getUser)
         })
         .catch((error) => {
-            console.log(error)
+            console.log(error, "============\n591\n===========")
+        })
+    }
+
+    // Handles Notifications -- Fired right away upon loading this page
+    function handleNotifications(){
+        let notisToDismiss = getMsgNotificationsToBeDismissed(notis, contact)
+        notisToDismiss.forEach((noti) => {
+            dismissNotificationsMutation(noti)
+        })
+        getAndSetNotifications()
+    }
+
+    // Handles the actual dismissal mutation
+    async function dismissNotificationsMutation(notification){
+        return await dismissNotifications({
+            variables: {
+                notificationID: notification.id
+            }
+        })
+        .then((resolved) => {
+            console.log(resolved)
+        })
+        .catch(err => console.log(err, "============\n614\n==========="))
+    }
+
+    // Gets and Sets Notifications, sets categorical notis too
+    async function getAndSetNotifications(){
+        setNotis( notis => [])
+        await client.query({
+            query: GET_NOTIFICATIONS,
+            fetchPolicy: 'network-only'
+        })
+        .catch(err => console.log(err, "============\n624\n==========="))
+        .then((resolved) => {
+            let msgN = resolved.data.getNotifications.filter((noti, index) => {
+                if (noti.title.includes("New Message")){
+                    return noti
+                }
+            })
+            setNotis( msgNotis => ([...msgN]))
         })
     }
 
@@ -602,20 +643,22 @@ const Styles = StyleSheet.create({
 ///    Main Render  ///
 ///                 ///
 ///////////////////////
+
     return(
-        <KeyboardAwareScrollView
-            showsVerticalScrollIndicator={false}
-            bounces={false}
+        <Gradient
+        colorOne={COLORS.gradientColor1}
+        colorTwo={COLORS.gradientColor2}
+        style={{width: maxWidth * 1.00, height: '100%'}}
         >
-            <Gradient
-                colorOne={COLORS.gradientColor1}
-                colorTwo={COLORS.gradientColor2}
-                style={{width: maxWidth * 1.02}}
+            <KeyboardAwareScrollView 
+            enableAutomaticScroll={false}  
+            bounces={false} 
+            enableOnAndroid         
+            keyboardShouldPersistTaps='handled'
             >
                 {renderHeader()}
                 {MainRender()}
-            </Gradient>
-        </KeyboardAwareScrollView>
-        
+            </KeyboardAwareScrollView>
+        </Gradient>
     )
 }
