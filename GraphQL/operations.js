@@ -392,6 +392,7 @@ const GET_CHILD_VIDEO_STATISTICS = gql`
 //     LOGIN SIGNUP FORGOT-PASSWORD     //   
 //                                      //
 //////////////////////////////////////////
+
 const USER_SIGN_UP = gql`
   mutation Mutation(
       $email: String!,
@@ -474,6 +475,7 @@ const SWAP_TO_CHILD_ACCOUNT = gql`
 //         EDITORS AND SETTINGS         //   
 //                                      //
 //////////////////////////////////////////
+
 const EDIT_USER = gql `
   mutation Mutation(
       $email: String
@@ -674,7 +676,6 @@ const CREATE_MEETING = gql`
   }
 `
 
-
 //////////////////////////////////////////
 //                                      //
 //              MESSAGES                //   
@@ -704,7 +705,6 @@ const SEND_MESSAGE = gql`
     )
   }
 `
-
 
 //////////////////////////////////////////
 //                                      //
