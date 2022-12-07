@@ -64,8 +64,6 @@ const [textEntered, setTextEntered] = useState()
 
 const [reset, setReset] = useState(props.reset)
 
-const [msgAreaHeight, setMsgAreaHeight] = useState(0.72)
-
 
 ///////////////////////
 ///                 ///
@@ -650,15 +648,15 @@ const Styles = StyleSheet.create({
         colorTwo={COLORS.gradientColor2}
         style={{width: maxWidth * 1.00, height: '100%'}}
         >
-            <KeyboardAwareScrollView 
+            {renderHeader()}
+            <KeyboardAvoidingView 
             enableAutomaticScroll={false}  
-            bounces={false} 
             enableOnAndroid         
             keyboardShouldPersistTaps='handled'
+            contentContainerStyle={{padding: 100000 }}
             >
-                {renderHeader()}
                 {MainRender()}
-            </KeyboardAwareScrollView>
+            </KeyboardAvoidingView>
         </Gradient>
     )
 }
