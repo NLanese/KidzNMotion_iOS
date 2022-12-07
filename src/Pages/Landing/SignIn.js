@@ -1,24 +1,24 @@
 // Async
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // React
 import React, { useState, useEffect } from "react";
-import { View,Text, TouchableOpacity, Dimensions} from "react-native";
+import { View,Text, ImageBackground, SafeAreaView, Image, TouchableOpacity, Dimensions} from "react-native";
 
 // Apollo graphQL
-import { useMutation} from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { USER_LOGIN, GET_USER, GET_VIDEOS, GET_MEETINGS } from "../../../GraphQL/operations";
 import client from '../../utils/apolloClient';
 
 // Recoil
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState, tokenState, clientListState, colorState, fontState, sizeState, videoDataState, avatarState, meetingState, assignState} from "../../../Recoil/atoms";
+import { userState, tokenState, clientListState, colorState, fontState, sizeState, videoDataState, avatarState, meetingState, assignState, firstOpen} from "../../../Recoil/atoms";
 
 // Renderings / Nuton 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 import { Header, InputField, Button } from "../../../NutonComponents";
-import { Check, EyeOff, CheckSmall, Eye } from "../../../svg";
+import { Check, EyeOff, CheckSmall, Facebook, Twitter, Google, Eye } from "../../../svg";
 import { DEFAULT_AVATAR } from '../../../NutonConstants';
 import { COLORS as colorConstant }  from "../../../NutonConstants"
 
@@ -26,10 +26,13 @@ import { COLORS as colorConstant }  from "../../../NutonConstants"
 import Gradient from "../../../OstrichComponents/Gradient";
 
 // Hooks
-import getAllChildAssignments from '../../Hooks/value_extractors/getAllChildAssignments';
-import getAllGuardianAssignments from '../../Hooks/value_extractors/getAllGuardianAssignments';
-import getAllTherapistAssignments from '../../Hooks/value_extractors/getAllTherapistAssignments';
+import getAllChildAssignments from '../../Hooks/value_extractors/childAndGuardianValues/getAllChildAssignments';
+import getAllGuardianAssignments from '../../Hooks/value_extractors/childAndGuardianValues/getAllGuardianAssignments';
+import getAllTherapistAssignments from '../../Hooks/value_extractors/therapistValues/getAllTherapistAssignments';
+import filterMeetings from '../../Hooks/value_extractors/filterMeetings';
+import filterAssignments from '../../Hooks/value_extractors/filterAssignments';
 
+// Loading
 import LoadingComponent from "./LoadingComponent"
 
 
@@ -121,6 +124,12 @@ export default function SignIn() {
         // Assignments State
         const [assign, setAssign] = useRecoilState(assignState)
 
+        // First Open State
+        const [first, setFirst] = useRecoilState(firstOpen)
+
+        // Determmines whether or not we be splashing
+        const [splashing, setSplashing] = useState(first)
+
 ///////////////////////////
 ///                     ///
 ///      UseEffect      ///
@@ -166,6 +175,93 @@ export default function SignIn() {
     ///////////////
     // Mutations //
     ///////////////
+
+        // Clears login errors
+        function clearErrors(){
+            setErrors({                                     
+                username: false,                            // Remove Error Messages
+                password: false                             // Remove Error Messages
+            })
+        }
+
+        // Sets Tokens and Async Data
+        async function setTokenAsyncAndRegular(resolved){
+            await setToken(resolved.data.loginUser.token)
+            return await AsyncStorage.setItem('@token', resolved.data.loginUser.token)
+        }
+
+        // Sets the user object and all other statea that are dependent on the user Object
+        async function getAndSetUserAndUserProps(){
+            return await client.query({
+                query: GET_USER,
+                fetchPolicy: 'network-only'  
+            })
+            .catch(err => {console.log(err)})
+            .then(async(resolved) => {
+                // User //
+                await setUser(resolved.data.getUser)
+
+                // Avatar //
+                if (resolved.data.getUser.profilePic){
+                    await setAvatar(resolved.data.getUser.profilePic)
+                }
+                else{
+                    await setAvatar({...DEFAULT_AVATAR})
+                }
+
+                // Assignments //
+                await findUserAssignments(resolved.data.getUser)
+
+                // Sets Colors //
+                await handleColorInput(resolved.data.getUser.colorSettings)
+            })
+        }
+
+        // Determines how to grab assignments based on User Role 
+        async function findUserAssignments(user){
+            if (user.role === "CHILD"){
+                let assign = filterAssignments(getAllChildAssignments(user))
+                await setAssign(assign)
+            }
+            else if (user.role === "GUARDIAN"){
+                let assign = filterAssignments(getAllGuardianAssignments(user)[0])
+                await setAssign(assign)
+            }
+            else if (user.role === "THERAPIST"){
+                let assign = filterAssignments(getAllTherapistAssignments(user))
+                await setAssign(assign)
+            }
+            else{
+                console.log("findUserAssignments failed, there was no user.role for some reason")
+            }
+        }
+
+        // Gets all of the Videos from the API
+        async function getVideos(){
+            await client.query({
+                query: GET_VIDEOS,
+                fetchPolicy: 'network-only'
+            })
+            .then((resolved) => {
+                setVideos(resolved.data.getAllVideoFiles)
+            })
+        }
+
+        // Gets all of a User's Meetings
+        async function getUserMeetings(){
+            await client.query({
+                query: GET_MEETINGS,
+                fetchPolicy: 'network-only'
+            })
+            .catch(err => {
+                setLoading(false)
+                return null
+            })
+            .then((resolved) => {
+                let meetings = filterMeetings(resolved.data.getMeetings)
+                setMeetings(meetings)
+            })      
+        }
 
         // Process that occurs upon Sign-In attempt
         const handleSignIn = async () => {
