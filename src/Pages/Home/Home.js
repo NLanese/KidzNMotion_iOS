@@ -19,6 +19,7 @@ import { COLORS as colorConstant }  from "../../../NutonConstants"
 import { DEFAULT_AVATAR } from '../../../NutonConstants';
 
 // Firebase
+import { firebase } from '@react-native-firebase/messaging';
 import messaging from '@react-native-firebase/messaging';
 
 // GraphQL Apollo
@@ -191,6 +192,9 @@ export default function Home() {
                 setSchedNotis( schedNotis => ([...clear]))
             } 
 
+            // Registers the Device for Firebase Token
+            firebase.messaging().registerDeviceForRemoteMessages()
+
             // Fires every reload in order to retain notifications
             useEffect(() => {
                 getAndSetNotifications()
@@ -294,7 +298,9 @@ export default function Home() {
                             height: 70,
                             width: 70,
                             left: maxWidth * 0.5 - 35,
-                            borderRadius: 10
+                            borderRadius: 10,
+                            marginTop: -15,
+                            marginBottom: 15
                         }}
                     />
                    
