@@ -45,7 +45,7 @@ export default function ConversationsThread({user, setUser, guardian=false}) {
 
                     ////////////////////////////////
                     // Adds the Child to Contacts //
-                    contacts.push({...pcp.child, plan: {...pcp, child: null}})
+                    // contacts.push({...pcp.child, plan: {...pcp, child: null}})
 
                     /////////////////////////////////////////////////////////
                     // Determines if the Child's parent needs to get added //
