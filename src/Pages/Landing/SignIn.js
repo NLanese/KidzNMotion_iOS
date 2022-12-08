@@ -147,8 +147,8 @@ export default function SignIn() {
         }
     }, [])
 
-    useEffect(async () => {
-        await checkFcmPermission()
+    useEffect(() => {
+        // await checkFcmPermission()
     })
 ///////////////////////////
 ///                     ///
@@ -179,6 +179,7 @@ export default function SignIn() {
                         // User has rejected permissions
                         console.log('PERMISSION REQUEST :: notification permission rejected',);
                     });
+                    return
                 }
             });
         }
