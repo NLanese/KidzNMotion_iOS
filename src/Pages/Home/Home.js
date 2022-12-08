@@ -76,6 +76,9 @@ export default function Home() {
         const AVATAR = useRecoilValue(avatarState)
         const navigation = useNavigation();
 
+        // Firebase Constant
+        const defaultAppMessaging = firebase.messaging();
+
     ////////////
     //  State //
     ////////////
@@ -846,7 +849,7 @@ export default function Home() {
     //////////////////////
 
         async function handleUpdatePhoneToken(){
-            const fcmToken = await messaging().getToken();
+            const fcmToken = await defaultAppMessaging.getToken();
             return await updatePhoneToken({
                 variables: {
                     token: fcmToken
@@ -866,6 +869,20 @@ export default function Home() {
 ///                 ///
 ///////////////////////
 
+    async function renderFcmToken(){
+        return await defaultAppMessaging.getToken()
+        .then(resolved => {
+            console.log(resolved)
+            // if (fcmToken){
+            //     return fcmToken.toString()
+            // }
+            // else{
+            //     return "Didnt work..."
+            // }
+            return "..."
+        })
+    }
+
 
 
 
@@ -877,6 +894,7 @@ export default function Home() {
             style={{height: '110%', paddingTop: 5}}
         >
             {renderHeader()}
+            {renderFcmToken()}
             <ScrollView contentContainerStyle={{height: '120%', paddingBottom: '10%'}}>
                 {MainRender()}
             </ScrollView>
