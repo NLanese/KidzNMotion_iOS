@@ -1,4 +1,18 @@
 {
   "name": "KidzNMotion_iOS",
-  "displayName": "KidzNMotion_iOS"
+  "displayName": "KidzNMotion_iOS",
+  "ios": {
+    "googleServicesFile": "./GoogleService-Info.plist"
+  },
+  "plugins": [
+    "@react-native-firebase/app",
+    "@react-native-firebase/perf",
+    "@react-native-firebase/crashlytics",
+    "expo-build-properties",
+  {
+    "ios": {
+      "useFrameworks": "static"
+    }
+  }
+  ]
 }

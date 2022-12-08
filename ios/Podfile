@@ -1,4 +1,5 @@
 $RNFirebaseAsStaticFramework = true
+$FirebaseSDKVersion = '10.2.0'
 
 require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 require_relative '../node_modules/react-native/scripts/react_native_pods'
@@ -17,6 +18,7 @@ install! ‘cocoapods’, :deterministic_uuids => false
 
 target 'KidzNMotion_iOS' do
   use_expo_modules!
+  # use_frameworks! :linkage => :static.
 
   # Firebase
     pod 'FirebaseCore', :modular_headers => true

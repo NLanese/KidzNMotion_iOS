@@ -20,6 +20,7 @@
 		3B22B1C94F20420484AD1862 /* Gilroy-UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26746532FBAF49E9AEB6027C /* Gilroy-UltraLight.ttf */; };
 		4040F1A129412E89006A7256 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4040F1A029412E88006A7256 /* GoogleService-Info.plist */; };
 		4040F1A329412E8F006A7256 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4040F1A229412E8F006A7256 /* GoogleService-Info.plist */; };
+		40850601294270F7000705E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40850600294270F7000705E7 /* GoogleService-Info.plist */; };
 		4434232D6C5D4F9C9ECDE89F /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */; };
 		49FCD3C103194752AA8A57C1 /* Gilroy-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */; };
 		55D53996A7684D8295E7E3D6 /* Spartan-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */; };
@@ -79,6 +80,7 @@
 		4040F1A029412E88006A7256 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4040F1A229412E8F006A7256 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		408505FF29423451000705E7 /* KidzNMotion_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = KidzNMotion_iOS.entitlements; path = KidzNMotion_iOS/KidzNMotion_iOS.entitlements; sourceTree = "<group>"; };
+		40850600294270F7000705E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-SemiBold.ttf"; path = "../assets/fonts/LeagueSpartan-SemiBold.ttf"; sourceTree = "<group>"; };
 		47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Bold.ttf"; path = "../assets/fonts/Spartan-Bold.ttf"; sourceTree = "<group>"; };
 		47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-Medium.ttf"; path = "../assets/fonts/LeagueSpartan-Medium.ttf"; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				4040F1A029412E88006A7256 /* GoogleService-Info.plist */,
+				40850600294270F7000705E7 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* KidzNMotion_iOS */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* KidzNMotion_iOSTests */,
@@ -395,6 +398,7 @@
 				F6BE8F7085C14CE8B0D923BF /* Spartan-Black.ttf in Resources */,
 				A918215E74F7410A930E2C50 /* Spartan-Bold.ttf in Resources */,
 				1F7C478FD08F4D838B0E4495 /* Spartan-ExtraBold.ttf in Resources */,
+				40850601294270F7000705E7 /* GoogleService-Info.plist in Resources */,
 				3921D0423EFF4FAF98627AFC /* Spartan-ExtraLight.ttf in Resources */,
 				B2CCD33406564A749E145FE4 /* Spartan-Light.ttf in Resources */,
 				3A0BDF1AA6C84E7A8DD737DC /* Spartan-Medium.ttf in Resources */,
