@@ -674,8 +674,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "org.reactjs.native.example.KidzNMotion-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.KidzNMotionNative;
 				PRODUCT_NAME = KidzNMotion_iOS;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -703,8 +702,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "org.reactjs.native.example.KidzNMotion-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.KidzNMotionNative;
 				PRODUCT_NAME = KidzNMotion_iOS;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

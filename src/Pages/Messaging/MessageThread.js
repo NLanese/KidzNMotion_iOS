@@ -445,7 +445,7 @@ const Styles = StyleSheet.create({
                     style={{height: '100%'}}
                     value={textEntered}
                     onChangeText={(content) => setTextEntered(content)}
-                    onChange={() => setMsgAreaHeight(0.5)}
+                    // onChange={() => setMsgAreaHeight(0.5)}
                     onEndEditing={() => setMsgAreaHeight(0.72)}
                     multiline={true}
                 />
