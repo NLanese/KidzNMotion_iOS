@@ -12,14 +12,20 @@ import convertDateTimeToJavaScript from "../../Hooks/date_and_time/convertDateTi
 import convertMonthToNumber from "../../Hooks/date_and_time/convertMonthIntoNumber";
 import deslugVideoTitle from "../../Hooks/deslugVideoTitles";
 import fullStringToDateFormat from "../../Hooks/date_and_time/fullStringTimeToDateFormat";
+import getSchedNotificationsToBeDismissed from "../../Hooks/notifications/getSchedNotificationsToBeDismissed";
+import assignmentsToSee from "../../Hooks/findAssignmentsToSee"
 
+// GraphQL
+import { useMutation } from "@apollo/client";
+import client from "../../utils/apolloClient";
+import { GET_NOTIFICATIONS, DISMISS_NOTIFICATION, TOGGLE_ASSGINMENT_SEEN } from "../../../GraphQL/operations";
 
 // Nuton
 import { Header, Button } from "../../../NutonComponents";
 
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
-import {sizeState, userState, colorState, fontState, avatarState, meetingState, assignState } from '../../../Recoil/atoms';
+import {sizeState, userState, colorState, fontState, avatarState, meetingState, assignState, scheduleNotifications } from '../../../Recoil/atoms';
 
 // Ostrich
 import Gradient from "../../../OstrichComponents/Gradient";
@@ -27,6 +33,7 @@ import TabBar from "../../../OstrichComponents/TabBar";
 
 // KNM
 import CalendarComponent from "./CalendarComponent"
+import findAssignmentsToSee from "../../Hooks/findAssignmentsToSee";
 
 let maxWidth = Dimensions.get('window').width
 let maxHeight = Dimensions.get('window').height
@@ -64,6 +71,7 @@ export default function CalendarPage() {
 
             const [assignments, setAssignments] = useRecoilState(assignState)
 
+            const [schedNotis, setSchedNotis] = useRecoilState(scheduleNotifications)
 
     /////////////////
     // Local State //
@@ -124,6 +132,8 @@ export default function CalendarPage() {
 
                 findAndSetAllTodaysMeetings()
                 findAndSetAllTodaysAssignments()
+                handleNotifications(selectedFullDate)
+                handleSeenAssignment(selectedFullDate)
                 
                 // Changes the 'today' marked indicator to the day you clicked on
                 let allDays = Object.keys(markedDateObjects)
@@ -158,6 +168,24 @@ export default function CalendarPage() {
 
             }, [selectedFullDate])
 
+            ///////////////////////////////////////////////////
+            // Dismisses All Notifications on View All State //
+            useEffect(() => {
+                if (tabState === "all"){
+                    handleNotifications("all")
+                    handleSeenAssignment("all")
+                }
+            }, [])
+
+    ///////////////
+    // Mutations //
+    ///////////////
+
+    // Dismisses Notifications
+    const [dismissNotifications, { loading: loadingDis, error: errorDis, data: typeDis }] =useMutation(DISMISS_NOTIFICATION);
+
+    // Triggers Seen Assignments
+    const [toggleAssignmentSeen, { loading: loadingA, error: errorA, data: typeA }] =useMutation(TOGGLE_ASSGINMENT_SEEN);
 
 ///////////////////////
 ///                 ///
@@ -262,12 +290,7 @@ export default function CalendarPage() {
         function renderDaysAssignments(all){
             assForThisFunction = selectedAss
             if (all){
-                if (user.role === "GUARDIAN"){
-                    assForThisFunction = assignments[0]
-                }
-                else{
-                    assForThisFunction = assignments
-                }
+                assForThisFunction = assignments
             }
 
             ////////////////
@@ -278,7 +301,7 @@ export default function CalendarPage() {
 
             /////////////////////////////////
             // No Assignments on this date //
-            if (assForThisFunction.length < 1){ 
+            if (!assForThisFunction[0]){ 
                 return( 
                     <Text style={{fontFamily: 'Gilroy-SemiBold', fontSize: 18, color: COLORS.iconLight, textAlign: 'center', margin: 10}}>
                         Your children have no assignments on this date!
@@ -494,9 +517,6 @@ export default function CalendarPage() {
         async function handleAllAssignmnets(){
 
             let theseAssignments = assignments
-            if (user.role === "GUARDIAN"){
-                theseAssignments = assignments[0]
-            }
 
             /////////////////////
             // All Assignments //
@@ -533,6 +553,67 @@ export default function CalendarPage() {
                 }))
             })
             return true
+        }
+
+        // Handles Notifications -- Fired right away upon loading this page
+        function handleNotifications(date){
+            let notisToDismiss = getSchedNotificationsToBeDismissed(schedNotis, date)
+            notisToDismiss.forEach((noti) => {
+                dismissNotificationsMutation(noti)
+            })
+            // getAndSetNotifications()
+        }
+
+        // Handles the actual dismissal mutation
+        async function dismissNotificationsMutation(notification){
+            return await dismissNotifications({
+                variables: {
+                    notificationID: notification.id
+                }
+            })
+            .then((resolved) => {
+                getAndSetNotifications()
+            })
+            .catch(err => console.log(err, "============\n614\n==========="))
+        }
+
+        // Gets and Sets Notifications, sets categorical notis too
+        async function getAndSetNotifications(){
+            setSchedNotis( schedNotis => [])
+            await client.query({
+                query: GET_NOTIFICATIONS,
+                fetchPolicy: 'network-only'
+            })
+            .catch(err => console.log(err, "============\n624\n==========="))
+            .then((resolved) => {
+                let msgN = resolved.data.getNotifications.filter((noti, index) => {
+                    if (noti.title.includes("New Message")){
+                        return noti
+                    }
+                })
+                setSchedNotis( schedNotis => ([...msgN]))
+            })
+        }
+
+        // Takes Assignments of Today to Set as Seen
+        function handleSeenAssignment(date){
+            let assignmentsToSeen = findAssignmentsToSee(assignments, date)
+            assignmentsToSeen.forEach((ass) => {
+                seeAssignmentMutation(ass)
+            })
+        }
+
+        // Sets the assignment provided as seen
+        async function seeAssignmentMutation(ass){
+            return await toggleAssignmentSeen({
+                variables:{
+                    assignmentID: ass.id,
+                    hasSeen: true
+                }
+            })
+            .then(resolved => {
+                console.log(resolved)
+            })
         }
 
     //////////////
@@ -614,9 +695,7 @@ export default function CalendarPage() {
 
             // Finds the assignment stack
             let theseAssignments = assignments
-            if (user.role === "GUARDIAN"){
-                theseAssignments = assignments[0]
-            }
+            
 
             // Determines which of all the assignments are today
             let todaysAssignments = theseAssignments.filter(assign => {
@@ -639,7 +718,6 @@ export default function CalendarPage() {
         }
 
 
-
 ///////////////////////
 ///                 ///
 ///    Main Render  ///
@@ -652,13 +730,17 @@ export default function CalendarPage() {
             return(
                 <>
                     {renderHeader()}
-                    {renderCalendar()}
-                    {renderAssignmentModal()}
-                    <View style={{backgroundColor: 'rgba(255, 255, 255, 0.25)', margin: 10, marginTop: 50, borderRadius: 10, padding: 10}}>
-                        {renderSelectedDate()}
-                        {renderAssignmentsOrMeetingsTab()}
-                        {renderMeetingsOrAssignmnets()}
-                    </View>
+                    <ScrollView 
+                    style={{height: '110%'}}
+                    contentContainerStyle={{height: '120%'}}>
+                        {renderCalendar()}
+                        {renderAssignmentModal()}
+                        <View style={{backgroundColor: 'rgba(255, 255, 255, 0.25)', margin: 10, marginTop: 50, borderRadius: 10, padding: 10}}>
+                            {renderSelectedDate()}
+                            {renderAssignmentsOrMeetingsTab()}
+                            {renderMeetingsOrAssignmnets()}
+                        </View>
+                    </ScrollView>
                 </>
             )
         }
