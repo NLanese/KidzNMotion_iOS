@@ -78,6 +78,7 @@
 		31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Light.ttf"; path = "../assets/fonts/Spartan-Light.ttf"; sourceTree = "<group>"; };
 		4040F1A029412E88006A7256 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4040F1A229412E8F006A7256 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		408505FF29423451000705E7 /* KidzNMotion_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = KidzNMotion_iOS.entitlements; path = KidzNMotion_iOS/KidzNMotion_iOS.entitlements; sourceTree = "<group>"; };
 		40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-SemiBold.ttf"; path = "../assets/fonts/LeagueSpartan-SemiBold.ttf"; sourceTree = "<group>"; };
 		47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Bold.ttf"; path = "../assets/fonts/Spartan-Bold.ttf"; sourceTree = "<group>"; };
 		47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-Medium.ttf"; path = "../assets/fonts/LeagueSpartan-Medium.ttf"; sourceTree = "<group>"; };
@@ -191,6 +192,7 @@
 		13B07FAE1A68108700A75B9A /* KidzNMotion_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				408505FF29423451000705E7 /* KidzNMotion_iOS.entitlements */,
 				4040F1A229412E8F006A7256 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -657,6 +659,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = KidzNMotion_iOS/KidzNMotion_iOS.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M7WJH63WRK;
 				ENABLE_BITCODE = NO;
@@ -685,6 +688,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = KidzNMotion_iOS/KidzNMotion_iOS.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M7WJH63WRK;
 				INFOPLIST_FILE = KidzNMotion_iOS/Info.plist;
