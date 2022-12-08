@@ -7,7 +7,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 # Firebase
 pod 'FBReactNativeSpec', :path => "../node_modules/react-native/React/FBReactNativeSpec"
-pod 'PushNotifications'
+# pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
 # 
 
 # Standard for my use
@@ -21,6 +21,11 @@ target 'KidzNMotion_iOS' do
   # use_frameworks! :linkage => :static.
 
   # Firebase
+    pod 'PushNotifications', :modular_headers => true
+    pod 'Firebase/Messaging', :modular_headers => true
+    pod 'Firebase/Crashlytics', :modular_headers => true
+    pod 'Firebase/Analytics', :modular_headers => true
+    pod 'FirebaseCoreInternal', :modular_headers => true
     pod 'FirebaseCore', :modular_headers => true
     pod 'Firebase', :modular_headers => true
     pod 'GoogleUtilities', :modular_headers => true
