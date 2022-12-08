@@ -1,12 +1,12 @@
 #import "AppDelegate.h"
 
+
 // Orientation
 #import "Orientation.h"
 //
 
 // Firebase
 #import <Firebase.h>
-//#import "RNFirebaseMessaging.h"
 // #import <FirebaseCare/FirebaseCore.h>
 // #import <FirebaseMessaging/FirebaseMessaging.h>
 //
@@ -53,6 +53,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 {
 
   [FIRApp configure];
+
   RCTAppSetupPrepareApp(application);
 
   RCTBridge *bridge = [self.reactDelegate createBridgeWithDelegate:self launchOptions:launchOptions];
@@ -153,21 +154,5 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
 #endif
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-  [[RNFirebaseNotifications instance] didReceiveLocalNotification:notification];
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo
-fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
-  [[RNFirebaseNotifications instance] didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
-}
-
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-  [[RNFirebaseMessaging instance] didRegisterUserNotificationSettings:notificationSettings];
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-[FIRMessaging messaging].APNSToken = deviceToken;
-}
 
 @end

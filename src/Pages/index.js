@@ -31,6 +31,7 @@ import ClientPool from "./Creators/ClientPool";
 
 import MessagesLanding from "./Messaging/MessagesLanding";
 import MessageThread from "./Messaging/MessageThread";
+import ConversationsThread from "./Messaging/ConversationsThread";
 
 import CalendarPage from "./Calander/Calendar";
 
@@ -39,6 +40,8 @@ import SchedulingLanding from "./Scheduling/SchedulingLanding";
 // import CameraComponent from "./Camera/CameraComponent";
 
 import VisionComp from "./Camera/VisionComp";
+
+import ClientVideoComments from "./Documentation/ClientVideoComments";
 
 
 
@@ -69,5 +72,7 @@ export {
     SchedulingLanding,
     MedalDisplay,
     VisionComp,
-    ClientPool
+    ClientPool,
+    ClientVideoComments,
+    ConversationsThread
 };
