@@ -143,6 +143,9 @@ export default function SignIn() {
         }
     }, [])
 
+    useEffect(async () => {
+        await checkFcmPermission()
+    })
 ///////////////////////////
 ///                     ///
 ///       Handler       ///
@@ -152,6 +155,34 @@ export default function SignIn() {
     ////////////////////
     // State Changers //
     ////////////////////
+
+        // Checks Firebase Permissions before registering token
+        async function checkFcmPermission() {
+            firebase
+            .messaging()
+            .hasPermission()
+            .then(enabled => {
+                if (enabled) {
+                // User has permissions
+                this.getFcmToken(); // const fcmToken = await firebase.messaging().getToken();
+                } else {
+                // User doesn't have permission
+                firebase
+                    .messaging()
+                    .requestPermission()
+                    .then(() => {
+                    // User has authorized
+                    this.getFcmToken(); // const fcmToken = await firebase.messaging().getToken();
+                    })
+                    .catch(error => {
+                    // User has rejected permissions
+                    console.log(
+                        'PERMISSION REQUEST :: notification permission rejected',
+                    );
+                    });
+                }
+            });
+        }
 
         // Alternates Eye on/off svg and show/hides password
         const togglePassword = () => {
