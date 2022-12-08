@@ -23,9 +23,9 @@
 		49FCD3C103194752AA8A57C1 /* Gilroy-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */; };
 		55D53996A7684D8295E7E3D6 /* Spartan-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */; };
 		5DBE30DA5BCC44FA87490E5C /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A70BD0A57AB4C68954517FE /* Lato-Semibold.ttf */; };
-		66F9B8C6855CFF583E6D597E /* libPods-KidzNMotion_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3201C1E89A5AE7E0C75370DC /* libPods-KidzNMotion_iOS.a */; };
 		787D0BE85D11AD425ABF7905 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3942CFBA3009524E800873 /* ExpoModulesProvider.swift */; };
 		7EA4612BFBE34CE88788759F /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DFCC198F149457D994981F4 /* Lato-Medium.ttf */; };
+		80954D05995B94BC7EA3799F /* libPods-KidzNMotion_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E6A9B0CB8D543A3CF522EF /* libPods-KidzNMotion_iOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8522AB75EC5A488BAA0B181F /* LeagueSpartan-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */; };
 		98CEA8C37D224F80B89FC623 /* LeagueSpartan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9D20C91F7ED48EEAD9DC0BB /* LeagueSpartan-Bold.ttf */; };
@@ -33,8 +33,8 @@
 		A26945D252E049EAA4287E74 /* LeagueSpartan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */; };
 		A918215E74F7410A930E2C50 /* Spartan-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */; };
 		ADE5491B866645F68AE0880C /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EBD0CA5412E4A398403E098 /* Gilroy-Light.ttf */; };
-		B1C1F1AE9D7DD6C776DB2F49 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC56E16F00B680EA99C55272 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */; };
 		B2CCD33406564A749E145FE4 /* Spartan-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */; };
+		B361696F15CF4C6BEFD7C64B /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8307914E3DB7FCFEC335FE6E /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */; };
 		B76A69A77A1C4E558DF32BDC /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09BDF5289213455EB41FB546 /* Gilroy-Heavy.ttf */; };
 		C64134BC3FF04B5F8953A41B /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0D20C165EC34FC9BA6724B5 /* Gilroy-SemiBold.ttf */; };
 		D192AEE391144850B8B83D55 /* Gilroy-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AE72B3C1254469C81568721 /* Gilroy-Black.ttf */; };
@@ -60,6 +60,7 @@
 		00E356EE1AD99517003FC87E /* KidzNMotion_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KidzNMotion_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* KidzNMotion_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KidzNMotion_iOSTests.m; sourceTree = "<group>"; };
+		04852B8C75F74A4403E5A933 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		09BDF5289213455EB41FB546 /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Heavy.ttf"; path = "../assets/fonts/Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
 		11FDC4AE64994266BE4961B5 /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* KidzNMotion_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KidzNMotion_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,7 +76,6 @@
 		2D1E5CF28753469A7858FE5F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-KidzNMotion_iOS/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		30115C0B88974C3CBED76E93 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Light.ttf"; path = "../assets/fonts/Spartan-Light.ttf"; sourceTree = "<group>"; };
-		3201C1E89A5AE7E0C75370DC /* libPods-KidzNMotion_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KidzNMotion_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4040F1A229412E8F006A7256 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		408505FF29423451000705E7 /* KidzNMotion_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = KidzNMotion_iOS.entitlements; path = KidzNMotion_iOS/KidzNMotion_iOS.entitlements; sourceTree = "<group>"; };
 		40850600294270F7000705E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -83,6 +83,7 @@
 		47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Bold.ttf"; path = "../assets/fonts/Spartan-Bold.ttf"; sourceTree = "<group>"; };
 		47CFF1E33C67482B9F83C130 /* LeagueSpartan-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-Medium.ttf"; path = "../assets/fonts/LeagueSpartan-Medium.ttf"; sourceTree = "<group>"; };
 		5412925F819144B5B5466294 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
+		55E6A9B0CB8D543A3CF522EF /* libPods-KidzNMotion_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KidzNMotion_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ECE0488AA4A441A9EEF2826 /* Gilroy-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Thin.ttf"; path = "../assets/fonts/Gilroy-Thin.ttf"; sourceTree = "<group>"; };
 		6A70BD0A57AB4C68954517FE /* Lato-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Semibold.ttf"; path = "../assets/fonts/Lato-Semibold.ttf"; sourceTree = "<group>"; };
 		6AE72B3C1254469C81568721 /* Gilroy-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Black.ttf"; path = "../assets/fonts/Gilroy-Black.ttf"; sourceTree = "<group>"; };
@@ -90,22 +91,21 @@
 		7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Regular.ttf"; path = "../assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
 		7A0F36AB5F6B48F280F4F33C /* Spartan-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Medium.ttf"; path = "../assets/fonts/Spartan-Medium.ttf"; sourceTree = "<group>"; };
 		7BC3940E0B204A40BA73C6FA /* Spartan-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Regular.ttf"; path = "../assets/fonts/Spartan-Regular.ttf"; sourceTree = "<group>"; };
+		7DA0021F04A9DD3A8A4C96CC /* Pods-KidzNMotion_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.release.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		818BBA8F7DEE4A99B4B915F7 /* Spartan-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Black.ttf"; path = "../assets/fonts/Spartan-Black.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = KidzNMotion_iOS/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		85C7A5159C1E50B3D3955F98 /* Pods-KidzNMotion_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		8307914E3DB7FCFEC335FE6E /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-ExtraBold.ttf"; path = "../assets/fonts/Gilroy-ExtraBold.ttf"; sourceTree = "<group>"; };
 		8D3942CFBA3009524E800873 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		9A1125558ECA128046B0D217 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		A0D20C165EC34FC9BA6724B5 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-SemiBold.ttf"; path = "../assets/fonts/Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
 		A4CF362398F8468B88A44C63 /* Spartan-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-SemiBold.ttf"; path = "../assets/fonts/Spartan-SemiBold.ttf"; sourceTree = "<group>"; };
-		AC56E16F00B680EA99C55272 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B026207A702A824AA2FC47F2 /* Pods-KidzNMotion_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.release.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.release.xcconfig"; sourceTree = "<group>"; };
-		B37732BEC0A80B42003B9519 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C4E0EDC08BFA95E9B854B02D /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D2D4F8FFCC5E48B4BB5F1D1F /* LeagueSpartan-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-Regular.ttf"; path = "../assets/fonts/LeagueSpartan-Regular.ttf"; sourceTree = "<group>"; };
 		E7B2DF2C8C0944289A985192 /* Spartan-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-ExtraBold.ttf"; path = "../assets/fonts/Spartan-ExtraBold.ttf"; sourceTree = "<group>"; };
 		E9D20C91F7ED48EEAD9DC0BB /* LeagueSpartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-Bold.ttf"; path = "../assets/fonts/LeagueSpartan-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FC39E87949FC4F809E865915 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
+		FF145E4BD82C8932C1F1384D /* Pods-KidzNMotion_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1C1F1AE9D7DD6C776DB2F49 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a in Frameworks */,
+				B361696F15CF4C6BEFD7C64B /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66F9B8C6855CFF583E6D597E /* libPods-KidzNMotion_iOS.a in Frameworks */,
+				80954D05995B94BC7EA3799F /* libPods-KidzNMotion_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,8 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				3201C1E89A5AE7E0C75370DC /* libPods-KidzNMotion_iOS.a */,
-				AC56E16F00B680EA99C55272 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */,
+				55E6A9B0CB8D543A3CF522EF /* libPods-KidzNMotion_iOS.a */,
+				8307914E3DB7FCFEC335FE6E /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -258,10 +258,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				85C7A5159C1E50B3D3955F98 /* Pods-KidzNMotion_iOS.debug.xcconfig */,
-				B026207A702A824AA2FC47F2 /* Pods-KidzNMotion_iOS.release.xcconfig */,
-				B37732BEC0A80B42003B9519 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig */,
-				9A1125558ECA128046B0D217 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig */,
+				FF145E4BD82C8932C1F1384D /* Pods-KidzNMotion_iOS.debug.xcconfig */,
+				7DA0021F04A9DD3A8A4C96CC /* Pods-KidzNMotion_iOS.release.xcconfig */,
+				C4E0EDC08BFA95E9B854B02D /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig */,
+				04852B8C75F74A4403E5A933 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -281,12 +281,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "KidzNMotion_iOSTests" */;
 			buildPhases = (
-				DCFA818EC32F628357B5E523 /* [CP] Check Pods Manifest.lock */,
+				69368D2BCE2735EDF3720FE1 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				4FF0D283BA91A00A71FC8B63 /* [CP] Embed Pods Frameworks */,
-				B09F20A8B171258363E3321A /* [CP] Copy Pods Resources */,
+				647B04B705275A49E4CD3309 /* [CP] Embed Pods Frameworks */,
+				F445ABE2AB7E94CAA5F30CD7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,15 +302,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "KidzNMotion_iOS" */;
 			buildPhases = (
-				010FADAFDD67A03B1BA7CF0A /* [CP] Check Pods Manifest.lock */,
+				987E8CE78881C8BFCC4E2D64 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A9B07A3BD0C3800090857632 /* [CP] Embed Pods Frameworks */,
-				3ABBB5FD067AACA52E19B5BC /* [CP] Copy Pods Resources */,
-				279D7C35BB5D88314DACDFBD /* [CP-User] [RNFB] Core Configuration */,
+				F6546A3E50B8BDCEB09198B3 /* [CP] Embed Pods Frameworks */,
+				2F25C9A3C2F96ED79FAF6857 /* [CP] Copy Pods Resources */,
+				C1723B8A3754AFF7102FEF01 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -421,7 +421,63 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		010FADAFDD67A03B1BA7CF0A /* [CP] Check Pods Manifest.lock */ = {
+		2F25C9A3C2F96ED79FAF6857 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		647B04B705275A49E4CD3309 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69368D2BCE2735EDF3720FE1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		987E8CE78881C8BFCC4E2D64 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -443,7 +499,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		279D7C35BB5D88314DACDFBD /* [CP-User] [RNFB] Core Configuration */ = {
+		C1723B8A3754AFF7102FEF01 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -456,58 +512,7 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
-		3ABBB5FD067AACA52E19B5BC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4FF0D283BA91A00A71FC8B63 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A9B07A3BD0C3800090857632 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B09F20A8B171258363E3321A /* [CP] Copy Pods Resources */ = {
+		F445ABE2AB7E94CAA5F30CD7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -524,26 +529,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DCFA818EC32F628357B5E523 /* [CP] Check Pods Manifest.lock */ = {
+		F6546A3E50B8BDCEB09198B3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -600,7 +600,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B37732BEC0A80B42003B9519 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig */;
+			baseConfigurationReference = C4E0EDC08BFA95E9B854B02D /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -628,7 +628,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A1125558ECA128046B0D217 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig */;
+			baseConfigurationReference = 04852B8C75F74A4403E5A933 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -653,7 +653,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 85C7A5159C1E50B3D3955F98 /* Pods-KidzNMotion_iOS.debug.xcconfig */;
+			baseConfigurationReference = FF145E4BD82C8932C1F1384D /* Pods-KidzNMotion_iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -682,7 +682,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B026207A702A824AA2FC47F2 /* Pods-KidzNMotion_iOS.release.xcconfig */;
+			baseConfigurationReference = 7DA0021F04A9DD3A8A4C96CC /* Pods-KidzNMotion_iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

@@ -2003,6 +2003,13 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-16.4.6.tgz#dd1a1eccff39eac6cd201792c388fc11afd6b4bf"
   integrity sha512-5XHc++UxK+wEYifyovemr+K5aUpcDuqzGPAqc2tqrVxtsELmGi9pCOFbCuFhkg5DzNGToNT9Z79DTd+XLCVemA==
 
+"@react-native-firebase/perf@^16.4.6":
+  version "16.4.6"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/perf/-/perf-16.4.6.tgz#4f6116451f9a299f4d0888375730b9dd01df1ac9"
+  integrity sha512-CC8TdZ2jA6Qomb8BhgBYTQYrE4EX4mT1DPImWzaPea+mbs8cT6wWOFT8h8PxzOC7510WqzX0oJpMIedogj9vNA==
+  dependencies:
+    "@expo/config-plugins" "^5.0.4"
+
 "@react-native-picker/picker@react-native-picker/picker":
   version "2.4.8"
   resolved "https://codeload.github.com/react-native-picker/picker/tar.gz/267de73e45b8fd8142316a1c43c94c9eec02ecb5"
