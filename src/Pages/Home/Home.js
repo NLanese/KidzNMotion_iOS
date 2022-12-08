@@ -196,7 +196,7 @@ export default function Home() {
             } 
 
             // Registers the Device for Firebase Token
-            firebase.messaging().registerDeviceForRemoteMessages()
+            // firebase.messaging().registerDeviceForRemoteMessages()
 
             // Fires every reload in order to retain notifications
             useEffect(() => {
@@ -856,7 +856,7 @@ export default function Home() {
                 }
             })
             .then((resolved) => {
-                console.log(resolved)
+                console.log("resolved updatePhoneToken Mutation:", resolved)
             })
             .catch(err => console.log(err))
         }
@@ -869,17 +869,12 @@ export default function Home() {
 ///                 ///
 ///////////////////////
 
-    async function renderFcmToken(){
-        return await defaultAppMessaging.getToken()
+    async function printToken(){
+        let token = "Nothing yet"
+        await defaultAppMessaging.getToken()
         .then(resolved => {
-            console.log(resolved)
-            // if (fcmToken){
-            //     return fcmToken.toString()
-            // }
-            // else{
-            //     return "Didnt work..."
-            // }
-            return "..."
+            token = resolved
+            console.log("TOKEN :", token)
         })
     }
 
@@ -887,6 +882,9 @@ export default function Home() {
 
 
 ////// TESTING //////// 
+
+    printToken()
+
     return (
         <Gradient
             colorOne={COLORS.gradientColor1}
@@ -894,7 +892,6 @@ export default function Home() {
             style={{height: '110%', paddingTop: 5}}
         >
             {renderHeader()}
-            {renderFcmToken()}
             <ScrollView contentContainerStyle={{height: '120%', paddingBottom: '10%'}}>
                 {MainRender()}
             </ScrollView>
