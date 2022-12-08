@@ -185,13 +185,13 @@ const Stack = createNativeStackNavigator();
 
   return(
     <ErrorBoundary
-      onError={(error) => console.log(error)}
+    onError={(error) => {
+      throw new Error(error)
+    }}
     >
       <NavigationContainer>
         <ApolloProvider client={client}>
         <RecoilRoot>
-        
-
           <KeyboardAvoidingView
           behavior="padding"
           enabled

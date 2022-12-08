@@ -9,7 +9,6 @@ export default function findAssignmentsToSee(assignments, date){
     let target = (`${m} ${d}`)
     let rArray = assignments.filter(ass => {
         if (ass.dateStart.includes(target) || ass.dateDue.includes(target)){
-            console.log(target, " HIT")
             return ass
         }
     })

@@ -204,6 +204,11 @@ export default function Home() {
                 setSchedNotisLen(schedNotis.length)
             }, [msgNotis, schedNotis])
 
+             // Updates Phone Token for Firebase Notis
+             useEffect(() => {
+                handleUpdatePhoneToken()
+            }, [user])
+
 
 
         /////////////
@@ -645,7 +650,7 @@ export default function Home() {
                     childUserID: selectedChild.id
                 }
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {throw new Error(err)})
         }
 
     ////////////////////////
@@ -756,7 +761,7 @@ export default function Home() {
                     username: email,
                     password: password,
                 }
-            }).catch(err => {console.log(err)})
+            }).catch(err => {throw new Error(err)})
         }
     
     /////////////////////////////

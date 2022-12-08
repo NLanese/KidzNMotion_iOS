@@ -102,7 +102,7 @@ export default function AddUser() {
                    await setUser(resolved.data.getUser)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    throw new Error(error)
                 });
             })
             .then( () => {
