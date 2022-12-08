@@ -10,6 +10,10 @@ import { useMutation, useQuery } from '@apollo/client';
 import { USER_LOGIN, GET_USER, GET_VIDEOS, GET_MEETINGS } from "../../../GraphQL/operations";
 import client from '../../utils/apolloClient';
 
+// Firebase
+import { firebase } from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
+
 // Recoil
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState, tokenState, clientListState, colorState, fontState, sizeState, videoDataState, avatarState, meetingState, assignState, firstOpen} from "../../../Recoil/atoms";
@@ -158,27 +162,22 @@ export default function SignIn() {
 
         // Checks Firebase Permissions before registering token
         async function checkFcmPermission() {
-            firebase
-            .messaging()
-            .hasPermission()
+            // Checks permission
+            firebase.messaging().hasPermission()
             .then(enabled => {
+
+                // Has Permission
                 if (enabled) {
-                // User has permissions
-                this.getFcmToken(); // const fcmToken = await firebase.messaging().getToken();
-                } else {
-                // User doesn't have permission
-                firebase
-                    .messaging()
-                    .requestPermission()
-                    .then(() => {
-                    // User has authorized
-                    this.getFcmToken(); // const fcmToken = await firebase.messaging().getToken();
-                    })
+                    return 
+                    // this.getFcmToken(); // const fcmToken = await firebase.messaging().getToken();
+                } 
+
+                // No Permission
+                else {
+                    firebase.messaging().requestPermission()
                     .catch(error => {
-                    // User has rejected permissions
-                    console.log(
-                        'PERMISSION REQUEST :: notification permission rejected',
-                    );
+                        // User has rejected permissions
+                        console.log('PERMISSION REQUEST :: notification permission rejected',);
                     });
                 }
             });
