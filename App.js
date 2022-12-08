@@ -2,6 +2,7 @@
 // REACT and Async //
 /////////////////////
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Text, View, KeyboardAvoidingView } from 'react-native';
 import { RecoilRoot } from 'recoil';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -24,6 +25,16 @@ import { createHttpLink } from 'apollo-link-http';
 // ERROR Stuff //
 /////////////////
 import ErrorBoundary from 'react-native-error-boundary'
+
+////////////////////////
+// NOTIFICATION Stuff //
+////////////////////////
+import messaging from '@react-native-firebase/messaging';
+// import { getFirebaseToken } from './src/utils/firebase/firebase';
+
+// import fb_auth from '@react-native-firebase/auth';
+// import firestore from '@react-native-firebase/firestore';
+
 
 ///////////
 // PAGES //
@@ -67,6 +78,7 @@ import {
   // Messages
   MessagesLanding,
   MessageThread,
+  ConversationsThread,
 
   // Creators
   AddClient,
@@ -80,7 +92,10 @@ import {
   MedalDisplay,
 
   // Camera
-  VisionComp
+  VisionComp,
+
+  // Comments
+  ClientVideoComments
 
  } from './src/Pages';
 
@@ -142,6 +157,8 @@ import {
 } from "./NutonScreens";
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export default function App() {
 
 let state
@@ -181,19 +198,65 @@ const Stack = createNativeStackNavigator();
   });
 
 
+  // Firebase Push Notificiations
+
+  useEffect(() => {
+    handleUpdatePhoneToken()
+    notificationConfigure()
+}, [])
+
+  async function handleUpdatePhoneToken(){
+    const fcmToken = await messaging().getToken();
+    console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
+}
+
+  notificationConfigure = async () => {
+    // check if we have permissions
+    let enabled = await messaging().hasPermission();
+
+    if (enabled === messaging.AuthorizationStatus.AUTHORIZED) {
+      const fcmToken = await messaging().getToken();
+      console.log("TOKEN", fcmToken);
+
+      if (fcmToken) {
+        console.log(fcmToken);
+      } else {
+        // user doesn't have a device token yet
+        console.warn("no token");
+      }
+    } else {
+      await messaging().requestPermission();
+      console.log("requested");
+
+      enabled = await messaging().hasPermission();
+      console.log("done", enabled);
+      if (!enabled) {
+        return false;
+      }
+    }
+
+    return true;
+  };
 
 
   return(
     <ErrorBoundary
-    onError={(error) => {
-      throw new Error(error)
-    }}
+      onError={(error) => console.log("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}
     >
       <NavigationContainer>
         <ApolloProvider client={client}>
         <RecoilRoot>
+        
+
           <KeyboardAvoidingView
-          behavior="padding"
+          // behavior="padding"
           enabled
           style={{flexGrow:1,height:'100%'}}
           >
@@ -254,6 +317,7 @@ const Stack = createNativeStackNavigator();
                 {/* Messages */}
                 <Stack.Screen name="MessagesLanding" component={MessagesLanding} options={{orientation: 'portrait'}} />
                 <Stack.Screen name="MessageThread" component={MessageThread} options={{orientation: 'portrait'}} />
+                <Stack.Screen name="Conversations" component={ConversationsThread} options={{orientation: 'portrait'}} />
 
                 {/* Medals */}
                 <Stack.Screen name="Medals" component={MyMedals} options={{orientation: 'portrait'}} />
@@ -263,8 +327,10 @@ const Stack = createNativeStackNavigator();
                 <Stack.Screen name="SchedulingLanding" component={SchedulingLanding} options={{orientation: 'portrait'}} />
 
                 {/* Camera */}
-                <Stack.Screen name="CameraComponent" component={VisionComp} options={{orientation: 'portrait'}} />           
+                <Stack.Screen name="CameraComponent" component={VisionComp} options={{orientation: 'portrait'}} />    
 
+                {/* Comments */}
+                <Stack.Screen name="Comments" component={ClientVideoComments} options={{orientation: 'portrait'}} />
 
                 <Stack.Screen name="AddANewCard" component={AddANewCard} options={{orientation: 'portrait'}}/> 
                 <Stack.Screen name="CategoryGrid" component={CategoryGrid} options={{orientation: 'portrait'}}/> 
