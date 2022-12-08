@@ -1,16 +1,16 @@
 // React
-import {ScrollView, StyleSheet, Text, View } from "react-native";
+import {ScrollView, StyleSheet, Text, View, TouchableOpacity, ImageBackground } from "react-native";
 import React, {useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
 // Nuton
-import { Header } from "../../../NutonComponents";
-import { FONTS } from "../../../NutonConstants";
+import { Header, WishListComponent } from "../../../NutonComponents";
+import { AndroidSafeArea, courses, FONTS, myCoupons } from "../../../NutonConstants";
 
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
-import { colorState, sizeState, userState, tokenState, medalState } from '../../../Recoil/atoms';
+import { colorState, sizeState, userState, tokenState, medalsDataState, medalsTypeState } from '../../../Recoil/atoms';
 
 // GraphQL
 import { GET_CHILD_VIDEO_STATISTICS } from "../../../GraphQL/operations";
@@ -37,84 +37,90 @@ export default function MyMedals(props) {
     ///////////////
         const navigation = useNavigation();
         const COLORS = useRecoilValue(colorState)
+        const SIZES = useRecoilValue(sizeState)
+        const token = useRecoilValue(tokenState)
 
     ///////////
     // State //
     ///////////
 
-        // Tracks what medals they have
-        const [medals, setMedals] = useState({
-            "step_up": {},
-            "toe_walking": {},
-            "toe_touches": {},
-            "squat": {},
-            "side_to_side": {},
-            "rolling": {},
-            "leg_lifts": {},
+        ////////////////
+        // Medal Data //
+        ////////////////
 
-            "hands_to_knees": {},
-            "chair_elevation": {},
-            "floor_to_stand": {},
-            "beam_balancing": {},
-            "jump_rope": {},
-            "jumping_jacks": {},
-            "jump_forward_and_backward": {},
-            "hop_scotch": {},
-            "bear_crawl": {}
-        })
-
-        // Query Data comparmentalized
-        const [medalData, setMedalData] = useState({
-            step_up: {},
-            toe_walking: {},
-            toe_touches: {},
-            squat: {},
-            side_to_side: {},
-            rolling: {},
-            leg_lifts: {},
-
-            hands_to_knees: {},
-            chair_elevation: {},
-            floor_to_stand: {},
-            beam_balancing: {},
-            jump_rope: {},
-            jumping_jacks: {},
-            jump_forward_and_backward: {},
-            hop_scotch: {},
-            bear_crawl: {}
-        })
-
-        // Tracks user data
-        const [user, setUser] = useRecoilState(userState)
-
-            // Tracks the Children
-            const [children, setChildren] = useState(user.children)
-
-        let XSelected = false
-        if (user.role === "GUARDIAN"){
-            XSelected = children[0]
-        }
-        else if (user.role === "CHILD"){
-            XSelected = user
-        }
-        else if (user.role === "THERAPIST"){
-            XSelected = props.route.params.item
-        }    
-
-        // The Child who is selected
-        const [selectedChild, setSelectedChild] = useState(XSelected)
-
-        // Determines whether medal modal be showing
-        const [showMedalModal, setShowMedalModal] = useState(false)
+        // Tracks the current users' earned medals
+        const [medals, setMedals] = useRecoilState(medalsDataState)
 
         // Determines which medal type is displayed in Modal
-        const [medalType, setMedalType] = useState(false)
+        const [medalType, setMedalType] = useRecoilState(medalsTypeState)
 
-        const [bronzeCount, setBronzeCount] = useState(0)
 
-        const [silverCount, setSilverCount] = useState(0)
+        // // Tracks what medals they have
+        // const [medals, setMedals] = useState({
+        //     "step_up": {},
+        //     "toe_walking": {},
+        //     "toe_touches": {},
+        //     "squat": {},
+        //     "side_to_side": {},
+        //     "rolling": {},
+        //     "leg_lifts": {},
 
-        const [goldCount, setGoldCount] = useState(0)
+        //     "hands_to_knees": {},
+        //     "chair_elevation": {},
+        //     "floor_to_stand": {},
+        //     "beam_balancing": {},
+        //     "jump_rope": {},
+        //     "jumping_jacks": {},
+        //     "jump_forward_and_backward": {},
+        //     "hop_scotch": {},
+        //     "bear_crawl": {}
+        // })
+
+        // // Query Data comparmentalized
+        // const [medalData, setMedalData] = useState({
+        //     step_up: {},
+        //     toe_walking: {},
+        //     toe_touches: {},
+        //     squat: {},
+        //     side_to_side: {},
+        //     rolling: {},
+        //     leg_lifts: {},
+
+        //     hands_to_knees: {},
+        //     chair_elevation: {},
+        //     floor_to_stand: {},
+        //     beam_balancing: {},
+        //     jump_rope: {},
+        //     jumping_jacks: {},
+        //     jump_forward_and_backward: {},
+        //     hop_scotch: {},
+        //     bear_crawl: {}
+        // })
+
+
+        ///////////////////////
+        // User and Children //
+        ///////////////////////
+
+            // Tracks user data
+            const [user, setUser] = useRecoilState(userState)
+
+                // Tracks the Children
+                const [children, setChildren] = useState(user.children)
+
+            let XSelected = false
+            if (user.role === "GUARDIAN"){
+                XSelected = children[0]
+            }
+            else if (user.role === "CHILD"){
+                XSelected = user
+            }
+            else if (user.role === "THERAPIST"){
+                XSelected = props.route.params.item.user
+            }    
+
+            // The Child who is selected
+            const [selectedChild, setSelectedChild] = useState(XSelected)
 
         // Loading
         const [loading, setLoading] = useState(true)
@@ -130,24 +136,15 @@ export default function MyMedals(props) {
 ///                     ///
 ///////////////////////////
 
-    // Populates earned medals
-    useEffect(() => {
-        // sets just medals (Object of objects)
-        getChildsMedals()
-    }, [selectedChild])
-
-    // Attempts rerender is somehow resolved is undefined
+    // Populates earned medals on render
     useEffect(() => {
         getChildsMedals()
-    }, [tryAgain])
+    }, [])
 
-    // Sets medal count state (object of ints)
+    // Once Medals are generated, turns off loading
     useEffect(() => {
-        asyncSetMedals()
-        .then(() => {
-            setLoading(false)
-        })
-    }, [medalData])
+        setLoading(false)
+    }, [medals])
 
     // DO NOT DELETE //  // DO NOT DELETE //   // DO NOT DELETE //   // DO NOT DELETE //   // DO NOT DELETE // 
     useEffect(() => {
@@ -229,7 +226,7 @@ export default function MyMedals(props) {
 
     // Renders the Main 
     function renderContent() {
-        if (loading || noContent){
+        if (loading){
             return <LoadingComponent loading={true} label={"LOADING..."} />
         }
         return (
@@ -279,63 +276,8 @@ export default function MyMedals(props) {
             {
                 type: color, 
                 user: selectedChild, 
-                // medals: medalData
-                // medals: {"beam_balancing": {"bronze": 1, "gold": 0, "silver": 0}, "chair_elevation": {"bronze": 1, "gold": 1, "silver": 1}, "hand_to_knees": {"bronze": 1, "gold": 0, "silver": 1}, "leg_lifts": {"bronze": 3, "gold": 0, "silver": 2}}
             }
         )
-    }
-
-
-    // Clears all of the medals and saved data
-    function clearCurrentData(){
-        setMedals({
-            "step_up": {},
-            "toe_walking": {},
-            "toe_touches": {},
-            "squat": {},
-            "side_to_side": {},
-            "rolling": {},
-            "leg_lifts": {},
-
-            "hands_to_knees": {},
-            "chair_elevation": {},
-            "floor_to_stand": {},
-            "beam_balancing": {},
-            "jump_rope": {},
-            "jumping_jacks": {},
-            "jump_forward_and_backward": {},
-            "hop_scotch": {},
-            "bear_crawl": {}
-        })
-
-        setMedalData({
-            step_up: {},
-            toe_walking: {},
-            toe_touches: {},
-            squat: {},
-            side_to_side: {},
-            rolling: {},
-            leg_lifts: {},
-
-            hands_to_knees: {},
-            chair_elevation: {},
-            floor_to_stand: {},
-            beam_balancing: {},
-            jump_rope: {},
-            jumping_jacks: {},
-            jump_forward_and_backward: {},
-            hop_scotch: {},
-            bear_crawl: {}
-        })
-    }
-
-    // Sets the medals state with the medal count ({bronze: 1, silver: 2, gold: 3})
-    async function asyncSetMedals(){
-        let unlocked = (Object.keys(medalData))
-        unlocked.forEach( async (vidMedals) => {
-            await setMedals({...medals, [vidMedals]: {...medalData[vidMedals]}})
-        })        
-        setNoContent(false)
     }
 
     // Grabs Medals
@@ -347,11 +289,11 @@ export default function MyMedals(props) {
             variables: {
                 childID: selectedChild.id
             }
-
         }).then( (resolved) => {
-            setMedalData(resolved.data.getChildVideoStatistics.allTimeStats.individualVideoDetailedStats)
-            return resolved
-        }).catch(err => console.log(err))
+            let newValue = resolved.data.getChildVideoStatistics.allTimeStats.individualVideoDetailedStats
+            setMedals(medals => ({...newValue}))
+            return
+        }).catch(err => console.log("BINGO WINGO"))
     }
 
 

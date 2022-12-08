@@ -5,7 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 import BouncyCheckboxGroup, {} from "react-native-bouncy-checkbox-group";
 
-
 // Nuton
 import { Header } from "../../../NutonComponents";
 import { Edit } from "../../../svg";
@@ -14,15 +13,18 @@ import { COLORS as colorConstant }  from "../../../NutonConstants"
 // Recoil
 import { useRecoilState, useRecoilValue } from "recoil";
 import { colorState, fontState, sizeState, userState, tokenState, avatarState } from '../../../Recoil/atoms';
+import client from "../../utils/apolloClient";
 
 // Mutation
 import { useMutation } from "@apollo/client";
-import { LOGOUT_USER, EDIT_COLOR_SETTINGS } from "../../../GraphQL/operations";
+import { LOGOUT_USER, EDIT_COLOR_SETTINGS, GET_USER } from "../../../GraphQL/operations";
 
 // Gradient
 import Gradient from "../../../OstrichComponents/Gradient";
 import SelectionButton from "../../../OstrichComponents/SelectionButton";
 import PersonasAvatar from "./AvatarSettings/PersonasAvatar"
+
+import LoadingComponent from "../../Global/LoadingComponent"
 
 
 
@@ -54,6 +56,11 @@ export default function SettingsLanding() {
 
         // Token Setting (For Logout)
         const [token, setToken] = useRecoilState(tokenState)
+
+        // Tracks whether or not the colors have been changed
+        const [colorsBeenChanged, setColorsBeenChnaged] = useState(false)
+
+        const [loading, setLoading] = useState(false)
 
         ////////////
         // MODALS //
@@ -91,19 +98,34 @@ export default function SettingsLanding() {
 ///                 ///
 ///////////////////////
 
+    function MAIN(){
+        if (loading){
+            return(
+                <LoadingComponent loading={loading} />
+            )
+        }
+        else{
+            return(
+                <Gradient
+                colorOne={COLORS.gradientColor1}
+                colorTwo={COLORS.gradientColor2}
+                style={{height: '100%'}}
+                >
+                    <View style={{marginLeft: 3}}>
+                        {MainRender()}
+                        {renderColorModal()}
+                    </View>
+                </Gradient>
+            )
+        }
+    }
+
     // Renders the header bar and back arrow
     function renderHeader() {
-        let title="Settings"
-        if (user.role === "THERAPIST"){ // role === "ADMIN"
-            title="Settings"
-        }
-        else if (user.role === "ADMIN"){ // role === "THERAPIST"
-            title="Settings"
-        }
         return(
             <View style={{marginTop: 40}}>
                 <Header 
-                    title={title}
+                    title={"Settings"}
                     onPress={() => navigation.navigate('/')}
                     goBack={true}
                 />
@@ -124,18 +146,7 @@ export default function SettingsLanding() {
                 animationIn="zoomIn"
                 animationOut="zoomOut"
             >
-                <View
-                    style={{
-                        width: SIZES.width - 40,
-                        backgroundColor: COLORS.buttonColorLight,
-                        marginHorizontal: 20,
-                        borderRadius: 10,
-                        paddingHorizontal: 20,
-                        paddingTop: 40,
-                        paddingBottom: 30,
-                    }}
-                >
-                    
+                <View style={{ width: SIZES.width - 40, backgroundColor: COLORS.buttonColorLight, marginHorizontal: 20, borderRadius: 10, paddingHorizontal: 20, paddingTop: 40, paddingBottom: 30, }} >  
                     <BouncyCheckboxGroup
                         data={
                             [
@@ -174,6 +185,7 @@ export default function SettingsLanding() {
                             setPreviousColors({...COLORS})
                             setColors({...selectedItem})
                             setColorString(selectedItem.string)
+                            setColorsBeenChnaged(true)
                         }}
                     />
                     
@@ -184,13 +196,7 @@ export default function SettingsLanding() {
                             justifyContent: "center",
                         }}
                     >
-                        <TouchableOpacity
-                            style={{
-                                width: 130,
-                                height: 48,
-                                backgroundColor: COLORS.buttonColorLight,
-                                borderRadius: 10, justifyContent: "center", alignItems: "center",  marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1,
-                            }}
+                        <TouchableOpacity style={{ width: 130, height: 48, backgroundColor: COLORS.buttonColorLight, borderRadius: 10, justifyContent: "center", alignItems: "center",  marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1 }}
                             onPress={() => {   
                                 selectOrCancelColors("confirm")
                             }}
@@ -372,12 +378,12 @@ export default function SettingsLanding() {
     // Main Render Boi
     function MainRender() {
         return(
-            <ScrollView>
+            <View>
                 {renderHeader()}
                 {renderImageAndName()}
                 {renderButtons()}
                 {renderSignOutModal()}
-            </ScrollView>
+            </View>
         )
     }
 
@@ -411,35 +417,68 @@ export default function SettingsLanding() {
         }
     }
 
+    // Renders the Button Seelction for Guardians
+    function renderGuardianOptions(){
+        return(
+            <View style={{marginLeft: -4}}>
+                <SelectionButton 
+                    title={"Edit Profile"}
+                    onSelect={() => navigation.navigate("ProfileEdit")}
+                    plainCenter={true}
+                />
+                <SelectionButton 
+                    title={"Settings"}
+                    plainCenter={true}
+                    onSelect={() => navigation.navigate("GeneralSettings")}
+                />
+                <SelectionButton 
+                    title={"Screen Color"}
+                    plainCenter={true}
+                    onSelect={()=> setShowColorModal(true)}
+                />
+                {renderRequestMeeting()}
+                <SelectionButton 
+                    title={"Sign Out"}
+                    plainCenter={true}
+                    onSelect={() => setshowSignOutModal(true)}
+                />
+            </View>
+        )
+    }
+
+    // Renders the Button Seelction for Therapists
+    function renderTherapistOptions(){
+        return(
+            <View>
+                <SelectionButton 
+                    title={"Screen Color"}
+                    plainCenter={true}
+                    onSelect={()=> setShowColorModal(true)}
+                />
+                <SelectionButton
+                    title={"Account Settings"}
+                    plainCenter={true}
+                    onSelect={() => navigation.navigate("GeneralSettings")}
+                />
+                <SelectionButton 
+                    title={"Edit Profile"}
+                    onSelect={() => navigation.navigate("ProfileEdit")}
+                    plainCenter={true}
+                />
+                {renderOrganizationSettings()}
+                <SelectionButton 
+                    title={"Sign Out"}
+                    plainCenter={true}
+                    onSelect={() => setshowSignOutModal(true)}
+                />
+            </View>
+        )
+    }
+
     // Renders the inputs that are appropriate for user access
     function renderButtons(){
         if (user.role === "GUARDIAN" || (user.role === "CHILD" && user.accessSettings)){  //role === "GUARDIAN"
-            return(
-                <View style={{marginLeft: -4}}>
-                    <SelectionButton 
-                        title={"Edit Profile"}
-                        onSelect={() => navigation.navigate("ProfileEdit")}
-                        plainCenter={true}
-                    />
-                    <SelectionButton 
-                        title={"Settings"}
-                        plainCenter={true}
-                        onSelect={() => navigation.navigate("GeneralSettings")}
-                    />
-                    <SelectionButton 
-                        title={"Screen Color"}
-                        plainCenter={true}
-                        onSelect={()=> setShowColorModal(true)}
-                    />
-                    {renderRequestMeeting()}
-                    <SelectionButton 
-                        title={"Sign Out"}
-                        plainCenter={true}
-                        onSelect={() => setshowSignOutModal(true)}
-                    />
-                </View>
-                
-            )
+            return renderGuardianOptions()
         }
         else if (user.role === "CHILD"){
             return(
@@ -458,33 +497,7 @@ export default function SettingsLanding() {
             )
         }
         else if (user.role === "THERAPIST" || user.role === "ADMIN"){ //role === "THERAPIST"
-            return(
-                <>
-                    <SelectionButton 
-                        title={"Screen Color"}
-                        plainCenter={true}
-                        onSelect={()=> setShowColorModal(true)}
-                        
-                    />
-                    <SelectionButton
-                        title={"Account Settings"}
-                        plainCenter={true}
-                        onSelect={() => navigation.navigate("GeneralSettings")}
-                    />
-                    <SelectionButton 
-                        title={"Edit Profile"}
-                        onSelect={() => navigation.navigate("ProfileEdit")}
-                        plainCenter={true}
-                    />
-                    {renderOrganizationSettings()}
-                    <SelectionButton 
-                        title={"Sign Out"}
-                        plainCenter={true}
-                        onSelect={() => setshowSignOutModal(true)}
-                    />
-                </>
-                
-            )
+            return renderTherapistOptions()
         }
         else{
             // Error
@@ -516,14 +529,23 @@ export default function SettingsLanding() {
     const selectOrCancelColors = async (input) => {
         // if CANCEL
         if (input === "cancel"){
-            await setColors(previousColors)
-            setShowColorModal(false)
+            if (colorsBeenChanged){
+                setLoading(true)
+                setColors(previousColors)
+                setShowColorModal(false)
+                setLoading(false)
+            }
+            else{
+                setShowColorModal(false)
+                setColors(colors)
+            }
         }
 
         // if CONFIRM
         else if (input === "confirm"){
             setShowColorModal(false)
-            colorMutation()
+            await colorMutation()
+            await getAndSetUser()
             .then((resolved) => {
             })
         }
@@ -536,20 +558,24 @@ export default function SettingsLanding() {
                 colorSettings: colorString
             }
         }).catch(err => console.log(err))
+        .then((resolved) => {
+            console.log(resolved)
+        })
     }
 
-    return (
-        // <SafeAreaView style={{ flex: 1, ...AREA.AndroidSafeArea }}>
-             <Gradient
-                colorOne={COLORS.gradientColor1}
-                colorTwo={COLORS.gradientColor2}
-                style={{height: '100%'}}
-            >
-                <View style={{marginLeft: 3}}>
-                    {MainRender()}
-                    {renderColorModal()}
-                </View>
-            </Gradient>
-        // </SafeAreaView>
-    );
+    // Gets the user obj and resets the userState
+    async function getAndSetUser(){
+        await client.query({
+            query: GET_USER,
+            fetchPolicy: 'network-only'  
+        })
+        .then(async (resolved) => {
+            await setUser(resolved.data.getUser)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
+    return MAIN()
 }
