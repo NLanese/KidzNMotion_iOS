@@ -4,6 +4,7 @@ import React, {useState, useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import VideoPlayer from "react-native-video-controls";
 import Modal from "react-native-modal";
+import Orientation from 'react-native-orientation';
 
 // Nuton
 import { Header, Button } from "../../../NutonComponents";
@@ -37,10 +38,7 @@ export default function WatchVideo(props) {
 ///                 ///
 ///   Preliminary   ///
 ///                 ///
-///////////////////////
-
-        var Orientation = require('react-native').NativeModules.Orientation
- 
+/////////////////////// 
 
     ///////////////
     // Constants // 
@@ -136,11 +134,11 @@ export default function WatchVideo(props) {
         }
         if (orientation === 'portrait'){
             setOrientation('landscape')
-            Orientation.lockToLandscape()
+            Orientation.lockToLandscape
         }
         else if (orientation === 'landscape'){
             setOrientation('portrait')
-            Orientation.lockToPortrait()
+            Orientation.lockToPortrait
         }
         console.log("Changed orientation")
         setChangeDems(!changeDems)
@@ -178,7 +176,7 @@ export default function WatchVideo(props) {
             return (
                 <Header 
                     onPress={() => {
-                        Orientation.lockToPortrait()
+                        Orientation.lockToPortrait
                         navigation.goBack()
                     }}
                     title="Video Library" 

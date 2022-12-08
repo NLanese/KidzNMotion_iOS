@@ -1,5 +1,9 @@
 #import "AppDelegate.h"
 
+// Orientation
+#import "Orientation.h"
+//
+
 // Firebase
 #import <Firebase.h>
 // #import <FirebaseCare/FirebaseCore.h>
@@ -40,7 +44,10 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
 @implementation AppDelegate
-
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window 
+{
+  return [Orientation getOrientation];
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
