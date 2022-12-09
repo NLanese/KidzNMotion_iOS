@@ -3,6 +3,18 @@
 <plist version="1.0">
 <dict>
 	
+	<!-- Camera USage -->
+	<key>NSCameraUsageDescription</key>
+	<string>Kidz-N-Motion is requesting access to take videos or pictures.</string>
+
+	<!-- Camera Libray -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Kidz-N-Motion is requesting access to your videos and pictures.</string>
+
+	<!-- Save Photos -->
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Kidz-N-Motion is requesting access to save videos or pictures.</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
