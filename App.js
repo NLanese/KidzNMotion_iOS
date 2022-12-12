@@ -203,19 +203,12 @@ const Stack = createNativeStackNavigator();
   useEffect(() => {
     handleUpdatePhoneToken()
     notificationConfigure()
-}, [])
+  }, [])
 
   async function handleUpdatePhoneToken(){
     const fcmToken = await messaging().getToken();
     console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-    console.log("TOKEN:::: ", fcmToken)
-}
+  }
 
   notificationConfigure = async () => {
     // check if we have permissions
