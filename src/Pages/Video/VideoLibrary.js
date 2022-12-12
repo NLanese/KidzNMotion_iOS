@@ -425,9 +425,9 @@ export default function VideoLibrary(props) {
                     return vid
                 }
             })
-            let i = filteredVideos.length
+            let i = filteredVideos.length + 1
             let rArray = []
-            while (i > 0){
+            while (i >= 0){
                 if (i >= 2){
                     rArray.unshift(renderVideoRow([filteredVideos[i], filteredVideos[i -1]]))
                     i = i - 2
@@ -446,14 +446,14 @@ export default function VideoLibrary(props) {
 
         // Renders a row of VideoItems. Either 2 or 1 depending on how many are left
         function renderVideoRow(items){
-            if (items.length > 1){
+            // if (items.length >= 1){
                 return(
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: 15}}>
                         <VideoItem videoObject={items[0]} handleTherapistSelectVideo={handleTherapistSelectVideo} videoState={videoState}/>
                         <VideoItem videoObject={items[1]} handleTherapistSelectVideo={handleTherapistSelectVideo} videoState={videoState}/>
                     </View>
                 )
-            }
+            // }
             
         }
 
