@@ -162,8 +162,6 @@ export default function VideoLibrary(props) {
             )
         }
 
-
-
     ///////////////
     // Therapist //
     ///////////////

@@ -69,7 +69,13 @@ const VisionComp = () => {
       const [user, setUser] = useRecoilState(userState)
 
       // Therapist of which the email is getting sent to
-      const therapist = user.children[0].childCarePlans[0].therapist
+      let therapist
+      if (user.role === "THERAPIST"){
+        therapist = user
+      }
+      else{
+        therapist = user.children[0].childCarePlans[0].therapist
+      }
 
       // Chatroom 
       const chatroom = getChatroomFromTherapist(user, therapist)
@@ -88,6 +94,9 @@ const VisionComp = () => {
     // Determines whether emails can be sent
     const [canSendEmails, setCanSendEmails] = useState(MailComposer.isAvailableAsync())
 
+    // Camera Permission State
+    const [cameraPerm, setCameraPerm] = useState(false)
+
 ///////////////////////
 ///                 ///
 ///    useEffect    ///
@@ -97,6 +106,13 @@ const VisionComp = () => {
 useEffect(() => {
   checkPermissions();
 }, []);
+
+useEffect(() => {
+  console.log("CAMERAPERM::::::", cameraPerm)
+  if (cameraPerm === "denied"){
+    checkPermissions()
+  }
+}, [cameraPerm])
 
 
 ///////////////////////
@@ -115,12 +131,14 @@ useEffect(() => {
 
     // Console log permissions
     const cameraPermission = await Camera.getCameraPermissionStatus();
+    console.log("CAMERA PERMISSION:::::: ", cameraPermission)
+    setCameraPerm(cameraPermission)
     const microphonePermission = await Camera.getMicrophonePermissionStatus();
   };
 
 
   // Starts the Video Recording, and beging handling 
-  const startVideoRecording = () => {
+  const startVideoRecording = async () => {
     setRecording(true)
     camera.current.startRecording({
       flash: 'on',
@@ -274,7 +292,7 @@ useEffect(() => {
     }
   }
 
-  // Renders The Camera 
+  // Renders The Camera, if permissed and not done recording
   function renderCameraScreen(){
     // No permissions
     if (device == null) return <View style={{backgroundColor: 'black'}}/>;
@@ -285,6 +303,16 @@ useEffect(() => {
         <View>
           <Text style={{...FONTS.Title, textAlign: 'center', marginTop: 100}}>
             Video Recorded
+          </Text>
+        </View>
+      )
+    }
+
+    if (!cameraPerm){
+      return(
+        <View>
+          <Text style={{...FONTS.Title, textAlign: 'center', marginTop: 100}}>
+            Please enable video permissions from your settings to access the camera
           </Text>
         </View>
       )
@@ -402,6 +430,11 @@ useEffect(() => {
         {renderHeader()}
         {renderOutterBorder()}
         {renderSendOrReplace()}
+        <View>
+          <Text style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
+            {/* {cameraPerm} */}
+          </Text>
+        </View>
       </Gradient>
     )
     // <View style={{flex: 1, backgroundColor: 'blue'}}>
