@@ -445,8 +445,6 @@ const Styles = StyleSheet.create({
                     style={{height: '100%'}}
                     value={textEntered}
                     onChangeText={(content) => setTextEntered(content)}
-                    // onChange={() => setMsgAreaHeight(0.5)}
-                    onEndEditing={() => setMsgAreaHeight(0.72)}
                     multiline={true}
                 />
             </View>
@@ -643,20 +641,21 @@ const Styles = StyleSheet.create({
 ///////////////////////
 
     return(
-        <Gradient
-        colorOne={COLORS.gradientColor1}
-        colorTwo={COLORS.gradientColor2}
-        style={{width: maxWidth * 1.00, height: '100%'}}
+        <KeyboardAvoidingView 
+        enableAutomaticScroll={false}  
+        keyboardShouldPersistTaps='handled'
+        behavior="padding"
+        style={{height: maxHeight}}
+        // keyboardVerticalOffset={-100}
         >
-            <KeyboardAvoidingView 
-            enableAutomaticScroll={false}  
-            enableOnAndroid         
-            keyboardShouldPersistTaps='handled'
-            behavior="padding"
+            <Gradient
+            colorOne={COLORS.gradientColor1}
+            colorTwo={COLORS.gradientColor2}
+            style={{flexGrow: 1}}
             >
                 {renderHeader()}
                 {MainRender()}
-            </KeyboardAvoidingView>
-        </Gradient>
+            </Gradient>
+        </KeyboardAvoidingView>
     )
 }

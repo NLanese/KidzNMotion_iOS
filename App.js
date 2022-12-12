@@ -241,17 +241,15 @@ const Stack = createNativeStackNavigator();
 
   return(
     <ErrorBoundary
-      onError={(error) => console.log("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}
+    onError={(error) => console.log("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}
     >
       <NavigationContainer>
         <ApolloProvider client={client}>
         <RecoilRoot>
-        
-
           <KeyboardAvoidingView
-          // behavior="padding"
+          behavior="padding"
           enabled
-          style={{flexGrow:1,height:'100%'}}
+          style={{flexGrow:1, height:'100%'}}
           >
             <View style={{width: '100%', height: '100%'}}>
               <Stack.Navigator 
