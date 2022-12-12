@@ -652,6 +652,7 @@ const Styles = StyleSheet.create({
             enableAutomaticScroll={false}  
             enableOnAndroid         
             keyboardShouldPersistTaps='handled'
+            behavior="padding"
             >
                 {renderHeader()}
                 {MainRender()}
