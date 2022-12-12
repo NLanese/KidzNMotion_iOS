@@ -84,7 +84,7 @@ export default function SignIn() {
         const [showPassword, setShowPassword] = useState(false)
 
         // Triggers RememberMe
-        const [rememberMe, setRememberMe] = useState(true);
+        const [rememberMe, setRememberMe] = useState(false);
 
         // Trakcs Username Input
         const [username_or_email, setUsername] = useState("")
