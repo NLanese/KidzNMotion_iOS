@@ -56,8 +56,6 @@ export default function VideoLibrary(props) {
     // Recoil //
     ////////////
 
-        console.log(userState)
-
         // User State
         const [user, setUser] = useRecoilState(userState)
 
@@ -429,11 +427,12 @@ export default function VideoLibrary(props) {
             let rArray = []
             while (i >= 0){
                 if (i >= 2){
-                    rArray.unshift(renderVideoRow([filteredVideos[i], filteredVideos[i -1]]))
+                    console.log(filteredVideos[i])
+                    rArray.push(renderVideoRow([filteredVideos[i], filteredVideos[i -1]]))
                     i = i - 2
                 }
                 else{
-                    rArray.unshift(renderVideoRow(filteredVideos[i]))
+                    rArray.push(renderVideoRow([filteredVideos[i]]))
                     i = i -1
                 }
             }
@@ -446,14 +445,21 @@ export default function VideoLibrary(props) {
 
         // Renders a row of VideoItems. Either 2 or 1 depending on how many are left
         function renderVideoRow(items){
-            // if (items.length >= 1){
+            if (items.length > 1){
                 return(
                     <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: 15}}>
                         <VideoItem videoObject={items[0]} handleTherapistSelectVideo={handleTherapistSelectVideo} videoState={videoState}/>
                         <VideoItem videoObject={items[1]} handleTherapistSelectVideo={handleTherapistSelectVideo} videoState={videoState}/>
                     </View>
                 )
-            // }
+            }
+            else{
+                return(
+                    <View style={{flexDirection: 'row', justifyContent: 'space-around', marginTop: 15}}>
+                        <VideoItem videoObject={items[0]} handleTherapistSelectVideo={handleTherapistSelectVideo} videoState={videoState}/>
+                    </View>
+                )
+            }
             
         }
 
@@ -509,7 +515,7 @@ export default function VideoLibrary(props) {
                 case 'record':
                     return renderRecordScreen()
                 default:
-                    console.log('select content error in VideoLibrary.js')
+                    console.error('select content error in VideoLibrary.js')
             }
         }
 
@@ -590,7 +596,6 @@ export default function VideoLibrary(props) {
 ///////////////////////////////
 
     function MAIN(){
-        console.log(loading)
         if (loading){
             return null
         }
