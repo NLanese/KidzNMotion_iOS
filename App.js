@@ -216,20 +216,16 @@ const Stack = createNativeStackNavigator();
 
     if (enabled === messaging.AuthorizationStatus.AUTHORIZED) {
       const fcmToken = await messaging().getToken();
-      console.log("TOKEN", fcmToken);
 
       if (fcmToken) {
-        console.log(fcmToken);
       } else {
         // user doesn't have a device token yet
         console.warn("no token");
       }
     } else {
       await messaging().requestPermission();
-      console.log("requested");
 
       enabled = await messaging().hasPermission();
-      console.log("done", enabled);
       if (!enabled) {
         return false;
       }
