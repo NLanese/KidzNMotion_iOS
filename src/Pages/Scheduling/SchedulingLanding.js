@@ -282,6 +282,7 @@ const Styles = StyleSheet.create({
                     return meeting
                 }
             }).map( (meeting , index)=> {
+                console.log(meeting.users)
                 let dt = convertDateTimeToJavaScript(meeting.meetingDateTime)
                 return(
                     <TouchableOpacity key={index}>
@@ -299,7 +300,7 @@ const Styles = StyleSheet.create({
                                     {meeting.type}
                                 </Text>
                                 <Text style={{...FONTS.SubTitle, color: COLORS.iconLight}}>
-                                    With {meeting.users[0].firstName}
+                                    With {meeting.users[1].firstName}
                                 </Text>
                             </View>
                         </View>

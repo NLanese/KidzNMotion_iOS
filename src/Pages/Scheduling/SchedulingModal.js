@@ -604,6 +604,8 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
 
         // Runs when a dropdown item has been clicked
         const handleDropIndexClick = (content, setter, getter) => {
+            console.log("Object selected: ")
+            console.log(content)
             let exists = false
             getter.forEach(got => {
                 if (got.id === content.id){
@@ -723,6 +725,8 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
     async function handleMeetingSubmissionClick(){
         setLoading(true)
         await selectedClients.forEach((client) => {
+            console.log("client to be mutated...")
+            console.log(client)
            handleCreateMeeting(client)
            .then( (resolved) => {
            })
