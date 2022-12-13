@@ -7,17 +7,23 @@ import Modal from "react-native-modal";
 // Nuton
 import { Header, Button, ProfileEditCategoryComponent } from "../../../NutonComponents";
 
+
+// Loading
+import LoadingComponent from "../../Global/LoadingComponent"
+
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
 import {sizeState, clientListState, userState, colorState, fontState } from '../../../Recoil/atoms';
 
 // Mutations 
 import { useMutation } from "@apollo/client";
-import { REQUEST_RESET_PASSWORD } from "../../../GraphQL/operations";
+import { REQUEST_RESET_PASSWORD, CHANGE_USER_NOTIFICATIONS, GET_USER } from "../../../GraphQL/operations";
+import apollo_client from "../../utils/apolloClient";
 
 // Ostrich
 import Gradient from "../../../OstrichComponents/Gradient";
 import SelectionButton from "../../../OstrichComponents/SelectionButton";
+import { useEffect } from "react";
 
 let maxWidth = Dimensions.get('window').width
 let maxHeight = Dimensions.get('window').height
@@ -39,9 +45,17 @@ export default function EditClientSettings(props) {
         const FONTS = useRecoilValue(fontState)
         const SIZES = useRecoilValue(sizeState)
 
+        // The Account Whose Settings You Are On
+        const client = props.route.params?.item
+
+        console.log(client.user)
+
     /////////////////
     // Local State //
     /////////////////
+
+        // Loading
+        const [loading, setLoading] = useState(false)
 
         // Modal For Reset Password
         const [showResetModal, setShowResetModal] = useState(false)
@@ -53,10 +67,14 @@ export default function EditClientSettings(props) {
         const [showDropClient, setShowDropClient] = useState(false)
 
         // Message Notifications
-        const [messageNotis, setMessageNotis] = useState(false)
+        let msgOg = false
+        if (client.user.role === "GUARDIAN"){
+            msgOg = client.user.messagesMuted
+        }
+        const [messageNotis, setMessageNotis] = useState(!msgOg)
 
         // Assignment Notifications
-        const [assNotis, setAssNotis] = useState(false)
+        const [assNotis, setAssNotis] = useState(!client.user.assignMuted)
 
 
     //////////////////
@@ -66,15 +84,22 @@ export default function EditClientSettings(props) {
         // User (Active)
         const [user, setUser] = useRecoilState(userState)
 
-        // The Account Whose Settings You Are On
-        const client = props.route.params?.item
-
     
     //////////////////
     //   Mutation   //
     //////////////////
 
-        const [resetPassword, { loading: loadingType, error: errorType, data: typeData }] = useMutation(REQUEST_RESET_PASSWORD);
+        const [requestResetPassword, { loading: loadingType, error: errorType, data: typeData }] = useMutation(REQUEST_RESET_PASSWORD);
+
+        const [changeUserNotifications, { loading: loadingN, error: errorN, data: typeN }] = useMutation(CHANGE_USER_NOTIFICATIONS);
+
+    ////////////////
+    // UseEffects //
+    ////////////////
+
+        useEffect(() => {
+            setLoading(false)
+        }, [user])
 
 //////////////////////
 ///                 ///
@@ -96,21 +121,17 @@ export default function EditClientSettings(props) {
         ) 
     }
 
+    // Renders the Selectables
     function renderOptions() {
         return(
             <View style={{marginTop: maxHeight * .20, marginLeft: -4}}>
-                <SelectionButton
-                    title={"Reset Password"}
-                    subtitle={"Send an email to this client to have them reset their password"}
-                    onSelect={() => setShowResetModal(true)}  
-                    leftAlign={true}
-                />
                 <SelectionButton
                     title={"Change Notifications"}
                     subtitle={"Enable or Disable Push Notifications for this Client"}
                     onSelect={() => setShowChangeNotifications(true)}  
                     leftAlign={true}
                 />
+                {/* {renderResetButton()} */}
                 <SelectionButton
                     title={"Drop Client"}
                     subtitle={"Remove this client from your list. \nTHIS CANNOT BE UNDONE"}
@@ -119,6 +140,23 @@ export default function EditClientSettings(props) {
                 />
             </View>
         )
+    }
+
+    // Renders the Reset Password button (Guardians Only)
+    function renderResetButton() {
+        if (client.user.role === "CHILD"){
+            return null
+        }
+        else{
+            return(
+                <SelectionButton
+                    title={"Reset Password"}
+                    subtitle={"Send an email to this client to have them reset their password"}
+                    onSelect={() => setShowResetModal(true)}  
+                    leftAlign={true}
+                />
+            )
+        }
     }
 
     // Renders the Reset Password Modal
@@ -326,6 +364,9 @@ export default function EditClientSettings(props) {
             caption = "Message Notifications"
             valueFunction = setMessageNotis 
             existingValue = messageNotis
+            if (client.user.role === "CHILD"){
+                return null
+            }
         }
         else if (type === "ass"){
             caption = "Assignment Notifications"
@@ -414,16 +455,16 @@ export default function EditClientSettings(props) {
                                 borderWidth: 1,
                             }}
                             onPress={() => {
+                                handleNotificationMutation()
                                 setShowChangeNotifications(false);
-                                // navigation.navigate("SignIn");
                             }}
                         >
                             <Text
                                 style={{
-                                    color: COLORS.confirm,
-                                    fontFamily: "Gilroy-SemiBold",
-                                    fontSize: 18,
-                                    textTransform: "capitalize",
+                                color: COLORS.confirm,
+                                fontFamily: "Gilroy-SemiBold",
+                                fontSize: 18,
+                                textTransform: "capitalize",
                                 }}
                             >
                                 Submit
@@ -460,6 +501,33 @@ export default function EditClientSettings(props) {
         );
     }
 
+    function MAIN(){
+        if (loading){
+            return(
+                <Gradient
+                colorOne={COLORS.gradientColor1}
+                colorTwo={COLORS.gradientColor2}
+                >
+                    <LoadingComponent loading={loading} />
+                </Gradient>
+            )
+        }
+        return(
+            <Gradient
+            colorOne={COLORS.gradientColor1}
+            colorTwo={COLORS.gradientColor2}
+            >
+                {renderHeader()}
+                <ScrollView contentContainerStyle={{height: "100%"}}>
+                    {renderOptions()}
+                </ScrollView>
+                {renderResetModal()}
+                {renderDropModal()}
+                {renderNotificationModal()}
+            </Gradient>
+        )
+    }
+
 ///////////////////////
 ///                 ///
 ///     Handlers    ///
@@ -468,7 +536,7 @@ export default function EditClientSettings(props) {
 
     // Reset Password Mutation (not whole function)
     const handleResetMutation = async () => {
-        return await resetPassword({
+        return await requestResetPassword({
             variables: {
                 email: client.email
             }  
@@ -479,13 +547,50 @@ export default function EditClientSettings(props) {
     const resetPasswordFunction = () => {
         handleResetMutation().then( resolved => {
             if (resolved){
+                console.log(resolved)
             }
             else{
+                console.log("ERROR")
             }
         })
     }
 
-    
+    // Handles the Change Notifications Mutation
+    function handleNotificationMutation(){
+        console.log(client.user.id)
+        console.log(messageNotis)
+        console.log(assNotis)
+        setLoading(true)
+        changeUserNotifications({
+            variables: {
+                userID: client.user.id,
+                messagesMuted: messageNotis,
+                assignMuted: assNotis,
+            }
+        })
+        .then(resolved => {
+            console.log(resolved)
+            getAndSetUser()
+        })
+        .catch(err => {
+            console.log(err)
+            setLoading(false)
+        })
+    }
+
+    // Gets the new user object with the revised client
+    async function getAndSetUser(){
+        await apollo_client.query({
+            query: GET_USER,
+            fetchPolicy: 'network-only'  
+        })
+        .then(async (resolved) => {
+            await setUser(resolved.data.getUser)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
 
 
 
@@ -495,18 +600,5 @@ export default function EditClientSettings(props) {
 ///                 ///
 ///////////////////////
 
-    return(
-        <Gradient
-            colorOne={COLORS.gradientColor1}
-            colorTwo={COLORS.gradientColor2}
-        >
-            {renderHeader()}
-            <ScrollView contentContainerStyle={{height: "100%"}}>
-                {renderOptions()}
-            </ScrollView>
-            {renderResetModal()}
-            {renderDropModal()}
-            {renderNotificationModal()}
-        </Gradient>
-    )
+    return MAIN()
 }
