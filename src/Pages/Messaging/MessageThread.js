@@ -641,21 +641,20 @@ const Styles = StyleSheet.create({
 ///////////////////////
 
     return(
-        // <KeyboardAvoidingView 
-        // enableAutomaticScroll={false}  
-        // keyboardShouldPersistTaps='handled'
-        // behavior="padding"
-        // style={{height: maxHeight}}
-        // // keyboardVerticalOffset={-100}
-        // >
-            <Gradient
-            colorOne={COLORS.gradientColor1}
-            colorTwo={COLORS.gradientColor2}
-            style={{flexGrow: 1}}
-            >
-                {renderHeader()}
-                {MainRender()}
-            </Gradient>
-        // </KeyboardAvoidingView>
+        <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{flex: 1}}
+        enabled
+        >
+            <View style={{flex: 1}}>
+                <Gradient
+                colorOne={COLORS.gradientColor1}
+                colorTwo={COLORS.gradientColor2}
+                >
+                    {renderHeader()}
+                    {MainRender()}
+                </Gradient>
+            </View>
+        </KeyboardAvoidingView>
     )
 }

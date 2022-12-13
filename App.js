@@ -246,11 +246,11 @@ const Stack = createNativeStackNavigator();
       <NavigationContainer>
         <ApolloProvider client={client}>
         <RecoilRoot>
-          <KeyboardAvoidingView
+          {/* <KeyboardAvoidingView
           behavior="padding"
           enabled
           style={{flexGrow:1, height:'100%'}}
-          >
+          > */}
             <View style={{flexGrow: 1}}>
               <Stack.Navigator 
                 screenOptions={{ headerStyle: {
@@ -367,7 +367,7 @@ const Stack = createNativeStackNavigator();
 
               </Stack.Navigator>
             </View>
-          </KeyboardAvoidingView>
+          {/* </KeyboardAvoidingView> */}
         </RecoilRoot>
         </ApolloProvider>
       </NavigationContainer>
