@@ -1,8 +1,7 @@
 // Reaact
-import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Dimensions, KeyboardAvoidingView, SafeAreaView, TouchableWithoutFeedback } from "react-native";
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Dimensions, TouchableWithoutFeedback } from "react-native";
 import React, {useState} from "react";
 import { useNavigation } from "@react-navigation/native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 // Pusher
 import pusherClient from "../../utils/pusherClient";
