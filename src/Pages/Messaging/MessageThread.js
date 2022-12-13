@@ -507,7 +507,6 @@ const Styles = StyleSheet.create({
                 {/* All messages */}
                 <TouchableWithoutFeedback onPress={() => setInMessageSpace(false)}>
                 <ScrollView style={Styles.messageSpace} contentContainerStyle={{paddingBottom: 40}}>
-                    
                         {renderAllMessages()}
                 </ScrollView>
                 </TouchableWithoutFeedback>
