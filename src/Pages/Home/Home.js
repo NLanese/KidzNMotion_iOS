@@ -162,8 +162,6 @@ export default function Home() {
 
             const [validVids, setValidVids] = useRecoilState(accessibleVideos)
 
-            console.log(user)
-
             // Fires wehen switching accounts
             useEffect(() => {
                 handleColorInput(user.colorSettings)
@@ -243,7 +241,8 @@ export default function Home() {
             useEffect(() => {
                 if (missedAss.length >= 1){
                     missedAss.forEach((mAss) => {
-                        handleMissedAssignmentMutation(mAss)
+                        console.log("MISSED ASSIGNMENT OBJECT: ", mAss)
+                        // handleMissedAssignmentMutation(mAss)
                     })
                 }
             }, [missedAss])
@@ -666,7 +665,7 @@ export default function Home() {
                 }
             })
             .then((resolved) => {
-                console.log("MISSED ASSIGN: ", resolved)
+                console.log("MISSED ASSIGN MUTATION: ", resolved)
             })
             .catch((err) => console.log(err))
         }

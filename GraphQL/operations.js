@@ -71,6 +71,7 @@ query Query{
             videos{
               id
               contentfulID
+              completed
             }
           }
           therapist{
@@ -91,6 +92,14 @@ query Query{
                 dateDue
                 title
                 description
+                childCarePlan{
+                  childId
+                }
+                videos{
+                  id
+                  contentfulID
+                  completed
+                }
               }
             }
           }
@@ -163,13 +172,22 @@ query Query{
                     profilePic
                   }
                 }
-              assignments{
-                id
-                dateStart
-                dateDue
-                title
-                description
-              }
+                assignments{
+                  id
+                  dateStart
+                  dateDue
+                  title
+                  description
+                  childCarePlan{
+                    childId
+                  }
+                  videos{
+                    id
+                    contentfulID
+                    completed
+                  }
+                }
+                
             }
           }
         }
