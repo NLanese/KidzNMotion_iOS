@@ -162,6 +162,7 @@ export default function Home() {
 
             const [validVids, setValidVids] = useRecoilState(accessibleVideos)
 
+            console.log(user)
 
             // Fires wehen switching accounts
             useEffect(() => {
@@ -665,7 +666,7 @@ export default function Home() {
                 }
             })
             .then((resolved) => {
-                console.log(resolved)
+                console.log("MISSED ASSIGN: ", resolved)
             })
             .catch((err) => console.log(err))
         }

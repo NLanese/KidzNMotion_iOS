@@ -65,6 +65,9 @@ query Query{
             dateDue
             title
             description
+            childCarePlan{
+              childId
+            }
             videos{
               id
               contentfulID
