@@ -1,7 +1,7 @@
 import convertMonthToNumber from "../date_and_time/convertMonthIntoNumber"
 
-export default function filterAssignments(ass){
-    
+export default function findMissedAssignments(ass){
+
     let nonComplete = ass.filter(a => {
         let allComplete = true
         a.videos.forEach(vid => {
