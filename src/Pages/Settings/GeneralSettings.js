@@ -267,15 +267,6 @@ export default function GeneralSettings() {
                                 />
                             </View>
                             <View style={{flexDirection: 'row', justifyContent: 'space-between',  borderColor: COLORS.borderColor, borderWidth: 1, padding: 4, paddingLeft: 8, paddingRight: 8, borderRadius: 10, marginBottom: 15}}>
-                                <Text style={{...FONTS.SubTitle, marginTop: 7, height: '100%' }}>
-                                    Child can access messages
-                                </Text>
-                                <Switch
-                                    onChange={() => makeToggle('message')}
-                                    value={childMessages}
-                                />
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between',  borderColor: COLORS.borderColor, borderWidth: 1, padding: 4, paddingLeft: 8, paddingRight: 8, borderRadius: 10, marginBottom: 15}}>
                                 <Text style={{...FONTS.SubTitle, height: '100%', marginTop: 7}}>
                                     Child can leave the app
                                 </Text>
@@ -591,7 +582,7 @@ export default function GeneralSettings() {
                 return(
                     <SelectionButton 
                         title={"Organization Settings"}
-                        plainCenter={true}
+                        // plainCenter={true}
                     />
                 )
             }

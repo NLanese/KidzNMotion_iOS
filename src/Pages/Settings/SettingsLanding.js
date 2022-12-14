@@ -111,10 +111,10 @@ export default function SettingsLanding() {
                 colorTwo={COLORS.gradientColor2}
                 style={{height: '100%'}}
                 >
-                    <View style={{marginLeft: 3}}>
+                    <ScrollView style={{marginLeft: 3}}>
                         {MainRender()}
                         {renderColorModal()}
-                    </View>
+                    </ScrollView>
                 </Gradient>
             )
         }
