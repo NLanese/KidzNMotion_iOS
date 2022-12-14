@@ -39,6 +39,7 @@ import getAllTherapistAssignments from "../../Hooks/value_extractors/therapistVa
 import getUserChatroom from "../../Hooks/value_extractors/getChatroom"
 import filterAssignments from "../../Hooks/value_extractors/filterAssignments"
 import findAllAssignedVideos from "../../Hooks/value_extractors/childAndGuardianValues/findAllAssignedVideos"
+import findMissedAssignments from '../../Hooks/value_extractors/findMissedAssignments';
 import checkToken from "../../utils/firebase/checkToken"
 
 // Dimensions
@@ -162,14 +163,29 @@ export default function Home() {
             useEffect(() => {
                 handleColorInput(user.colorSettings)
                 setAvatar(user.profilePic)
+
+                // CHILD
                 if (user.role === "CHILD"){
+
+                    let missed = findMissedAssignments(getAllChildAssignments(user))
+                    console.log(missed)
+
                     let assign = filterAssignments(getAllChildAssignments(user))
                     setAssign(assign)
                 }
+
+                // GUARDIAN
                 else if (user.role === "GUARDIAN"){
+
+                    let missed = findMissedAssignments(getAllGuardianAssignments(user)[0])
+                    console.log(missed)
+
+
                     let assign = filterAssignments(getAllGuardianAssignments(user)[0])
                     setAssign(assign)
                 }
+
+                // THERAPIST
                 else if (user.role === "THERAPIST"){
                     let assign = filterAssignments(getAllTherapistAssignments(user))
                     setAssign(assign)

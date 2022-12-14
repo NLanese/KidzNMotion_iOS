@@ -39,10 +39,10 @@ export default function findMissedAssignments(ass){
             }
 
             // Are the months the same?
-            else if (m == mm){
+            else if (m == am){
 
                 // As long as meeting date isnt less than current date
-                if (d <= md){
+                if (d <= ad){
                     return assign
                 }
             }
