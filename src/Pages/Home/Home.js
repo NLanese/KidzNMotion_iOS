@@ -856,7 +856,7 @@ export default function Home() {
                 }
             })
             .then((resolved) => {
-                console.log("resolved updatePhoneToken Mutation:", resolved)
+                // console.log("resolved updatePhoneToken Mutation:", resolved)
             })
             .catch(err => console.log(err))
         }
@@ -874,7 +874,7 @@ export default function Home() {
         await defaultAppMessaging.getToken()
         .then(resolved => {
             token = resolved
-            console.log("TOKEN :", token)
+            // console.log("TOKEN :", token)
         })
     }
 

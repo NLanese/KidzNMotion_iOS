@@ -199,19 +199,6 @@ useEffect(() => {
     })
   }
 
-  // Gets the user obj and resets the userState
-  async function getAndSetUser(){
-    await client.query({
-        query: GET_USER,
-        fetchPolicy: 'network-only'  
-    })
-    .then(async (resolved) => {
-        await setUser(resolved.data.getUser)
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-  }
 
   // Does all the mutations, queries, and state changes related nwith sending a message
   function handleSendMessage(){

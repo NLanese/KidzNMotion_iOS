@@ -1,4 +1,4 @@
-// Reaact
+// React
 import { View, Text, SafeAreaView, ScrollView, Image, ImageBackground, TouchableOpacity, Dimensions, Switch} from "react-native";
 import React, {useState} from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -6,7 +6,6 @@ import Modal from "react-native-modal";
 
 // Nuton
 import { Header, Button, ProfileEditCategoryComponent } from "../../../NutonComponents";
-
 
 // Loading
 import LoadingComponent from "../../Global/LoadingComponent"
@@ -48,7 +47,8 @@ export default function EditClientSettings(props) {
         // The Account Whose Settings You Are On
         const client = props.route.params?.item
 
-        console.log(client.user)
+        console.log("-=-=-=-=-=-=-=-=-=-=-")
+        console.log("THIS USER: ", {assignMuted: client.user.assignMuted, messagesMuted: client.user.messagesMuted})
 
     /////////////////
     // Local State //
@@ -557,9 +557,8 @@ export default function EditClientSettings(props) {
 
     // Handles the Change Notifications Mutation
     function handleNotificationMutation(){
-        console.log(client.user.id)
-        console.log(messageNotis)
-        console.log(assNotis)
+        console.log("Messages Muted? :", messageNotis)
+        console.log("Assignment Muted? :", assNotis)
         setLoading(true)
         changeUserNotifications({
             variables: {
@@ -569,7 +568,7 @@ export default function EditClientSettings(props) {
             }
         })
         .then(resolved => {
-            console.log(resolved)
+            console.log("RESOLVED: ", resolved)
             getAndSetUser()
         })
         .catch(err => {

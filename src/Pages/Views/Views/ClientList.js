@@ -218,6 +218,7 @@ export default function ClientList() {
         }
     }
 
+    // Renders the Selection Tab for Children or Parents
     function renderParentOrChildTabBar(){
         return(
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -232,7 +233,6 @@ export default function ClientList() {
             </View>
         )
     }
-
 
     // Renders Clients
     function renderClients() {

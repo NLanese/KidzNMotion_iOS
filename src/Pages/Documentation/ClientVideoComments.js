@@ -293,7 +293,6 @@ export default function ClientVideoComments(props) {
         })
         .catch(err => console.log(err))
         .then((resolved) => {
-            console.log(resolved)
         })
     }
 
