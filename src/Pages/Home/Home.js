@@ -24,7 +24,7 @@ import messaging from '@react-native-firebase/messaging';
 
 // GraphQL Apollo
 import { useMutation } from "@apollo/client";
-import { GET_USER, SWAP_TO_CHILD_ACCOUNT, USER_LOGIN, GET_NOTIFICATIONS, GET_CHILD_VIDEO_STATISTICS, UPDATE_PHONE_TOKEN } from "../../../GraphQL/operations";
+import { GET_USER, SWAP_TO_CHILD_ACCOUNT, USER_LOGIN, GET_NOTIFICATIONS, CREATE_USER_TO_USER_NOTIFICATION, UPDATE_PHONE_TOKEN } from "../../../GraphQL/operations";
 import client from '../../utils/apolloClient';
 
 // Ostrich
@@ -40,6 +40,7 @@ import getUserChatroom from "../../Hooks/value_extractors/getChatroom"
 import filterAssignments from "../../Hooks/value_extractors/filterAssignments"
 import findAllAssignedVideos from "../../Hooks/value_extractors/childAndGuardianValues/findAllAssignedVideos"
 import findMissedAssignments from '../../Hooks/value_extractors/findMissedAssignments';
+import findVideosMissing from '../../Hooks/value_extractors/findVideosMissed';
 import checkToken from "../../utils/firebase/checkToken"
 
 // Dimensions
@@ -65,6 +66,9 @@ export default function Home() {
 
     // Updates Firebase Token
     const [updatePhoneToken, { loading: loadingToken, error: errorToken, data: dataToken }] = useMutation(UPDATE_PHONE_TOKEN);
+
+    // Sends missed Assignment Push Notifications
+    const [sendMissedAssign, {loading: loadAss, error: errorAss, data: dataAss}] = useMutation(CREATE_USER_TO_USER_NOTIFICATION)
 
 
     ///////////////
@@ -168,21 +172,21 @@ export default function Home() {
                 if (user.role === "CHILD"){
 
                     let missed = findMissedAssignments(getAllChildAssignments(user))
-                    console.log(missed)
 
                     let assign = filterAssignments(getAllChildAssignments(user))
                     setAssign(assign)
+                    setMissedAss(missedAss => [...missed])
                 }
 
                 // GUARDIAN
                 else if (user.role === "GUARDIAN"){
 
                     let missed = findMissedAssignments(getAllGuardianAssignments(user)[0])
-                    console.log(missed)
 
 
                     let assign = filterAssignments(getAllGuardianAssignments(user)[0])
                     setAssign(assign)
+                    setMissedAss(missedAss => [...missed])
                 }
 
                 // THERAPIST
@@ -204,6 +208,8 @@ export default function Home() {
             const [msgNotiLen, setMsgNotiLen] = useState(msgNotis.length)
 
             const [schedNotisLen, setSchedNotisLen] = useState(schedNotis.length)
+
+            const [missedAss, setMissedAss] = useState([])
 
             const clearNotiData = async () => {
                 let clear = []
@@ -231,6 +237,15 @@ export default function Home() {
              useEffect(() => {
                 handleUpdatePhoneToken()
             }, [user])
+
+            // Shoots when missed assignments are loaded
+            useEffect(() => {
+                if (missedAss.length >= 1){
+                    missedAss.forEach((mAss) => {
+                        handleMissedAssignmentMutation(mAss)
+                    })
+                }
+            }, [missedAss])
 
 
 
@@ -636,6 +651,24 @@ export default function Home() {
 ///                 ///
 ///////////////////////
 
+    ////////////////////////
+    // Missed Assignments //
+    ////////////////////////
+
+        function handleMissedAssignmentMutation(missedAss){
+            return sendMissedAssign({
+                variables: {
+                    title: `${user.firstName.slice(0,1)} ${user.lastName} did not complete an Assignment`,
+                    description: `The Assignment had ${findVideosMissing(missedAss)}/${missedAss.videos.length} completed.`,
+                    type: "Missed Assignment",
+                    toUserId: user.therapist.id
+                }
+            })
+            .then((resolved) => {
+                console.log(resolved)
+            })
+            .catch((err) => console.log(err))
+        }
 
     /////////////////////
     // Switch to Child //
