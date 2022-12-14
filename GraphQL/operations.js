@@ -561,6 +561,8 @@ const EDIT_USER_NOTIFICATION_SETTINGS = gql`
       muteAssignmentNotifications: $muteAssignmentNotifications,
     ){
       id
+      assignMuted
+      messagesMuted
     }
   }
 `
