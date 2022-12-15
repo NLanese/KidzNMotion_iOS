@@ -59,6 +59,7 @@ query Query{
           weeklyVideoStatus
           active
           level
+          childId
           assignments{
             id
             dateStart
@@ -187,7 +188,7 @@ query Query{
                     completed
                   }
                 }
-                
+
             }
           }
         }
@@ -218,6 +219,7 @@ query Query{
         }
         childCarePlans{
           id
+          childId
         }
       }
       assignments{
@@ -226,9 +228,13 @@ query Query{
         dateDue
         title
         description
+        childCarePlan{
+          childId
+        }
         videos{
           id
           contentfulID
+          completed
         }
       }
     }
@@ -266,6 +272,7 @@ query Query{
           assignMuted
         }
         childCarePlans{
+          childId
           id
         }
       }
@@ -278,9 +285,11 @@ query Query{
         videos{
           id
           contentfulID
+          completed
         }
         childCarePlan{
           id
+          childId
           child{
             id
             firstName
@@ -308,6 +317,7 @@ query Query{
             children{
               id
               childCarePlans{
+                childId
                 therapist{
                   id
                 }
