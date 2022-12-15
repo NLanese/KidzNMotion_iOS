@@ -41,6 +41,7 @@ import filterAssignments from "../../Hooks/value_extractors/filterAssignments"
 import findAllAssignedVideos from "../../Hooks/value_extractors/childAndGuardianValues/findAllAssignedVideos"
 import findMissedAssignments from '../../Hooks/value_extractors/findMissedAssignments';
 import findVideosMissing from '../../Hooks/value_extractors/findVideosMissed';
+import findTherapist from '../../Hooks/value_extractors/childAndGuardianValues/findTherapist';
 import checkToken from "../../utils/firebase/checkToken"
 
 // Dimensions
@@ -243,11 +244,14 @@ export default function Home() {
             useEffect(() => {
                 if (missedAss.length >= 1){
                     missedAss.forEach((mAss) => {
-                        console.log("MISSED ASSIGNMENT OBJECT: ", mAss)
-                        // handleMissedAssignmentMutation(mAss)
+                        findTherapist(user, mAss.childCarePlan.childId)
+                        handleMissedAssignmentMutation(mAss)
                     })
                 }
             }, [missedAss])
+
+            useEffect(() => {
+            }, [])
 
 
 
@@ -663,7 +667,7 @@ export default function Home() {
                     title: `${user.firstName.slice(0,1)} ${user.lastName} did not complete an Assignment`,
                     description: `The Assignment had ${findVideosMissing(missedAss)}/${missedAss.videos.length} completed.`,
                     type: "Missed Assignment",
-                    toUserId: user.therapist.id
+                    toUserId: findTherapist(user, missedAss.childCarePlan.childId).id
                 }
             })
             .then((resolved) => {
