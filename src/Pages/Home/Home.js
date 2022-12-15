@@ -250,10 +250,6 @@ export default function Home() {
                 }
             }, [missedAss])
 
-            useEffect(() => {
-            }, [])
-
-
 
         /////////////
         // Testing //
@@ -666,7 +662,7 @@ export default function Home() {
                 variables: {
                     title: `${user.firstName.slice(0,1)} ${user.lastName} did not complete an Assignment`,
                     description: `The Assignment had ${findVideosMissing(missedAss)}/${missedAss.videos.length} completed.`,
-                    type: "Missed Assignment",
+                    type: missedAss.id,
                     toUserId: findTherapist(user, missedAss.childCarePlan.childId).id
                 }
             })

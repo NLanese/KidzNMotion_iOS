@@ -64,6 +64,8 @@ query Query{
             id
             dateStart
             dateDue
+            seen
+            notificationSent
             title
             description
             childCarePlan{
@@ -90,6 +92,8 @@ query Query{
               assignments{
                 id
                 dateStart
+                seen
+                notificationSent
                 dateDue
                 title
                 description
@@ -176,6 +180,8 @@ query Query{
                 assignments{
                   id
                   dateStart
+                  seen
+                  notificationSent
                   dateDue
                   title
                   description
@@ -224,8 +230,10 @@ query Query{
       }
       assignments{
         id
-        dateStart
         dateDue
+        seen
+        notificationSent
+        dateStart
         title
         description
         childCarePlan{
