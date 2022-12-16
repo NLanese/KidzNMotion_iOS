@@ -1,7 +1,6 @@
 // Reaact
 import { View, Text, SafeAreaView, ScrollView, Image, ImageBackground, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import React, {useState} from "react";
-import { Icon } from "@material-ui/core";
 
 
 ///////////////////////
@@ -75,6 +74,8 @@ export default function Dropdown({
 
     dropArray=[],                               // The Array of objects or values that will be dropdown items
     dropTitleProp=false,                        // If the array has objects, this will be the prop that is rendered and used to filter
+    secondDropTitleProp=false,                  // Second thing to display
+    thirdDropTitleProp=false,                   // Third
 
     dropIndexHeight=50,                         // Each Dropdown Item's height
     dropIndexStyle={...Styles.index},           // Each Dropdown Item's style
@@ -180,6 +181,12 @@ export default function Dropdown({
         let value = object
         if (dropTitleProp){
             value = object[dropTitleProp]
+        }
+        if (secondDropTitleProp){
+            value = `${value} ( ${object[secondDropTitleProp]} )`
+        }
+        if (thirdDropTitleProp){
+            value = `${value} ${object[thirdDropTitleProp]}`
         }
         return(
             <TouchableOpacity 

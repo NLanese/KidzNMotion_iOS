@@ -8,7 +8,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import {sizeState, userState, colorState, fontState, videoDataState, meetingState, assignState } from '../../../Recoil/atoms';
 
 // Apollo GraphQl
-import { GET_MEETINGS, CREATE_ASSIGNMENT, CREATE_MEETING } from "../../../GraphQL/operations";
+import { GET_MEETINGS, CREATE_ASSIGNMENT, CREATE_MEETING, CREATE_USER_TO_USER_NOTIFICATION } from "../../../GraphQL/operations";
 import { useMutation } from "@apollo/client";
 
 // Ostrich
@@ -118,6 +118,9 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
 
         // Create Meeting Mutation
         const [createMeeting, {loading: loadingMeeting, error: errorMeeting, data: meetingData}] = useMutation(CREATE_MEETING)
+
+        // Sends notification on scheduled meeting
+        const [sendAssign, {loading: loadAss, error: errorAss, data: dataAss}] = useMutation(CREATE_USER_TO_USER_NOTIFICATION)
 
 ///////////////////////
 ///                 ///
@@ -604,8 +607,6 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
 
         // Runs when a dropdown item has been clicked
         const handleDropIndexClick = (content, setter, getter) => {
-            console.log("Object selected: ")
-            console.log(content)
             let exists = false
             getter.forEach(got => {
                 if (got.id === content.id){
@@ -696,6 +697,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
 
     // Runs the create Assignment Mutation
     async function handleCreateAssignment(obj){
+        handleMadeAssignmentMutation({startDate: obj.startDate, user: obj.client.childCarePlans[0]})
         return await createAssignment({
             variables: {
                 childCarePlanID: obj.client.childCarePlans[0].id,
@@ -707,6 +709,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
             }
         })
         .then((resolved) => {
+            
         })
         .catch(err => {
             setLoading(false)
@@ -725,8 +728,6 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
     async function handleMeetingSubmissionClick(){
         setLoading(true)
         await selectedClients.forEach((client) => {
-            console.log("client to be mutated...")
-            console.log(client)
            handleCreateMeeting(client)
            .then( (resolved) => {
            })
@@ -752,7 +753,6 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         let submissionDate = new Date(`${dateAsArray[2]}-${dateAsArray[0]}-${dateAsArray[1]}T${timeArray[0]}:${timeArray[1]}:${timeArray[2]}.00Z`)
         submissionDate = submissionDate.setHours(submissionDate.getHours() + 1)
         submissionDate = new Date(submissionDate)
-        console.log("SUB DATE: ", submissionDate)
         return await createMeeting({
             variables: {
                 title: `${meetingDateObj} ${meetingType}`,
@@ -768,6 +768,21 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
             console.log("Error from handleCreateMeeting", err)
             setLoading(false)
         })
+    }
+
+    function handleMadeAssignmentMutation(ass){
+        return sendAssign({
+            variables: {
+                title: `You have a new Assignment Starting ${ass.startDate}`,
+                description: `The Assignment has ${selectedVideos.length} videos`,
+                type: "Assignment Scheduled",
+                toUserId: ass.user.id
+            }
+        })
+        .then((resolved) => {
+            console.log("MADE ASSIGN MUTATION: ", resolved)
+        })
+        .catch((err) => console.log(err))
     }
 
 
