@@ -561,7 +561,7 @@ export default function CalendarPage() {
             notisToDismiss.forEach((noti) => {
                 dismissNotificationsMutation(noti)
             })
-            // getAndSetNotifications()
+            getAndSetNotifications()
         }
 
         // Handles the actual dismissal mutation
@@ -612,6 +612,7 @@ export default function CalendarPage() {
                 }
             })
             .then(resolved => {
+                console.log(resolved)
             })
         }
 
