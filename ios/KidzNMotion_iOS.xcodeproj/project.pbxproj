@@ -674,7 +674,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KidzNMotion_iOS/KidzNMotion_iOS.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M7WJH63WRK;
+				DEVELOPMENT_TEAM = 6874HD5FF9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = KidzNMotion_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -687,7 +687,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.KidzNMotionNative;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.KidzNMotionIOS;
 				PRODUCT_NAME = KidzNMotion_iOS;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -703,7 +703,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KidzNMotion_iOS/KidzNMotion_iOS.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M7WJH63WRK;
+				DEVELOPMENT_TEAM = 6874HD5FF9;
 				INFOPLIST_FILE = KidzNMotion_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -715,7 +715,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.KidzNMotionNative;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.KidzNMotionIOS;
 				PRODUCT_NAME = KidzNMotion_iOS;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
