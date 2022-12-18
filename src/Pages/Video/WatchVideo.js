@@ -600,10 +600,10 @@ export default function WatchVideo(props) {
 
         // Brings up the Completion Modal
         function handleVideoEnd(){
-            if (user.role === "CHILD" || user.role === "GUARDIAN"){
+            // if (user.role === "CHILD" || user.role === "GUARDIAN"){
                 setIsFullscreen(false)
                 setShowComplete(true)
-            }
+            // }
         }
 
         // For Modal Questions. Handles the state changes for Video Questions
