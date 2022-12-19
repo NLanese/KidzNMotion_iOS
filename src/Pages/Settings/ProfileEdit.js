@@ -147,28 +147,30 @@ export default function ProfileEdit() {
     // Inputs that literally everyone (BUT CHILDREN) have
     function renderStaticInputs() {
         return (
-            <ScrollView
-                contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20 }}
+            <View style={{height: maxHeight * 0.45}}>
+                <ScrollView
+                contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20}}
                 showsVerticalScrollIndicator={false}
-            >
-                {renderDynamicInputs()}
-                <ProfileEditCategoryComponent
-                    title="First Name"
-                    placeholder={`${user.firstName}`}
-                    onChangeText={(e) => onChangeText(e,'firstName')}
-                />
-                <ProfileEditCategoryComponent
-                    title="Last Name"
-                    placeholder={`${user.lastName}`}
-                    onChangeText={(e) => onChangeText(e,'lastName')}
-                />
-                <ProfileEditCategoryComponent
-                    title="Phone Number"
-                    placeholder={user.phoneNumber}
-                    onChangeText={(e) => onChangeText(e,'phoneNumber')}
-                />
-                
-            </ScrollView>
+                >
+                    {renderDynamicInputs()}
+                    <ProfileEditCategoryComponent
+                        title="First Name"
+                        placeholder={`${user.firstName}`}
+                        onChangeText={(e) => onChangeText(e,'firstName')}
+                    />
+                    <ProfileEditCategoryComponent
+                        title="Last Name"
+                        placeholder={`${user.lastName}`}
+                        onChangeText={(e) => onChangeText(e,'lastName')}
+                    />
+                    <ProfileEditCategoryComponent
+                        title="Phone Number"
+                        placeholder={user.phoneNumber}
+                        onChangeText={(e) => onChangeText(e,'phoneNumber')}
+                    />
+                </ScrollView>
+            </View>
+            
         );
     }
 
@@ -492,6 +494,24 @@ export default function ProfileEdit() {
 
     }
 
+    // Renders Save and Delete Buttons
+    function renderButtons(){
+        return(
+            <View style={{width: '80%', marginLeft: '10%'}}>
+                <Button
+                    title="Save changes"
+                    onPress={() => {
+                        handleEditMutation()
+                    }}
+                />
+                <TouchableOpacity 
+                style={{backgroundColor: 'red', marginTop: 20, height: maxHeight * 0.07, borderRadius: 15, alignItems: 'center', justifyContent: 'center'}}>
+                    <Text style={{fontFamily: 'Gilroy-ExtraBold', fontSize: 18}}>DELETE PROFILE</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
 ///////////////////////////
 ///                     ///
 ///       Handler       ///
@@ -606,15 +626,7 @@ export default function ProfileEdit() {
                 {renderProfileAndChange()}
                 {renderStaticInputs()}
                 {renderAvatarModal()}
-                <View style={{width: '80%', marginLeft: '10%', marginBottom: 80}}>
-                    <Button
-                        title="Save changes"
-                        onPress={() => {
-                            handleEditMutation()
-                            // navigation.navigate("SettingsLanding")
-                        }}
-                    />
-                </View>
+                {renderButtons()}
             </Gradient>
         </KeyboardAwareScrollView>
     );
