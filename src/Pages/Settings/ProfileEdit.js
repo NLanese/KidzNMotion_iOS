@@ -78,6 +78,9 @@ export default function ProfileEdit() {
         // Tracks Avatar settings
         const [avatarSettings, setAvatarSettings] = useState({...avatar})
 
+        // Whether Deletion Modal is open
+        const [deleteModal, setDeleteModal] = useState(false)
+
 
 ///////////////////////////
 ///                     ///
@@ -285,7 +288,7 @@ export default function ProfileEdit() {
         )
     }
 
-    // facial hair?
+    // Facial hair?
     function renderFacialHair(){
         return(
             <View style={{flexDirection: "row"}}>
@@ -505,8 +508,95 @@ export default function ProfileEdit() {
                     }}
                 />
                 <TouchableOpacity 
+                onPress={() => setDeleteModal(true)}
                 style={{backgroundColor: 'red', marginTop: 20, height: maxHeight * 0.07, borderRadius: 15, alignItems: 'center', justifyContent: 'center'}}>
                     <Text style={{fontFamily: 'Gilroy-ExtraBold', fontSize: 18}}>DELETE PROFILE</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+    // Renders the confirmation to delete
+    function renderDeletionModal(){
+        console.log(deleteModal)
+        if (deleteModal){
+            return(
+                <Modal
+                isVisible={deleteModal}
+                onBackdropPress={() => setDeleteModal(false)}
+                hideModalContentWhileAnimating={true}
+                backdropTransitionOutTiming={0}
+                style={{ margin: 0 }}
+                animationIn="zoomIn"
+                animationOut="zoomOut"
+                >
+                    <View
+                    style={{
+                    width: SIZES.width - 40,
+                    backgroundColor: COLORS.white,
+                    marginHorizontal: 20,
+                    borderRadius: 10,
+                    paddingHorizontal: 20,
+                    paddingTop: 40,
+                    paddingBottom: 30,
+                    }}
+                    >
+                        {renderDeletionModalContent()}
+                    </View>
+                </Modal>
+            )
+        }
+    }
+
+    // Renders the Content of the Delete Modal
+    function renderDeletionModalContent(){
+        return(
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{fontFamily: "Gilroy-Bold", fontSize: 24, textAlign: 'center'}}>
+                    Do you really want to delete this account?
+                </Text>
+                <Text style={{marginTop: 10, fontSize: 16, fontFamily: 'Gilroy-SemiBold', letterSpacing: 0.5, color: 'slate'}}>
+                    This cannot be undone by anyone
+                </Text>
+                <View>
+                    {renderYesNoRow()}
+                </View>
+            </View>
+        )
+    }
+
+    // Renders the Yes or No for Deletion
+    function renderYesNoRow(){
+        return(
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: 30}}>
+
+                {/* Save Changes */}
+                <TouchableOpacity
+                    style={{ width: 160, height: 48,
+                        backgroundColor: COLORS.black,
+                        borderRadius: 10, marginHorizontal: 7.5,
+                        justifyContent: "center", alignItems: "center",
+                    }}
+                    onPress={() => { console.log("moo()") }}
+                >
+                    <Text style={{ color: COLORS.white, ...FONTS.ModalButton, textAlign: 'center'}}>
+                       Yes, I want to delete
+                    </Text>
+                </TouchableOpacity>
+
+                {/* Leave */}
+                <TouchableOpacity
+                    style={{ width: 80, height: 48,
+                        backgroundColor: COLORS.white, borderColor: COLORS.black, 
+                        borderRadius: 10, borderWidth: 1,
+                        justifyContent: "center", alignItems: "center",
+                        marginHorizontal: 7.5,   
+                    }}
+                    onPress={() => { console.log("moo()") }}
+                >
+                    <Text style={{ color: COLORS.black, ...FONTS.ModalButton, textAlign: 'center'}}>
+                        Cancel
+                    </Text>
                 </TouchableOpacity>
             </View>
         )
@@ -626,6 +716,7 @@ export default function ProfileEdit() {
                 {renderProfileAndChange()}
                 {renderStaticInputs()}
                 {renderAvatarModal()}
+                {renderDeletionModal()}
                 {renderButtons()}
             </Gradient>
         </KeyboardAwareScrollView>
