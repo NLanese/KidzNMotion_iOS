@@ -592,7 +592,7 @@ export default function ProfileEdit() {
                         justifyContent: "center", alignItems: "center",
                         marginHorizontal: 7.5,   
                     }}
-                    onPress={() => { console.log("moo()") }}
+                    onPress={() => { setDeleteModal(false) }}
                 >
                     <Text style={{ color: COLORS.black, ...FONTS.ModalButton, textAlign: 'center'}}>
                         Cancel
@@ -692,6 +692,8 @@ export default function ProfileEdit() {
             }
         }).catch(err => console.log(err))
     }
+
+    // 
 
 
 ///////////////////////////
