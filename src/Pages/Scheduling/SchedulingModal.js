@@ -362,6 +362,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
 
                             dropArray={clients}
                             dropTitleProp={"firstName"}
+                            secondDropTitleProp={"lastName"}
                             
                             onTitleClick={() => setShowClientDropdown(!showClientDropdown)}
                             onIndexClick={(content) => handleDropIndexClick(content, setSelectedClients, selectedClients)}
@@ -384,6 +385,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
 
                             dropArray={guardianClients}
                             dropTitleProp={"firstName"}
+                            secondDropTitleProp={"lastName"}
                             
                             onTitleClick={() => setShowClientDropdown(!showClientDropdown)}
                             onIndexClick={(content) => handleDropIndexClick(content, setSelectedClients, selectedClients)}
@@ -770,6 +772,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         })
     }
 
+    // Sends the Notification for the Scheduled Assignment
     function handleMadeAssignmentMutation(ass){
         return sendAssign({
             variables: {
