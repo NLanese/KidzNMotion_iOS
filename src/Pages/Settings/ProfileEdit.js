@@ -158,27 +158,29 @@ export default function ProfileEdit() {
     // Inputs that literally everyone (BUT CHILDREN) have
     function renderStaticInputs() {
         return (
-            <View style={{height: maxHeight * 0.45}}>
+            <View>
             <TouchableOpacity onPress={() => setKeyBoard(false)}>
+                <View style={{marginRight: '10%', marginLeft: '5%'}}>
                     {renderDynamicInputs()}
                     <ProfileEditCategoryComponent
                         title="First Name"
                         placeholder={`${user.firstName}`}
                         onChangeText={(e) => onChangeText(e,'firstName')}
-                        onPressIn={() => setKeyBoard(true)}
+                        // onPressIn={() => setKeyBoard(true)}
                     />
                     <ProfileEditCategoryComponent
                         title="Last Name"
                         placeholder={`${user.lastName}`}
                         onChangeText={(e) => onChangeText(e,'lastName')}
-                        onPressIn={() => setKeyBoard(true)}
+                        // onPressIn={() => setKeyBoard(true)}
                     />
                     <ProfileEditCategoryComponent
                         title="Phone Number"
                         placeholder={user.phoneNumber}
                         onChangeText={(e) => onChangeText(e,'phoneNumber')}
-                        onPressIn={() => setKeyBoard(true)}
+                        // onPressIn={() => setKeyBoard(true)}
                     />
+                </View>
             </TouchableOpacity>
                     
             </View>
@@ -466,7 +468,7 @@ export default function ProfileEdit() {
                         title="Username"
                         placeholder={user.username}
                         onChangeText={(e) => onChangeText(e,'username')}
-                        onPressIn={() => setKeyBoard(true)}
+                        // onPressIn={() => setKeyBoard(true)}
                     />
                 </>
             )
@@ -478,13 +480,13 @@ export default function ProfileEdit() {
                         title="Username"
                         placeholder={user.username}
                         onChangeText={(e) => onChangeText(e,'username')}
-                        onPressIn={() => setKeyBoard(true)}
+                        // onPressIn={() => setKeyBoard(true)}
                     />
                     <ProfileEditCategoryComponent
                         title="Email"
                         placeholder={user.email}
                         onChangeText={(e) => onChangeText(e,'email')}
-                        onPressIn={() => setKeyBoard(true)}
+                        // onPressIn={() => setKeyBoard(true)}
                     />
                 </>
 
@@ -512,8 +514,9 @@ export default function ProfileEdit() {
     // Renders Save and Delete Buttons
     function renderButtons(){
         return(
-            <View style={{width: '80%', marginLeft: '10%'}}>
+            <View style={{width: '80%', marginLeft: '10%', marginTop: 30}}>
                 <Button
+                    style={{marginTop: 10}}
                     title="Save changes"
                     onPress={() => {
                         handleEditMutation()
@@ -716,9 +719,9 @@ export default function ProfileEdit() {
 
     return (
         <KeyboardAwareScrollView
-            showsVerticalScrollIndicator={false}
-            bounces={false}
-            style={{paddingBottom: 0}}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+        style={{paddingBottom: 0}}
         >
              <Gradient
             colorOne={COLORS.gradientColor1}
@@ -729,8 +732,9 @@ export default function ProfileEdit() {
                     <View style={{marginTop: 45}}>
                         {renderHeader()}
                         <ScrollView
-                        contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20}}
+                        contentContainerStyle={{paddingBottom: 20}}
                         showsVerticalScrollIndicator={false}
+                        style={{paddingBottom: 40}}
                         >
                             {renderProfileAndChange()}
                             {renderStaticInputs()}
