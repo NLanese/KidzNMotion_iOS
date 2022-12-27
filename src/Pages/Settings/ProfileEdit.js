@@ -1,6 +1,6 @@
 // React
-import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity, Dimensions } from "react-native";
-import React, { useState } from "react";
+import { View, Text, SafeAreaView, ScrollView, Image, TouchableWithoutFeedback, TouchableOpacity, Dimensions } from "react-native";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -81,6 +81,26 @@ export default function ProfileEdit() {
         // Whether Deletion Modal is open
         const [deleteModal, setDeleteModal] = useState(false)
 
+        // In Input to ddetermine keyboard activity
+        const [keyboard, setKeyBoard] = useState(false)
+
+        // Padding between keyboard and page
+        const [bottomPad, setBottomPad] = useState(0)
+
+
+        // Manual KeyboardAwareView
+        useEffect(() => {
+            console.log("changed")
+            if (keyboard){
+                console.log("padding")
+                setBottomPad(-155)
+            }
+            else{
+                console.log("none")
+                setBottomPad(0)
+            }
+        }, [keyboard])
+
 
 ///////////////////////////
 ///                     ///
@@ -114,18 +134,6 @@ export default function ProfileEdit() {
     function renderProfileAndChange(){
         return(
             <View>
-                {/* <ImageBackground
-                    source={{ uri: "https://via.placeholder.com/360x360" }}
-                    style={{
-                        width: 120,
-                        height: 120,
-                        alignSelf: "center",
-                        marginTop: 20,
-                        marginBottom: 20,
-                    }}
-
-                    imageStyle={{ borderRadius: 60 }}
-                /> */}
                 <PersonasAvatar 
                     style={{
                             width: 120,
@@ -151,27 +159,28 @@ export default function ProfileEdit() {
     function renderStaticInputs() {
         return (
             <View style={{height: maxHeight * 0.45}}>
-                <ScrollView
-                contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20}}
-                showsVerticalScrollIndicator={false}
-                >
+            <TouchableOpacity onPress={() => setKeyBoard(false)}>
                     {renderDynamicInputs()}
                     <ProfileEditCategoryComponent
                         title="First Name"
                         placeholder={`${user.firstName}`}
                         onChangeText={(e) => onChangeText(e,'firstName')}
+                        onPressIn={() => setKeyBoard(true)}
                     />
                     <ProfileEditCategoryComponent
                         title="Last Name"
                         placeholder={`${user.lastName}`}
                         onChangeText={(e) => onChangeText(e,'lastName')}
+                        onPressIn={() => setKeyBoard(true)}
                     />
                     <ProfileEditCategoryComponent
                         title="Phone Number"
                         placeholder={user.phoneNumber}
                         onChangeText={(e) => onChangeText(e,'phoneNumber')}
+                        onPressIn={() => setKeyBoard(true)}
                     />
-                </ScrollView>
+            </TouchableOpacity>
+                    
             </View>
             
         );
@@ -457,6 +466,7 @@ export default function ProfileEdit() {
                         title="Username"
                         placeholder={user.username}
                         onChangeText={(e) => onChangeText(e,'username')}
+                        onPressIn={() => setKeyBoard(true)}
                     />
                 </>
             )
@@ -468,11 +478,13 @@ export default function ProfileEdit() {
                         title="Username"
                         placeholder={user.username}
                         onChangeText={(e) => onChangeText(e,'username')}
+                        onPressIn={() => setKeyBoard(true)}
                     />
                     <ProfileEditCategoryComponent
                         title="Email"
                         placeholder={user.email}
                         onChangeText={(e) => onChangeText(e,'email')}
+                        onPressIn={() => setKeyBoard(true)}
                     />
                 </>
 
@@ -709,17 +721,25 @@ export default function ProfileEdit() {
             style={{paddingBottom: 0}}
         >
              <Gradient
-                colorOne={COLORS.gradientColor1}
-                colorTwo={COLORS.gradientColor2}
-                style={{height: maxHeight}}
+            colorOne={COLORS.gradientColor1}
+            colorTwo={COLORS.gradientColor2}
+            style={{height: maxHeight, marginTop: bottomPad}}
             >
-                <View style={{marginTop: 45}} />
-                {renderHeader()}
-                {renderProfileAndChange()}
-                {renderStaticInputs()}
-                {renderAvatarModal()}
-                {renderDeletionModal()}
-                {renderButtons()}
+                <TouchableWithoutFeedback onPress={() => setKeyBoard(false)}>
+                    <View style={{marginTop: 45}}>
+                        {renderHeader()}
+                        <ScrollView
+                        contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20}}
+                        showsVerticalScrollIndicator={false}
+                        >
+                            {renderProfileAndChange()}
+                            {renderStaticInputs()}
+                            {renderButtons()}
+                        </ScrollView>
+                        {renderAvatarModal()}
+                        {renderDeletionModal()}
+                    </View>
+                </TouchableWithoutFeedback>
             </Gradient>
         </KeyboardAwareScrollView>
     );

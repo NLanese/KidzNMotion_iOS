@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { colorState, fontState } from '../Recoil/atoms';
 import { Shadow } from "react-native-shadow-2";
 
-export default function ProfileEditCategoryComponent({ title, placeholder, onChangeText }) {
+export default function ProfileEditCategoryComponent({ title, placeholder, onChangeText, onPressIn=function(){return null}}) {
     const COLORS = useRecoilValue(colorState)
     const FONTS = useRecoilValue(fontState)
     return (
@@ -45,6 +45,7 @@ export default function ProfileEditCategoryComponent({ title, placeholder, onCha
                     placeholder={placeholder}
                     placeholderTextColor={COLORS.bodyTextColor}
                     onChangeText={onChangeText}
+                    onPressIn={() => onPressIn()}
                 />
             </TouchableOpacity>
         </Shadow>
