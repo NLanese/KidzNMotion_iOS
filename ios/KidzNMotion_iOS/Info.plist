@@ -37,8 +37,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Kidz-N-Motion is requesting access to take videos or pictures.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Kidz-N-Motion is requesting access to your microphone when recording.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Kidz-N-Motion is requesting access to save videos or pictures.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
