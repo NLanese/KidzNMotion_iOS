@@ -245,6 +245,13 @@ query Query{
           completed
         }
       }
+      therapist{
+        id
+        firstName,
+        lastName,
+        profilePic
+        email
+      }
     }
 
     patientCarePlans {
