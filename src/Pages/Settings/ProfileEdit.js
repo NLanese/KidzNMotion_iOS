@@ -514,7 +514,7 @@ export default function ProfileEdit() {
     // Renders Save and Delete Buttons
     function renderButtons(){
         return(
-            <View style={{width: '80%', marginLeft: '10%', marginTop: 30}}>
+            <View style={{width: '80%', marginLeft: '10%', marginTop: 30, marginBottom: 30}}>
                 <Button
                     style={{marginTop: 10}}
                     title="Save changes"
@@ -732,7 +732,7 @@ export default function ProfileEdit() {
                     <View style={{marginTop: 45}}>
                         {renderHeader()}
                         <ScrollView
-                        contentContainerStyle={{paddingBottom: 20}}
+                        contentContainerStyle={{paddingBottom: 40}}
                         showsVerticalScrollIndicator={false}
                         style={{paddingBottom: 40}}
                         >
