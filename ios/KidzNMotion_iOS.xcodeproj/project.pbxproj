@@ -18,7 +18,10 @@
 		3921D0423EFF4FAF98627AFC /* Spartan-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2858A35A94694B08B2860F42 /* Spartan-ExtraLight.ttf */; };
 		3A0BDF1AA6C84E7A8DD737DC /* Spartan-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0F36AB5F6B48F280F4F33C /* Spartan-Medium.ttf */; };
 		3B22B1C94F20420484AD1862 /* Gilroy-UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26746532FBAF49E9AEB6027C /* Gilroy-UltraLight.ttf */; };
-		402BCB9D2956475900D7ACC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 402BCB9C2956475900D7ACC0 /* GoogleService-Info.plist */; };
+		403D84E32965F58D00E26329 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 403D84E22965F58D00E26329 /* GoogleService-Info.plist */; };
+		403D84E42965F58D00E26329 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 403D84E22965F58D00E26329 /* GoogleService-Info.plist */; };
+		403D84E62965F5A900E26329 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 403D84E52965F5A900E26329 /* GoogleService-Info.plist */; };
+		403D84E72965F5A900E26329 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 403D84E52965F5A900E26329 /* GoogleService-Info.plist */; };
 		4434232D6C5D4F9C9ECDE89F /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0C428C9FBC401DA98E65DD /* Gilroy-Regular.ttf */; };
 		49FCD3C103194752AA8A57C1 /* Gilroy-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8ACC997D24384EE8ACAC1CE3 /* Gilroy-ExtraBold.ttf */; };
 		55D53996A7684D8295E7E3D6 /* Spartan-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221C8A4CF5FA47D898B09F41 /* Spartan-Thin.ttf */; };
@@ -76,8 +79,8 @@
 		30115C0B88974C3CBED76E93 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		31ECC1F79E754F69AA075AC4 /* Spartan-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Light.ttf"; path = "../assets/fonts/Spartan-Light.ttf"; sourceTree = "<group>"; };
 		3E3101DB30970DFB5952B3EA /* Pods-KidzNMotion_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		402BCB9C2956475900D7ACC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4040F1A229412E8F006A7256 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		403D84E22965F58D00E26329 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		403D84E52965F5A900E26329 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		408505FF29423451000705E7 /* KidzNMotion_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = KidzNMotion_iOS.entitlements; path = KidzNMotion_iOS/KidzNMotion_iOS.entitlements; sourceTree = "<group>"; };
 		40EFA430081649069B7C676B /* LeagueSpartan-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "LeagueSpartan-SemiBold.ttf"; path = "../assets/fonts/LeagueSpartan-SemiBold.ttf"; sourceTree = "<group>"; };
 		47272F3D42DF4FC69EA0FFDA /* Spartan-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Spartan-Bold.ttf"; path = "../assets/fonts/Spartan-Bold.ttf"; sourceTree = "<group>"; };
@@ -191,8 +194,8 @@
 		13B07FAE1A68108700A75B9A /* KidzNMotion_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				403D84E52965F5A900E26329 /* GoogleService-Info.plist */,
 				408505FF29423451000705E7 /* KidzNMotion_iOS.entitlements */,
-				4040F1A229412E8F006A7256 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -223,7 +226,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				402BCB9C2956475900D7ACC0 /* GoogleService-Info.plist */,
+				403D84E22965F58D00E26329 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* KidzNMotion_iOS */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* KidzNMotion_iOSTests */,
@@ -363,6 +366,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				403D84E42965F58D00E26329 /* GoogleService-Info.plist in Resources */,
+				403D84E72965F5A900E26329 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,9 +390,10 @@
 				F9AC72B25878494F8C9B143F /* Lato-Bold.ttf in Resources */,
 				7EA4612BFBE34CE88788759F /* Lato-Medium.ttf in Resources */,
 				D8CAB8BEF1E948499C70E52B /* Lato-Regular.ttf in Resources */,
+				403D84E62965F5A900E26329 /* GoogleService-Info.plist in Resources */,
 				5DBE30DA5BCC44FA87490E5C /* Lato-Semibold.ttf in Resources */,
 				98CEA8C37D224F80B89FC623 /* LeagueSpartan-Bold.ttf in Resources */,
-				402BCB9D2956475900D7ACC0 /* GoogleService-Info.plist in Resources */,
+				403D84E32965F58D00E26329 /* GoogleService-Info.plist in Resources */,
 				A26945D252E049EAA4287E74 /* LeagueSpartan-Medium.ttf in Resources */,
 				9C55392D68F64E2D86DD22D2 /* LeagueSpartan-Regular.ttf in Resources */,
 				8522AB75EC5A488BAA0B181F /* LeagueSpartan-SemiBold.ttf in Resources */,
