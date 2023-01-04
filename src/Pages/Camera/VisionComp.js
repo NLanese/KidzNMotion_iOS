@@ -195,7 +195,7 @@ useEffect(() => {
     MailComposer.composeAsync({
       recipients: [therapist.email],
       subject: `Video Of Exercise From: ${user.firstName} ${user.lastName}`,
-      body: "Beta Testing",
+      body: "These are videos uploaded for your viewing",
       attachments: [videoPath]
     })
     .catch((err) => console.log(err))
