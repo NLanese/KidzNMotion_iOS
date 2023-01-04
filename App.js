@@ -207,7 +207,7 @@ const Stack = createNativeStackNavigator();
 
   async function handleUpdatePhoneToken(){
     const fcmToken = await messaging().getToken();
-    // console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
   }
 
   notificationConfigure = async () => {
@@ -237,7 +237,7 @@ const Stack = createNativeStackNavigator();
 
   return(
     <ErrorBoundary
-    onError={(error) => console.log("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}
+    onError={(error) => console.error("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}
     >
       <NavigationContainer>
         <ApolloProvider client={client}>
