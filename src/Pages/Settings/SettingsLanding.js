@@ -377,15 +377,16 @@ export default function SettingsLanding() {
     }
 
     function renderOrgCode(){
-        if (user.role === "THERAPIST"){
-            console.log({...user, chatRooms: [], fcmToken: "", ownedOrganization: ""})
-            console.log(user.organizations)
-            return(
-                <Text style={{...FONTS.Title, fontSize: 28, textAlign: 'center', color: "#777", marginBottom: 15}}>
-                    SignUp Code: 
-                </Text>
-            )
-        }
+        // if (user.role === "THERAPIST"){
+        //     console.log({...user, chatRooms: [], fcmToken: "", ownedOrganization: ""})
+        //     console.log(user.organizations)
+        //     return(
+        //         <Text style={{...FONTS.Title, fontSize: 28, textAlign: 'center', color: "#777", marginBottom: 15}}>
+        //             SignUp Code: 
+        //         </Text>
+        //     )
+        // }
+        return null
     }
 
     // Main Render Boi
