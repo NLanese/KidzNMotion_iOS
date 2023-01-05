@@ -56,6 +56,7 @@ export default function Profile(props) {
 
         // Client
         const [selectedClient, setSelectedClient] = useRecoilState(selectedClientState)
+        console.log(selectedClient)
 
 ///////////////////////
 ///                 ///
@@ -98,11 +99,6 @@ export default function Profile(props) {
                         centerTitle={true}
                         onSelect={() => navigation.navigate("MyMedals", {item: selectedClient})}   
                     />
-                    {/* <SelectionButton
-                        title={"Video Settings"}
-                        centerTitle={true}
-                        onSelect={() => navigation.navigate("ProfileVideoSettings", {item: client})}
-                    /> */}
                 </>
             )
         }
@@ -110,10 +106,7 @@ export default function Profile(props) {
 
     // Renders the Appropriate Settings for whichever user is on this page
     function renderButtons() {
-        if (user.role === "GUARDIAN" || user.role === "CHILD"){  //role === "GUARDIAN"
-
-        }
-        else if (user.role === "THERAPIST"){
+        if (user.role === "THERAPIST"){
             return(
                 <View style={{marginLeft: -5}}>
                     <SelectionButton
@@ -122,11 +115,6 @@ export default function Profile(props) {
                         onSelect={() => navigation.navigate("EditClientSettings", {item: selectedClient})}  
                     />
                     {renderChildOptionsButton()}
-                    {/* <SelectionButton
-                        title={"Message"}
-                        centerTitle={true}      
-                        onSelect={() => navigation.navigate("")}   
-                    /> */}
                     <SelectionButton
                         title={"Schedule a Meeting"}
                         centerTitle={true}
@@ -142,9 +130,6 @@ export default function Profile(props) {
                 </View>
             )
         }
-        else if (user.role === "ADMIN"){
-
-        }
     }
 
 ///////////////////////
@@ -152,11 +137,6 @@ export default function Profile(props) {
 ///     Handlers    ///
 ///                 ///
 ///////////////////////
-
-    // Handles the click when a message button is selected
-    function handleMessageClick(){
-
-    }
 
 
     return (
