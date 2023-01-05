@@ -283,13 +283,14 @@ export default function EditClientSettings(props) {
                     <Text
                         style={{
                             textAlign: "center",
-                            ...FONTS.H2,
-                            lineHeight: 20 * 1.5,
+                            fontFamily: "Gilroy-Bold",
                             marginBottom: 30,
-                            textTransform: "capitalize",
                         }}
                     >
-                        {`Do you really want to remove ${client.firstName} ${client.lastName} from your network? \n Warning: This cannot be undone`}
+                        {`Do you really want to remove ${client.user.firstName} ${client.user.lastName} from your network?`}
+                    </Text>
+                    <Text style={{ textAlign: "center", fontFamily: "Gilroy-SemiBold", marginBottom: 30, marginTop: -20}}>
+                        Warning: This cannot be undone
                     </Text>
                     <View
                         style={{
@@ -309,10 +310,11 @@ export default function EditClientSettings(props) {
                                 marginHorizontal: 7.5,
                                 borderColor: COLORS.buttonBorder,
                                 borderWidth: 1,
+                                borderColor: 'black',
+                                borderWidth: 1,
                             }}
                             onPress={() => {
                                 setShowDropClient(false);
-                                // navigation.navigate("SignIn");
                             }}
                         >
                             <Text
