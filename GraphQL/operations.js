@@ -653,6 +653,16 @@ const EDIT_COLOR_SETTINGS = gql`
   }
 `
 
+const DELETE_PATIENT = gql`
+  mutation Mutation(
+    $patientUserID: String!
+  ){
+    deletePatient(
+      patientUserID: $patientUserID
+    )
+  }
+`
+
 //////////////////////////////////////////
 //                                      //
 //              CREATORS                //   
@@ -1023,6 +1033,7 @@ export {   //
   EDIT_USER_NOTIFICATION_SETTINGS,
   CHANGE_PROFILE_PICTURE,
   EDIT_COLOR_SETTINGS,
+  DELETE_PATIENT,
   
   REQUEST_RESET_PASSWORD,
   CHANGE_CHILD_PASSWORD,
