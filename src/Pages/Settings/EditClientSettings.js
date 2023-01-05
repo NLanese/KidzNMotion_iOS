@@ -1,6 +1,6 @@
 // React
 import { View, Text, SafeAreaView, ScrollView, Image, ImageBackground, TouchableOpacity, Dimensions, Switch} from "react-native";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 
@@ -12,7 +12,7 @@ import LoadingComponent from "../../Global/LoadingComponent"
 
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
-import {sizeState, clientListState, userState, colorState, fontState } from '../../../Recoil/atoms';
+import {sizeState, clientListState, userState, colorState, fontState, selectedClientState } from '../../../Recoil/atoms';
 
 // Mutations 
 import { useMutation } from "@apollo/client";
@@ -22,7 +22,10 @@ import apollo_client from "../../utils/apolloClient";
 // Ostrich
 import Gradient from "../../../OstrichComponents/Gradient";
 import SelectionButton from "../../../OstrichComponents/SelectionButton";
-import { useEffect } from "react";
+
+// Hooks
+import getAllTherapistClients from "../../Hooks/value_extractors/therapistValues/getAllTherapistClients"
+
 
 let maxWidth = Dimensions.get('window').width
 let maxHeight = Dimensions.get('window').height
@@ -35,6 +38,17 @@ export default function EditClientSettings(props) {
 ///                 ///
 ///////////////////////
 
+    //////////////////
+    // Recoil State //
+    //////////////////
+
+        // User (Active)
+        const [user, setUser] = useRecoilState(userState)
+
+        const [clients, setClients] = useRecoilState(clientListState)
+
+        const [selectedClient, setSelectedClient] = useRecoilState(selectedClientState)
+
     ///////////////
     // Constants // 
     ///////////////
@@ -43,12 +57,6 @@ export default function EditClientSettings(props) {
         const COLORS = useRecoilValue(colorState)
         const FONTS = useRecoilValue(fontState)
         const SIZES = useRecoilValue(sizeState)
-
-        // The Account Whose Settings You Are On
-        const client = props.route.params?.item
-
-        console.log("-=-=-=-=-=-=-=-=-=-=-")
-        console.log("THIS USER: ", {assignMuted: client.user.assignMuted, messagesMuted: client.user.messagesMuted})
 
     /////////////////
     // Local State //
@@ -71,20 +79,11 @@ export default function EditClientSettings(props) {
         if (client.user.role === "GUARDIAN"){
             msgOg = client.user.messagesMuted
         }
-        const [messageNotis, setMessageNotis] = useState(!msgOg)
+        const [messageNotisMuted, setMessageNotisMuted] = useState(!msgOg)
 
         // Assignment Notifications
-        const [assNotis, setAssNotis] = useState(!client.user.assignMuted)
+        const [assNotisMuted, setassNotisMuted] = useState(client.user.assignMuted)
 
-
-    //////////////////
-    // Recoil State //
-    //////////////////
-
-        // User (Active)
-        const [user, setUser] = useRecoilState(userState)
-
-    
     //////////////////
     //   Mutation   //
     //////////////////
@@ -364,16 +363,23 @@ export default function EditClientSettings(props) {
         let existingValue = ""
         if (type === "message"){
             caption = "Message Notifications"
-            valueFunction = setMessageNotis 
-            existingValue = messageNotis
+            existingValue = messageNotisMuted
+            valueFunction = () => { 
+                setmessageNotisMuted(!assNotisMuted)
+                setSelectedClient(selectedClient => ({...selectedClient, user: {...selectedClient.user, messagesMuted: !assNotisMuted}}))
+            } 
             if (client.user.role === "CHILD"){
                 return null
             }
         }
         else if (type === "ass"){
-            caption = "Assignment Notifications"
-            valueFunction = setAssNotis 
-            existingValue = assNotis
+            caption = "Assignments Muted"
+            valueFunction = () => { 
+                setassNotisMuted(!assNotisMuted)
+                setSelectedClient(selectedClient => ({...selectedClient, user: {...selectedClient.user, assignMuted: !assNotisMuted}}))
+            } 
+            existingValue = assNotisMuted
+
         }
         return(
             <View style={{flexDirection: 'row', width: '90%', marginLeft: '3%', marginBottom: 15 }}>
@@ -413,17 +419,7 @@ export default function EditClientSettings(props) {
                     }}
                 >
                     {/* Announcement */}
-                    <Text
-                        style={{
-                            textAlign: "center",
-                            fontFamily: 'Gilroy-Bold',
-                            fontSize: 17,
-                            letterSpacing: 0.5,
-                            lineHeight: 20 * 1.5,
-                            marginBottom: 30,
-                            textTransform: "capitalize",
-                        }}
-                    >
+                    <Text style={{ textAlign: "center", fontFamily: 'Gilroy-Bold', fontSize: 17, letterSpacing: 0.5, lineHeight: 20 * 1.5, marginBottom: 30,  textTransform: "capitalize", }}>
                         Set your notifications for this user
                     </Text>
 
@@ -559,14 +555,14 @@ export default function EditClientSettings(props) {
 
     // Handles the Change Notifications Mutation
     function handleNotificationMutation(){
-        console.log("Messages Muted? :", messageNotis)
-        console.log("Assignment Muted? :", assNotis)
+        console.log("Messages Muted? :", messageNotisMuted)
+        console.log("Assignment Muted? :", assNotisMuted)
         setLoading(true)
         changeUserNotifications({
             variables: {
                 userID: client.user.id,
-                messagesMuted: messageNotis,
-                assignMuted: assNotis,
+                messagesMuted: messageNotisMuted,
+                assignMuted: assNotisMuted,
             }
         })
         .then(resolved => {
@@ -587,6 +583,7 @@ export default function EditClientSettings(props) {
         })
         .then(async (resolved) => {
             await setUser(resolved.data.getUser)
+            await setClients(resolved.data.getUser)
         })
         .catch((error) => {
             console.log(error)

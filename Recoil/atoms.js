@@ -52,6 +52,11 @@ import { COLORS, FONTS, SIZES, DEFAULT_AVATAR } from '../NutonConstants';
 		default: false
 	})
 
+	export const selectedClientState = atom({
+		key: "selectedClientState",
+		default: false
+	})
+
 //////////////////
 // MEDAL STATES //
 //////////////////

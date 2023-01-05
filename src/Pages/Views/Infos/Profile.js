@@ -11,7 +11,7 @@ import { Heart, Gift, CreditCard, HelpCircle, FileText, LogOut, Edit, Message, V
 
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
-import { colorState, fontState, sizeState, user, userState } from '../../../../Recoil/atoms';
+import { colorState, fontState, sizeState, userState, selectedClientState } from '../../../../Recoil/atoms';
 
 // Gradient
 import Gradient from "../../../../OstrichComponents/Gradient";
@@ -30,8 +30,6 @@ export default function Profile(props) {
     //////////////////
     // Route Params //
     //////////////////
-
-        const client = props.route.params?.item
 
     ////////////////
     // Constants  //
@@ -56,6 +54,9 @@ export default function Profile(props) {
         // User
         const [user, setUser] = useRecoilState(userState)
 
+        // Client
+        const [selectedClient, setSelectedClient] = useRecoilState(selectedClientState)
+
 ///////////////////////
 ///                 ///
 ///    Renderings   ///
@@ -66,7 +67,7 @@ export default function Profile(props) {
     function renderHeader() {
         return (
             <Header
-                title={`${client.user.firstName}'s Profile`}
+                title={`${selectedClient.user.firstName}'s Profile`}
                 goBack={true}
                 profile={true}
                 onPress={() => navigation.goBack()}
@@ -89,13 +90,13 @@ export default function Profile(props) {
 
     // Renders View Medals for Children Clients only
     function renderChildOptionsButton(){
-        if (client.user.role === "CHILD"){
+        if (selectedClient.user.role === "CHILD"){
             return(
                 <>
                     <SelectionButton
                         title={"View Medals"}
                         centerTitle={true}
-                        onSelect={() => navigation.navigate("MyMedals", {item: client})}   
+                        onSelect={() => navigation.navigate("MyMedals", {item: selectedClient})}   
                     />
                     {/* <SelectionButton
                         title={"Video Settings"}
@@ -118,7 +119,7 @@ export default function Profile(props) {
                     <SelectionButton
                         title={"Account Settings"}
                         centerTitle={true}
-                        onSelect={() => navigation.navigate("EditClientSettings", {item: client})}  
+                        onSelect={() => navigation.navigate("EditClientSettings", {item: selectedClient})}  
                     />
                     {renderChildOptionsButton()}
                     {/* <SelectionButton
@@ -135,7 +136,7 @@ export default function Profile(props) {
                         title={"Documentation and Comments"}
                         centerTitle={true}
                         onSelect={() => navigation.navigate("Comments", {
-                            item: client
+                            item: selectedClient
                         })}
                     />
                 </View>
