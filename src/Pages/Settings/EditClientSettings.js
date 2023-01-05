@@ -76,13 +76,13 @@ export default function EditClientSettings(props) {
 
         // Message Notifications
         let msgOg = false
-        if (client.user.role === "GUARDIAN"){
-            msgOg = client.user.messagesMuted
+        if (selectedClient.user.role === "GUARDIAN"){
+            msgOg = selectedClient.user.messagesMuted
         }
         const [messageNotisMuted, setMessageNotisMuted] = useState(!msgOg)
 
         // Assignment Notifications
-        const [assNotisMuted, setassNotisMuted] = useState(client.user.assignMuted)
+        const [assNotisMuted, setassNotisMuted] = useState(selectedClient.user.assignMuted)
 
     //////////////////
     //   Mutation   //
@@ -143,7 +143,7 @@ export default function EditClientSettings(props) {
 
     // Renders the Reset Password button (Guardians Only)
     function renderResetButton() {
-        if (client.user.role === "CHILD"){
+        if (selectedClient.user.role === "CHILD"){
             return null
         }
         else{
@@ -190,7 +190,7 @@ export default function EditClientSettings(props) {
                             textTransform: "capitalize",
                         }}
                     >
-                        Send a Reset Password Email To {client.email}?
+                        Send a Reset Password Email To {selectedClient.email}?
                     </Text>
                     <View
                         style={{
@@ -286,7 +286,7 @@ export default function EditClientSettings(props) {
                             marginBottom: 30,
                         }}
                     >
-                        {`Do you really want to remove ${client.user.firstName} ${client.user.lastName} from your network?`}
+                        {`Do you really want to remove ${selectedClient.user.firstName} ${selectedClient.user.lastName} from your network?`}
                     </Text>
                     <Text style={{ textAlign: "center", fontFamily: "Gilroy-SemiBold", marginBottom: 30, marginTop: -20}}>
                         Warning: This cannot be undone
@@ -368,7 +368,7 @@ export default function EditClientSettings(props) {
                 setmessageNotisMuted(!assNotisMuted)
                 setSelectedClient(selectedClient => ({...selectedClient, user: {...selectedClient.user, messagesMuted: !assNotisMuted}}))
             } 
-            if (client.user.role === "CHILD"){
+            if (selectedClient.user.role === "CHILD"){
                 return null
             }
         }
@@ -536,7 +536,7 @@ export default function EditClientSettings(props) {
     const handleResetMutation = async () => {
         return await requestResetPassword({
             variables: {
-                email: client.email
+                email: selectedClient.email
             }  
         })
     }
@@ -560,7 +560,7 @@ export default function EditClientSettings(props) {
         setLoading(true)
         changeUserNotifications({
             variables: {
-                userID: client.user.id,
+                userID: selectedClient.user.id,
                 messagesMuted: messageNotisMuted,
                 assignMuted: assNotisMuted,
             }
