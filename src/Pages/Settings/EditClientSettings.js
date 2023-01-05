@@ -16,7 +16,7 @@ import {sizeState, clientListState, userState, colorState, fontState, selectedCl
 
 // Mutations 
 import { useMutation } from "@apollo/client";
-import { REQUEST_RESET_PASSWORD, CHANGE_USER_NOTIFICATIONS, GET_USER } from "../../../GraphQL/operations";
+import { REQUEST_RESET_PASSWORD, CHANGE_USER_NOTIFICATIONS, GET_USER, DELETE_PATIENT } from "../../../GraphQL/operations";
 import apollo_client from "../../utils/apolloClient";
 
 // Ostrich
@@ -31,7 +31,7 @@ let maxWidth = Dimensions.get('window').width
 let maxHeight = Dimensions.get('window').height
 
 
-export default function EditClientSettings(props) {
+export default function EditClientSettings() {
 ///////////////////////
 ///                 ///
 ///   Preliminary   ///
@@ -91,6 +91,8 @@ export default function EditClientSettings(props) {
         const [requestResetPassword, { loading: loadingType, error: errorType, data: typeData }] = useMutation(REQUEST_RESET_PASSWORD);
 
         const [changeUserNotifications, { loading: loadingN, error: errorN, data: typeN }] = useMutation(CHANGE_USER_NOTIFICATIONS);
+
+        const [deletePatient, { loading: loadingD, error: errorD, data: typeD }] = useMutation(DELETE_PATIENT);
 
     ////////////////
     // UseEffects //
@@ -313,7 +315,7 @@ export default function EditClientSettings(props) {
                                 borderWidth: 1,
                             }}
                             onPress={() => {
-                                setShowDropClient(false);
+                                handleDelete()
                             }}
                         >
                             <Text
@@ -575,15 +577,35 @@ export default function EditClientSettings(props) {
         })
     }
 
+    function handleDelete(){
+        deleteMutation().then(resolved => {
+            getAndSetUser()
+            .then(() => {
+                navigation.navigate("Home")
+            })
+        })
+    }
+
+    async function deleteMutation(){
+        return await deletePatient({
+            variables: {
+                patientUserID: selectedClient.user.id
+            }
+        })
+    }
+
     // Gets the new user object with the revised client
     async function getAndSetUser(){
-        await apollo_client.query({
+        return await apollo_client.query({
             query: GET_USER,
             fetchPolicy: 'network-only'  
         })
-        .then(async (resolved) => {
-            await setUser(resolved.data.getUser)
-            await setClients(resolved.data.getUser)
+        .then((resolved) => {
+            setUser(resolved.data.getUser)
+            setClients(getAllTherapistClients(resolved.data.getUser))
+        })
+        .then(() => {
+            return true
         })
         .catch((error) => {
             console.log(error)
