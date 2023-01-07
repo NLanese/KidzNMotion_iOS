@@ -478,15 +478,9 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         // Renders the Assign or Cancel Buttons in the Assignment Modal
         function renderMeetingOrCancelForModal(){
             return(
-                <View
-                    style={{
-                        marginTop: 30,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
+                <View style={{marginTop: 30, flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
 
+                    {renderSubmitButton("meeting")}
 
                     <TouchableOpacity
                         style={{
@@ -530,14 +524,14 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
                         </TouchableOpacity>
                     )
                 }
-                else if (type === "meet"){
+                else if (type === "meeting"){
                     return(
                         <TouchableOpacity
                         style={{width: 130, height: 48, backgroundColor: COLORS.buttonColorLight, borderRadius: 10, justifyContent: "center", alignItems: "center", marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1}}
                         onPress={() => {handleMainSubmit("meeting")}}
                         >
                             <Text style={{ color: COLORS.confirm, ...FONTS.Lato_700Bold, fontSize: 18, textTransform: "capitalize" }} >
-                                Assign
+                                Schedule
                             </Text>
                         </TouchableOpacity>
                     )
@@ -546,10 +540,9 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
             else{
                 return(
                     <View
-                    style={{width: 130, height: 48, backgroundColor: "grey", borderRadius: 10, justifyContent: "center", alignItems: "center", marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1}}
-                    >
+                    style={{width: 130, height: 48, backgroundColor: "grey", borderRadius: 10, justifyContent: "center", alignItems: "center", marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1}}>
                         <Text style={{ color: COLORS.confirm, ...FONTS.Lato_700Bold, fontSize: 18, textTransform: "capitalize" }} >
-                            Assign
+                            Needs Clients
                         </Text>
                     </View>
                 )
