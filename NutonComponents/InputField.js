@@ -12,7 +12,7 @@ export default function InputField(props) {
         icon,
         secureTextEntry,
         title,
-        onChangeText,
+        onChangeText=function(){return null},
         placeholderTextColor,
         titleTextColor,
         multiline,

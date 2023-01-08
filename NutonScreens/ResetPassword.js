@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, Image, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView, Image, TouchableOpacity, ScrollView, View } from "react-native";
 import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
@@ -40,7 +40,7 @@ export default function ResetPassword() {
 
     function renderContent() {
         return (
-            <KeyboardAwareScrollView
+            <ScrollView
                 contentContainerStyle={{
                     paddingTop: 34,
                     paddingHorizontal: 20,
@@ -82,15 +82,16 @@ export default function ResetPassword() {
                         navigation.navigate("YourPasswordHasBeenReset")
                     }
                 />
-            </KeyboardAwareScrollView>
+                <View style={{height: 120}}/>
+            </ScrollView>
         );
     }
 
     return (
-        <SafeAreaView style={{ ...AndroidSafeArea.AndroidSafeArea }}>
+        <View>
             {renderBackground()}
             {renderHeader()}
             {renderContent()}
-        </SafeAreaView>
+        </View>
     );
 }

@@ -282,7 +282,6 @@ const Styles = StyleSheet.create({
                     return meeting
                 }
             }).map( (meeting , index)=> {
-                console.log(meeting.users)
                 let dt = convertDateTimeToJavaScript(meeting.meetingDateTime)
                 return(
                     <TouchableOpacity key={index}>

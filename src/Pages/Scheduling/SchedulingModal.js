@@ -773,6 +773,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         let submissionDate = new Date(`${dateAsArray[2]}-${dateAsArray[0]}-${dateAsArray[1]}T${timeArray[0]}:${timeArray[1]}:${timeArray[2]}.00Z`)
         submissionDate = submissionDate.setHours(submissionDate.getHours() + 1)
         submissionDate = new Date(submissionDate)
+        // submissionDate = (submissionDate.toISOString().replace(".000Z", ""))
         return await createMeeting({
             variables: {
                 title: `${meetingDateObj} ${meetingType}`,
