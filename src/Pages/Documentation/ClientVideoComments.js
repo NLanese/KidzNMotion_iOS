@@ -9,18 +9,19 @@ import { Button, Header } from "../../../NutonComponents";
 
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
-import {sizeState, clientListState, userState, colorState, fontState, avatarState, videoDataState, tokenState } from '../../../Recoil/atoms';
+import {sizeState, clientListState, userState, colorState, fontState, avatarState, videoDataState, tokenState, selectedClientState } from '../../../Recoil/atoms';
 
 // GraphQL
 import { CREATE_COMMENT, GET_USER } from "../../../GraphQL/operations";
 import { useMutation } from "@apollo/client";
-import client from "../../utils/apolloClient";
+import apollo_client from "../../utils/apolloClient";
 
 // Ostrich 
 import Gradient from "../../../OstrichComponents/Gradient";
 
 // Hooks
 import convertReactCalandarDateString from "../../Hooks/date_and_time/convertReactCalandarDateString"
+import getAllTherapistClients from "../../Hooks/value_extractors/therapistValues/getAllTherapistClients"
 
 // Dimensions
 let maxWidth = Dimensions.get('window').width
@@ -37,10 +38,6 @@ export default function ClientVideoComments(props) {
     // Constants // 
     ///////////////
 
-        let client1 = props.route.params?.item
-        const plan = client1.plan
-        const client = client1.user
-
         const COLORS = useRecoilValue(colorState)
         const FONTS = useRecoilValue(fontState)
         const SIZES = useRecoilValue(sizeState)
@@ -55,6 +52,8 @@ export default function ClientVideoComments(props) {
         const [selectedVid, setSelectedVid] = useState(false)
 
         const [selectedComments, setSelectedComments] = useState([])
+
+        const [loading, setLoading] = useState(false)
 
         // Determines whether the comment modal is open or not
         const [modalOpen, setModalOpen] = useState(false)
@@ -78,6 +77,12 @@ export default function ClientVideoComments(props) {
 
     const [user, setUser] = useRecoilState(userState)
 
+    const [selectedClient, setSelectedClient] = useRecoilState(selectedClientState)
+
+    const client = selectedClient.user
+
+    const [clients, setClients] = useRecoilState(clientListState)
+
     const token = useRecoilValue(tokenState)
 
     ////////////////
@@ -90,7 +95,7 @@ export default function ClientVideoComments(props) {
         let newComments = commentIds
 
         // Goes through ever Comment
-        plan.comments.forEach( (comment, i) => {
+        selectedClient.plan.comments.forEach( (comment, i) => {
 
             // If a video id alredy has comments, add this to it
             if (newComments[(comment.videoId)]){
@@ -106,7 +111,7 @@ export default function ClientVideoComments(props) {
 
         // Sets the overall object
         setCommentIds( commentIds => ({...{...newComments}}))
-    }, [client1])
+    }, [selectedClient])
 
 
     ///////////////
@@ -149,11 +154,14 @@ export default function ClientVideoComments(props) {
 
     // Renders all Video Tabs with Comments 
     function renderAllVideoComments(){
+
+        // Removes 'great job' from videos
         let filtered = videos.filter(vid => {
             if (vid.title !== "Great Job"){
                 return vid
             }
         })
+        
         return filtered.map( (video, index) => {
             let count = 0
             let theseComments = []
@@ -218,7 +226,7 @@ export default function ClientVideoComments(props) {
         return(
             <View>
                 <Text style={{...FONTS.SubTitle, fontSize: 20, textAlign: 'center', marginBottom: 4}}>
-                    Comments for {client1.user.firstName} {client1.user.lastName}
+                    Comments for {selectedClient.user.firstName} {selectedClient.user.lastName}
                 </Text>
                 <Text style={{...FONTS.SubTitle, textAlign: 'center', marginBottom: 10}}>
                     {selectedVid.title}
@@ -264,6 +272,22 @@ export default function ClientVideoComments(props) {
         )
     }
 
+    function MAIN(){
+        if (!loading){
+            return(
+                <View style={{marginRight: 5, marginLeft: 5, borderColor: 'white', borderWidth: 1, borderRadius: 15, marginTop: 15, height: maxHeight * 0.70}} >
+                    <ScrollView>
+                        {renderAllVideoComments()}
+                        {renderCommentModal()}
+                    </ScrollView>
+                </View>
+            )
+        }
+        else{
+            return null
+        }
+    }
+
 
 ///////////////////////
 ///                 ///
@@ -280,10 +304,12 @@ export default function ClientVideoComments(props) {
 
     // Runs the Save Comment Process
     function handleSaveComment(video){
+        setLoading(true)
         createCommentMutation(video)
         .then(() => {
             setTextEntered("")
             setModalOpen(false)
+            setLoading(false)
         })
     }
 
@@ -291,27 +317,36 @@ export default function ClientVideoComments(props) {
     async function createCommentMutation(video){
         return await createComment({
             variables: {
-                childCarePlanID: plan.id,
+                childCarePlanID: selectedClient.plan.id,
                 commentContent: textEntered,
                 videoID: video.id
             }
         })
-        .catch(err => console.log(err))
-        .then((resolved) => {
+        .catch(err => {
+            console.log(error, "============323\n===========")
+        })
+        .then(async (resolved) => {
+            console.log("Create Comment RESOLVED:::::", resolved)
+            getAndSetUser()
         })
     }
 
-    // Gets Refreshed User Object and Updates the User Atom
+    // Gets the new user object with the revised client
     async function getAndSetUser(){
-        await client.query({
+        await apollo_client.query({
             query: GET_USER,
             fetchPolicy: 'network-only'  
         })
-        .then(async (resolved) => {
-            // setUser(resolved.data.getUser)
+        .then((resolved) => {
+            console.log("GETUSER WAS GOT")
+            setUser(resolved.data.getUser)
+            setClients(getAllTherapistClients(resolved.data.getUser))
+        })
+        .then(() => {
+            return true
         })
         .catch((error) => {
-            console.log(error, "============\n591\n===========")
+            console.log(error)
         })
     }
 
@@ -328,14 +363,7 @@ export default function ClientVideoComments(props) {
         >
             {renderHeader()}
             {renderTitle()}
-            <View 
-            style={{marginRight: 5, marginLeft: 5, borderColor: 'white', borderWidth: 1, borderRadius: 15, marginTop: 15, height: maxHeight * 0.70}}
-            >
-                <ScrollView>
-                    {renderAllVideoComments()}
-                    {renderCommentModal()}
-                </ScrollView>
-            </View>
+            {MAIN()}
         </Gradient>
     )
 }
