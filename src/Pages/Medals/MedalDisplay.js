@@ -75,7 +75,13 @@ export default function MedalDisplay(props) {
 
             // Renders all of the Medals
             function renderAllMedals(){
-                let len = videos.length
+                let filteredVideos = videos.filter(vid => {
+                    console.log(vid.title)
+                    if (vid.title !== "Great Job"){
+                        return vid
+                    }                 
+                })
+                let len = filteredVideos.length
                 let i = 0
                 let rArray = []
                 while (i < len){
@@ -84,15 +90,15 @@ export default function MedalDisplay(props) {
                     //     i = i + 4
                     // }
                     if (i + 2 < len){
-                        rArray = ([...rArray, [videos[i], videos[i + 1], videos[i + 2]]])
+                        rArray = ([...rArray, [filteredVideos[i], filteredVideos[i + 1], filteredVideos[i + 2]]])
                         i = i + 3
                     }
                     else if (i + 1 < len){
-                        rArray = ([...rArray, [videos[i], videos[i + 1]]])
+                        rArray = ([...rArray, [filteredVideos[i], filteredVideos[i + 1]]])
                         i = i + 2
                     }
                     else{
-                        rArray = ([...rArray, [videos[i]]])
+                        rArray = ([...rArray, [filteredVideos[i]]])
                         i = i + 1
                     }
                 }
@@ -120,13 +126,11 @@ export default function MedalDisplay(props) {
                 /////////////////////
                 // Prepping Styles //
                 let color = type.toLowerCase()
-
                 if (color === "bronze"){
                     color = "brown"
                 }
-
+                console.log(video)
                 let title = convertSlugToName(video.id)
-
 
                 ///////////////
                 // Rendering //
@@ -138,7 +142,9 @@ export default function MedalDisplay(props) {
                             borderRadius: 15, padding: 6, paddingTop: 10
                         }} key={i}>
                             <MedalTab fillColor={color} strokeColor={COLORS.iconDark}/>
-                            <Text style={{textAlign: 'center', marginTop :10, fontFamily: 'Gilroy-Regular', color: COLORS.iconLight, fontSize: 16}}>{title}</Text>
+                            <Text style={{textAlign: 'center', marginTop :10, fontFamily: 'Gilroy-Regular', color: COLORS.iconLight, fontSize: 16}}>
+                                {title}
+                            </Text>
                         </View>
                     )
                 }
@@ -150,7 +156,9 @@ export default function MedalDisplay(props) {
                             borderRadius: 15, padding: 6, paddingTop: 10
                         }} key={i}>
                             <MedalTab fillColor={'rgba(0, 0, 0, 0.5)'} strokeColor={COLORS.iconDark}/>
-                            <Text style={{textAlign: 'center', marginTop: 10, fontFamily: 'Gilroy-Regular', color: COLORS.iconLight, fontSize: 16}}>{title}</Text>
+                            <Text style={{textAlign: 'center', marginTop: 10, fontFamily: 'Gilroy-Regular', color: COLORS.iconLight, fontSize: 16}}>
+                                {title}
+                            </Text>
                         </View>
                     )
                 }
