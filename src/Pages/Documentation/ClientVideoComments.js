@@ -149,7 +149,12 @@ export default function ClientVideoComments(props) {
 
     // Renders all Video Tabs with Comments 
     function renderAllVideoComments(){
-        return videos.map( (video, index) => {
+        let filtered = videos.filter(vid => {
+            if (vid.title !== "Great Job"){
+                return vid
+            }
+        })
+        return filtered.map( (video, index) => {
             let count = 0
             let theseComments = []
             let tag = `${video.id}`
@@ -244,9 +249,9 @@ export default function ClientVideoComments(props) {
     // Renders the Text Input as well as the send button
     function renderAddCommentSpace(){
         return(
-            <View style={{marginRight: 20, marginLeft: 20}}>
+            <View style={{marginRight: 20, marginLeft: 20, borderWidth: 1, borderColor: 'black', borderRadius: 15,}}>
                 <TextInput
-                    style={{borderWidth: 1, borderColor: COLORS.iconDark, borderRadius: 15, height: 120, marginBottom: 20, padding: 10}}
+                    style={{height: 120, marginBottom: 20, padding: 10}}
                     value={textEntered}
                     onChangeText={(content) => setTextEntered(content)}
                     multiline={true}
