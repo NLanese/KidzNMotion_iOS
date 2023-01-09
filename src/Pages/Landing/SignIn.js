@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // React
 import React, { useState, useEffect } from "react";
 import { View,Text, ImageBackground, SafeAreaView, Image, TouchableOpacity, Dimensions} from "react-native";
+import Modal from "react-native-modal";
 
 // Apollo graphQL
 import { useMutation, useQuery } from '@apollo/client';
@@ -134,6 +135,12 @@ export default function SignIn() {
         // Determmines whether or not we be splashing
         const [splashing, setSplashing] = useState(first)
 
+        // Triggers a pull up modal when users who have no valid subscription try to login
+        const [noSubModal, setNoSubModal] = useState(false)
+
+        // Type of no subscription error
+        const [noSubType, setNoSubType] = useState(false)
+
 ///////////////////////////
 ///                     ///
 ///      UseEffect      ///
@@ -226,6 +233,7 @@ export default function SignIn() {
             .catch(err => {console.log(err)})
             .then(async(resolved) => {
                 // User //
+                console.log("USER BABY::::: ", resolved)
                 await setUser(resolved.data.getUser)
 
                 // Avatar //
@@ -307,7 +315,6 @@ export default function SignIn() {
             //////////////////////
             // Successful Login //   
             .then( async (resolved) => {
-
                 // Successful Login //
                 if (resolved){
 
@@ -349,7 +356,16 @@ export default function SignIn() {
                     return "Error, you done goofed"
                 }
 
-                if (user.)
+                /////////////////////////
+                // SUBSCRIPTION STATUS //
+                // if (user.subscriptionStatus !== "active"){
+                //     console.log(user.subscriptionStatus)
+                //     setLoading(false)
+                //     setNoSubModal(true)
+                //     setNoSubType(user.subscriptionStatus)
+                //     setUser(false)
+                //     return false
+                // }
 
                 // On Successful Login, reroute
                 setLoading(false)
@@ -378,7 +394,8 @@ export default function SignIn() {
                 else{
                 }
                 setLoading(false)
-               })
+               }
+            )
         }
 
         // Determines color based on input
@@ -596,6 +613,41 @@ export default function SignIn() {
         }
     }
 
+    function renderNoSubscriptionModal(){
+        console.log(noSubType)
+        let sentence = "Your Trial period has ended! Please sign up for a full subscription at www.kidz-n-motion.app. There, you will be able to sign up so that you and your clients will enjoy the full Kidz-N-Motion experience!"
+        if (noSubType === "expiredNotOwner"){
+            sentence = "Your therapist's organization's trial has run out for Kidz-N-Motion. Please wait until they have resubscribed before logging in!"
+        }
+        return(
+            <Modal
+            isVisible={noSubModal}
+            onBackdropPress={() => setNoSubModal(!noSubModal)}
+            hideModalContentWhileAnimating={true}
+            backdropTransitionOutTiming={0}
+            style={{ margin: 0 }}
+            animationIn="zoomIn"
+            animationOut="zoomOut"
+            >
+                <View
+                style={{
+                width: SIZES.width - 40,
+                backgroundColor: COLORS.white,
+                marginHorizontal: 20,
+                borderRadius: 10,
+                paddingHorizontal: 20,
+                paddingTop: 40,
+                paddingBottom: 30,
+                }}
+                >
+                    <Text style={{...FONTS.Title, fontSize: 16,  lineHeight: 20, letterSpacing: 0.5, textAlign: 'center'}}>
+                        {sentence}
+                    </Text>
+                </View>
+            </Modal>
+        )
+    }
+
     // Main
     function MAIN(){
         if (splashing){
@@ -637,6 +689,7 @@ export default function SignIn() {
                     <View style={{marginTop: maxHeight * 0.05}} />
                     {renderHeader()}
                     {renderContent()}
+                    {renderNoSubscriptionModal()}
                 </Gradient>
             )
         }
