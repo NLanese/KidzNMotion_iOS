@@ -147,6 +147,7 @@ export default function SignIn() {
         }
     }, [])
 
+    // Checks Notification Permissions
     useEffect(() => {
         async function checkFcmPermission(){
             let enabled = await messaging().hasPermission();
@@ -160,6 +161,15 @@ export default function SignIn() {
         }
         checkFcmPermission()
     }, [])
+
+    // Handles Async
+    useEffect(() => {
+        if (rememberMe){
+            setUsername(getData().email)
+            setPassword(getData().password)
+        }
+    }, [rememberMe])
+
 ///////////////////////////
 ///                     ///
 ///       Handler       ///
@@ -169,7 +179,6 @@ export default function SignIn() {
     ////////////////////
     // State Changers //
     ////////////////////
-
 
         // Alternates Eye on/off svg and show/hides password
         const togglePassword = () => {
@@ -284,6 +293,15 @@ export default function SignIn() {
         // Process that occurs upon Sign-In attempt
         const handleSignIn = async () => {
             setLoading(true)
+
+            ///////////////////
+            // Async Storage //
+            if (rememberMe){
+                AsyncStorage.setItem('@email', username_or_email)
+                AsyncStorage.setItem('@password', password)
+            }
+
+            // MUTATION //
             handleLoginMutation()
 
             //////////////////////
@@ -389,6 +407,32 @@ export default function SignIn() {
             }, 3000)
         }
 
+        function toggleRememberMe(){
+            if (rememberMe){
+                AsyncStorage.setItem('@remember', true)
+            }
+            else{
+                AsyncStorage.setItem('@remember', false)
+            }
+        }
+
+        // This pulls the Async Data from the Phone's Storage
+        const getData = async () => {
+            try {
+                const email = await AsyncStorage.getItem('@email')
+                const password = await AsyncStorage.getItem('@password')
+                const remember = await AsyncStorage.getItem('@remember')
+                const data = {
+                    email: email,
+                    password: password,
+                    rememberMe: remember
+                }
+                return data
+            } catch (error) {
+                throw new Error(error)
+            }
+        }
+
 ///////////////////////////
 ///                     ///
 ///      Rendering      ///
@@ -467,7 +511,7 @@ export default function SignIn() {
                 >
                     <TouchableOpacity
                         style={{ flexDirection: "row", alignItems: "center" }}
-                        onPress={() => setRememberMe(!rememberMe)}
+                        onPress={() => togglePassword()}
                     >
                         <View
                             style={{
