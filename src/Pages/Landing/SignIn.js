@@ -349,6 +349,8 @@ export default function SignIn() {
                     return "Error, you done goofed"
                 }
 
+                if (user.)
+
                 // On Successful Login, reroute
                 setLoading(false)
                 navigation.navigate("Home")
