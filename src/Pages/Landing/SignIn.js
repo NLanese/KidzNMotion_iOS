@@ -170,12 +170,12 @@ export default function SignIn() {
     }, [])
 
     // Handles Async
-    useEffect(() => {
-        if (rememberMe){
-            setUsername(getData().email)
-            setPassword(getData().password)
-        }
-    }, [rememberMe])
+    // useEffect(() => {
+    //     if (rememberMe){
+    //         setUsername(getData().email)
+    //         setPassword(getData().password)
+    //     }
+    // }, [rememberMe])
 
 ///////////////////////////
 ///                     ///
@@ -233,7 +233,6 @@ export default function SignIn() {
             .catch(err => {console.log(err)})
             .then(async(resolved) => {
                 // User //
-                console.log("USER BABY::::: ", resolved)
                 await setUser(resolved.data.getUser)
 
                 // Avatar //
@@ -421,17 +420,18 @@ export default function SignIn() {
         // Starts the Splash Countdown
         function startSplashCountdown(){
             setTimeout(function(){
-                console.log("hit splash stop")
                 setSplashing(false)
             }, 3000)
         }
 
         function toggleRememberMe(){
-            if (rememberMe){
-                AsyncStorage.setItem('@remember', true)
+            if (!rememberMe){
+                setRememberMe(true)
+                // AsyncStorage.setItem('@remember', true)
             }
             else{
-                AsyncStorage.setItem('@remember', false)
+                setRememberMe(false)
+                // AsyncStorage.setItem('@remember', 0)
             }
         }
 
@@ -440,11 +440,9 @@ export default function SignIn() {
             try {
                 const email = await AsyncStorage.getItem('@email')
                 const password = await AsyncStorage.getItem('@password')
-                const remember = await AsyncStorage.getItem('@remember')
                 const data = {
                     email: email,
                     password: password,
-                    rememberMe: remember
                 }
                 return data
             } catch (error) {
@@ -528,26 +526,32 @@ export default function SignIn() {
                         marginBottom: 30,
                     }}
                 >
+
+                    {/* REMEMBER ME */}
                     <TouchableOpacity
-                        style={{ flexDirection: "row", alignItems: "center" }}
-                        onPress={() => togglePassword()}
+                    style={{ flexDirection: "row", alignItems: "center" }}
+                    onPress={() => toggleRememberMe()}
                     >
                         <View
-                            style={{
-                                width: 16,
-                                height: 16,
-                                borderWidth: 1,
-                                borderRadius: 4,
-                                marginRight: 8,
-                                borderColor: COLORS.buttonBorder,
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
+                        style={{
+                        width: 16,
+                        height: 16,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        marginRight: 8,
+                        borderColor: COLORS.buttonBorder,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        }}
                         >
                             {rememberMe && <CheckSmall fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
                         </View>
                         <Text style={{...FONTS.SubTitle, color: COLORS.headerTitle}} >Remember me</Text>
                     </TouchableOpacity>
+
+
+
+                    {/* FORGOT PASSWORD */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate("ForgotPassword")}
                     >
@@ -614,7 +618,6 @@ export default function SignIn() {
     }
 
     function renderNoSubscriptionModal(){
-        console.log(noSubType)
         let sentence = "Your Trial period has ended! Please sign up for a full subscription at www.kidz-n-motion.app. There, you will be able to sign up so that you and your clients will enjoy the full Kidz-N-Motion experience!"
         if (noSubType === "expiredNotOwner"){
             sentence = "Your therapist's organization's trial has run out for Kidz-N-Motion. Please wait until they have resubscribed before logging in!"
