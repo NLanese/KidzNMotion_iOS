@@ -98,9 +98,10 @@ export default function ClientList() {
         }
         let filterString = searchUser.toUpperCase()
         allClients.forEach( (client) => {
-            let fn = client.user.firstName
-            let ln = client.user.lastName
+            let fn = client.user.firstName.toUpperCase()
+            let ln = client.user.lastName.toUpperCase()
             console.log(fn, " ", ln)
+            console.log(filterString)
             if (ln.includes(filterString) || fn.includes(filterString)){
                 filteredList.push(client)
             }
