@@ -1,5 +1,5 @@
 // Reaact
-import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Dimensions, TouchableWithoutFeedback } from "react-native";
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Dimensions, TouchableWithoutFeedback, Image } from "react-native";
 import React, {useState} from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -119,13 +119,10 @@ const [bottomPad, setBottomPad] = useState(0)
 
     // Adds padding to the bottom since KeyboardAvoidingView is absolutely gay as fuck
     useEffect(() => {
-        console.log("changed")
         if (inMessageSpace){
-            console.log("padding")
             setBottomPad(-155)
         }
         else{
-            console.log("none")
             setBottomPad(0)
         }
     }, [inMessageSpace])
@@ -265,8 +262,6 @@ const Styles = StyleSheet.create({
 
     // Renders a single message
     function renderSingleMessage(message, thisUser, first, last, i){
-
-
         if (!message.sentBy){
             return null
         }
@@ -279,16 +274,22 @@ const Styles = StyleSheet.create({
             // This is the first of the clump //
             if (first){
                 return(
-                    <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
-                        <View style={Styles.messageProfilePic} />
+                    <View>
+                            <View style={{marginLeft: 210}}>
+                            {renderTimeStamp(message.sentAt.timeStamp)}
+                            </View>
+                        <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
+                            <View style={Styles.messageProfilePic} />
 
-                        <View style={Styles.theirMessageBubbleNA} />
+                            <View style={Styles.theirMessageBubbleNA} />
 
-                        <View style={Styles.yourMessageBubble}>
-                            <Text>{message.content}</Text>
-                        </View>
+                            <View style={Styles.yourMessageBubble}>
+                                <Text>{message.content}</Text>
+                            </View>
 
-                        <View style={Styles.messageProfilePic}>
+                            <View style={Styles.messageProfilePic}>
+                            
+                            </View>
 
                         </View>
                     </View>
@@ -311,7 +312,9 @@ const Styles = StyleSheet.create({
                             <Text>{message.content}</Text>
                         </View>
 
-                        <View style={Styles.messageProfilePic}/>
+                        <View style={Styles.messageProfilePic}>
+                                <Image source={user.profilePic} />
+                        </View>
 
                     </View>
                 )
@@ -349,19 +352,26 @@ const Styles = StyleSheet.create({
             // This is the first of the clump //
             if (first){
                 return(
-                    <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
+                    <View>
+                            <View style={{marginLeft: 30}}>
+                            {renderTimeStamp(message.sentAt.timeStamp)}
+                            </View>
+                        <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
 
-                        <View style={Styles.messageProfilePic}>
+                            <View style={Styles.messageProfilePic}>
 
-                        </View>
-                        <View style={Styles.theirMessageBubble}>
-                            <Text>{message.content}</Text>
-                        </View>
+                            </View>
+
+                            <View style={Styles.theirMessageBubble}>
+                                <Text>{message.content}</Text>
+                            </View>
 
 
-                        <View style={Styles.yourMessageBubbleNA}/>
+                            <View style={Styles.yourMessageBubbleNA}/>
 
-                        <View style={Styles.messageProfilePic}/>
+                            <View style={Styles.messageProfilePic}/>
+
+                            </View>
                     </View>
                 )
             }
@@ -419,7 +429,6 @@ const Styles = StyleSheet.create({
         ////////////////////////////////////////////
         // Iterates through all Supplied Messages //
         return messageArray.map((message, index) => {
-
             if (!message.sentBy){
                 return null
             }
@@ -428,10 +437,22 @@ const Styles = StyleSheet.create({
             let thisUser = message.sentBy.userID === thisSend ? true : false
 
             // Fist message? Index == 0 yes, otherwise, no
-            let first = index === 0 ? true : false
+            let first
+            if (index === 0 ){
+                first = true
+            }
+            else{
+                first = false
+            }
 
             // Last message? index = legnth - 1 yes, otheriwse no
-            let last = index < messageArray.legth ? false : true
+            let last
+            if (index === messageArray.length - 1 ){
+                last = true
+            }
+            else{
+                last = false
+            }
 
             ////////////
             // RETURN //
@@ -449,6 +470,8 @@ const Styles = StyleSheet.create({
         /////////////////////////////////////////
         // Gets all consecutive message clumps //
         let messageClumps = chopAtDifferentSenders(messageArray)
+
+        console.log(messageClumps)
 
 
         //////////////////////////////////////////////////////////////////////////////////
@@ -499,6 +522,26 @@ const Styles = StyleSheet.create({
         )
     }
 
+    function renderTimeStamp(time){
+        time = time.toString()
+        time = time.slice(0, 25)
+        timeArr = time.split(" ")
+        let day = timeArr[0]
+        let month = timeArr[1]
+        let date = timeArr[2]
+        let timeClock = timeArr[4] 
+        let timeClockSplit = timeClock.split(":")
+        if (parseInt(timeClockSplit[0], 10) > 12){
+            timeClockSplit[0] = parseInt(timeClockSplit[0], 10) - 12 
+        }
+        time = `${day} ${month} ${date} - ${timeClockSplit[0]}:${timeClockSplit[2]}`
+        return(
+            <Text style={{marginBottom: 10, marginTop: 10, fontFamily: 'Gilroy-SemiBold'}}>
+                {time}
+            </Text>
+        )
+    }
+
     // Main Render
     function MainRender(){
         return(
@@ -544,6 +587,8 @@ const Styles = StyleSheet.create({
             ///////////////////////////////////////////////////////////////////////////
             // Final iteration, one beyond legth. This pushes all remaining messaged //
             if (!(i < messageArray.length)){
+                    console.log("Last iteration")
+                    console.log("-----")
                 returnArrayOfMessages.push(arrayOfSameSender)
             }
 
@@ -554,18 +599,27 @@ const Styles = StyleSheet.create({
                 /////////////////////////////////////
                 // First time accessing this array //
                 if (arrayOfSameSender.length === 0){
+                    console.log("First Dude")
+                    console.log(messageArray[i])
+                    console.log("-----")
                     arrayOfSameSender.push(messageArray[i])
                 }
 
                 ////////////////////////////////
                 // Another of the Same Sender //
-                else if (messageArray[i].sentBy.id === arrayOfSameSender[0].sentBy.id){
+                else if (messageArray[i].sentBy.userID === arrayOfSameSender[0].sentBy.userID){
+                    console.log("Same Dude")
+                    console.log(messageArray[i])
+                    console.log("-----")
                     arrayOfSameSender.push(messageArray[i])
                 }
 
                 //////////////////////
                 // Different Sender //
-                else if (messageArray[i].sentBy.id !== arrayOfSameSender[0].sentBy.id){
+                else if (messageArray[i].sentBy.userID !== arrayOfSameSender[0].sentBy.userID){
+                    console.log("Different Dude")
+                    console.log(messageArray[i])
+                    console.log("-----")
                     returnArrayOfMessages.push(arrayOfSameSender)
                     arrayOfSameSender = []
                     arrayOfSameSender.push(messageArray[i])
@@ -601,7 +655,6 @@ const Styles = StyleSheet.create({
                 chatRoomID: chatroom.id
             }
         }).catch(err => console.log(err, "============\n575\n==========="))
-        .then(() => console.log("message sent technically (2 - 572"))
     }
 
     // Gets Refreshed User Object and Updates the User Atom
