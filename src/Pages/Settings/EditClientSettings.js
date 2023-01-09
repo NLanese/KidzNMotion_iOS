@@ -367,7 +367,7 @@ export default function EditClientSettings() {
             caption = "Message Notifications"
             existingValue = messageNotisMuted
             valueFunction = () => { 
-                setmessageNotisMuted(!assNotisMuted)
+                setMessageNotisMuted(!messageNotisMuted)
                 setSelectedClient(selectedClient => ({...selectedClient, user: {...selectedClient.user, messagesMuted: !assNotisMuted}}))
             } 
             if (selectedClient.user.role === "CHILD"){
