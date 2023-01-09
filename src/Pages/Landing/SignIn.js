@@ -169,6 +169,18 @@ export default function SignIn() {
         checkFcmPermission()
     }, [])
 
+    useEffect(() => {
+        if (first){
+            let remember = AsyncStorage.getItem('@remember')
+            console.log(remember)
+            if (remember === "true"){
+                setUsername(getData().email)
+                setPassword(getData().password)
+            }
+            setFirst[false]
+        }
+    }, [first])
+
     // Handles Async
     // useEffect(() => {
     //     if (rememberMe){
@@ -427,11 +439,11 @@ export default function SignIn() {
         function toggleRememberMe(){
             if (!rememberMe){
                 setRememberMe(true)
-                // AsyncStorage.setItem('@remember', true)
+                AsyncStorage.setItem("@remember", "true")
             }
             else{
                 setRememberMe(false)
-                // AsyncStorage.setItem('@remember', 0)
+                AsyncStorage.setItem("@remember", "false")
             }
         }
 
