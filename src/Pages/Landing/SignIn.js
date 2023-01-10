@@ -96,7 +96,7 @@ export default function SignIn() {
         // Navigation Object
         const navigation = useNavigation();
 
-        const [loading, setLoading] = useState(false)
+        const [loading, setLoading] = useState(true)
 
         // Errors
         const [errors, setErrors] = useState({
@@ -182,12 +182,13 @@ export default function SignIn() {
     }, [first])
 
     // Handles Async
-    // useEffect(() => {
-    //     if (rememberMe){
-    //         setUsername(getData().email)
-    //         setPassword(getData().password)
-    //     }
-    // }, [rememberMe])
+    useEffect(() => {
+        if (rememberMe){
+            setUsername(getData().email)
+            setPassword(getData().password)
+        }
+        setLoading(false)
+    }, [rememberMe])
 
 ///////////////////////////
 ///                     ///
