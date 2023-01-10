@@ -101,25 +101,9 @@ export default function ClientVideoComments(props) {
     }, [selectedClient])
 
     useEffect(() => {
-        selectedClient.plan.comments.forEach(comment => {
-          const { videoId } = comment;
-      
-          // Enqueue functional state update
-          setComments(comments => {
-            if (comments[videoId]) {
-              // State has matching property value, update state
-              return {
-                ...comments,
-                [videoId]: comments[videoId].concat(comment)
-              };
-            } else {
-              // Nothing to update, return existing state
-              return comments;
-            }
-          });
-        });
-        setLoading(false);
-      }, [selectedClient]);
+        disperseComments(selectedClient.plan.comments)
+      }, []);
+
 
 
     ///////////////
@@ -161,7 +145,8 @@ export default function ClientVideoComments(props) {
     }
 
     // Renders all Video Tabs with Comments 
-    function renderAllVideoComments(){
+    function renderAllVideoComments(array){
+
 
         // Removes 'great job' from videos
         let filtered = videos.filter(vid => {
@@ -175,7 +160,7 @@ export default function ClientVideoComments(props) {
             let theseComments = []
             let tag = `${video.id}`
             if (comments[tag]){
-                theseComments = comments[tag]
+                theseComments = array[tag]
                 count = comments[tag].length
             }
             return (
@@ -240,7 +225,10 @@ export default function ClientVideoComments(props) {
                     {selectedVid.title}
                 </Text>
                 <View style={{marginTop: 10, marginBottom: 10}}>
-                    {renderCommentsForVideo()}
+                    <ScrollView style={{maxHeight: maxHeight * 0.45}}>
+                        {renderCommentsForVideo()}
+                        <View style={{height: 102}} />
+                    </ScrollView>
                 </View>
                 {renderAddCommentSpace()}
             </View>
@@ -285,7 +273,7 @@ export default function ClientVideoComments(props) {
             return(
                 <View style={{marginRight: 5, marginLeft: 5, borderColor: 'white', borderWidth: 1, borderRadius: 15, marginTop: 15, height: maxHeight * 0.70}} >
                     <ScrollView>
-                        {renderAllVideoComments()}
+                        {renderAllVideoComments(comments)}
                         {renderCommentModal()}
                     </ScrollView>
                 </View>
@@ -311,13 +299,16 @@ export default function ClientVideoComments(props) {
     }
 
     // Runs the Save Comment Process
-    function handleSaveComment(video){
+    async function handleSaveComment(video){
         setLoading(true)
-        createCommentMutation(video)
-        .then(() => {
-            setTextEntered("")
-            setModalOpen(false)
-            setLoading(false)
+        await createCommentMutation(video)
+        .then((resolved) => {
+            disperseComments(resolved.data.createComment.comments)  
+            .then(() => {
+                setTextEntered("")
+                setModalOpen(false)
+                setLoading(false)
+            })  
         })
     }
 
@@ -332,9 +323,6 @@ export default function ClientVideoComments(props) {
         })
         .catch(err => {
             console.log(error, "============323\n===========")
-        })
-        .then(async (resolved) => {
-            getAndSetUser()
         })
     }
 
@@ -354,6 +342,42 @@ export default function ClientVideoComments(props) {
         .catch((error) => {
             console.log(error)
         })
+    }
+
+    async function disperseComments(theseComments){
+        theseComments.forEach(comment => {
+            if (comment.content === "TEST20"){
+                console.log("Hit dummy test")
+            }
+            const videoId = comment.videoId
+        
+            // Enqueue functional state update
+            setComments(comments => {
+                if (comments[videoId]) {
+                    // State has matching property value, update state
+                    return {
+                    ...comments,
+                    [videoId]: comments[videoId].concat(comment)
+                    };
+                } else {
+                    // Nothing to update, return existing state
+                    return comments;
+                } 
+            });
+        });
+        setLoading(false)
+    }
+
+    function clearComments(){
+        setComments(comments => ({
+            step_up: [],        toe_walking: [],
+            toe_touches: [],    squat: [],
+            side_to_side: [],   rolling: [],
+            leg_lifts: [],      hand_to_knees: [],
+            floor_to_stand: [], chair_elevation: [],    
+            jumping_jacks: [],  jump_rope: [],
+            bear_crawl: []
+        }))
     }
 
 ///////////////////////

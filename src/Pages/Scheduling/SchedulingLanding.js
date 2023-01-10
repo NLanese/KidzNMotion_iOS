@@ -283,6 +283,13 @@ const Styles = StyleSheet.create({
                 }
             }).map( (meeting , index)=> {
                 let dt = convertDateTimeToJavaScript(meeting.meetingDateTime)
+                if (!meeting.users){
+                    return null
+                }
+                else if (meeting.users.length === 1){
+                    return null
+                }
+                console.log(meeting)
                 return(
                     <TouchableOpacity key={index}>
                         <View style={{flexDirection: 'row', margin: 8, borderWidth: 1, borderRadius: 15, borderColor: COLORS.iconLight, padding: 8}}>
