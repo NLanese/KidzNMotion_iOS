@@ -53,7 +53,7 @@ export default function ClientVideoComments(props) {
 
         const [selectedComments, setSelectedComments] = useState([])
 
-        const [loading, setLoading] = useState(false)
+        const [loading, setLoading] = useState(true)
 
         // Determines whether the comment modal is open or not
         const [modalOpen, setModalOpen] = useState(false)
@@ -65,8 +65,14 @@ export default function ClientVideoComments(props) {
         const [vidIds, setVidIds] = useState([])
 
         // Object with a key/value pair for each video/commentList
-        const [commentIds, setCommentIds] = useState({
-            test: "empty"
+        const [comments, setComments] = useState({
+            step_up: [],        toe_walking: [],
+            toe_touches: [],    squat: [],
+            side_to_side: [],   rolling: [],
+            leg_lifts: [],      hand_to_knees: [],
+            floor_to_stand: [], chair_elevation: [],    
+            jumping_jacks: [],  jump_rope: [],
+            bear_crawl: []
         })
 
     //////////////////
@@ -79,7 +85,7 @@ export default function ClientVideoComments(props) {
 
     const [selectedClient, setSelectedClient] = useRecoilState(selectedClientState)
 
-    const client = selectedClient.user
+    const [client, setClient] = useState(selectedClient.user)
 
     const [clients, setClients] = useRecoilState(clientListState)
 
@@ -89,29 +95,31 @@ export default function ClientVideoComments(props) {
     // UseEffects //
     ////////////////
 
-    // Populates CommentIds object upon rendering
+    // When selected Client is changed, keeps consistent
     useEffect(() => {
-        // Local variable to track new additions
-        let newComments = commentIds
-
-        // Goes through ever Comment
-        selectedClient.plan.comments.forEach( (comment, i) => {
-
-            // If a video id alredy has comments, add this to it
-            if (newComments[(comment.videoId)]){
-                newComments = {...newComments, [comment.videoId]: [...newComments[comment.videoId], comment]}
-            }
-
-            // If a video id does not yet have a comment
-            else{
-                newComments = {...{...newComments}}
-                newComments = {...newComments, [comment.videoId]: [{...comment}]}
-            }
-        })
-
-        // Sets the overall object
-        setCommentIds( commentIds => ({...{...newComments}}))
+        setClient(selectedClient.user)
     }, [selectedClient])
+
+    useEffect(() => {
+        selectedClient.plan.comments.forEach(comment => {
+          const { videoId } = comment;
+      
+          // Enqueue functional state update
+          setComments(comments => {
+            if (comments[videoId]) {
+              // State has matching property value, update state
+              return {
+                ...comments,
+                [videoId]: comments[videoId].concat(comment)
+              };
+            } else {
+              // Nothing to update, return existing state
+              return comments;
+            }
+          });
+        });
+        setLoading(false);
+      }, [selectedClient]);
 
 
     ///////////////
@@ -166,9 +174,9 @@ export default function ClientVideoComments(props) {
             let count = 0
             let theseComments = []
             let tag = `${video.id}`
-            if (commentIds[tag]){
-                theseComments = commentIds[tag]
-                count = commentIds[tag].length
+            if (comments[tag]){
+                theseComments = comments[tag]
+                count = comments[tag].length
             }
             return (
                 <TouchableOpacity 
@@ -326,7 +334,6 @@ export default function ClientVideoComments(props) {
             console.log(error, "============323\n===========")
         })
         .then(async (resolved) => {
-            console.log("Create Comment RESOLVED:::::", resolved)
             getAndSetUser()
         })
     }
@@ -338,7 +345,6 @@ export default function ClientVideoComments(props) {
             fetchPolicy: 'network-only'  
         })
         .then((resolved) => {
-            console.log("GETUSER WAS GOT")
             setUser(resolved.data.getUser)
             setClients(getAllTherapistClients(resolved.data.getUser))
         })
