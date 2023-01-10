@@ -172,8 +172,8 @@ export default function SignIn() {
     useEffect(() => {
         if (first){
             let remember = AsyncStorage.getItem('@remember')
-            console.log(remember)
             if (remember === "true"){
+                setRememberMe(true)
                 setUsername(getData().email)
                 setPassword(getData().password)
             }

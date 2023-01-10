@@ -308,7 +308,7 @@ export default function ClientVideoComments(props) {
         setLoading(true)
         await createCommentMutation(video)
         .then((resolved) => {
-            disperseComments(resolved.data.createComment.comments)  
+            hardDisperseComments(resolved.data.createComment.comments)  
             setTextEntered("")
             setModalOpen(false)
             setLoading(false)
@@ -317,6 +317,7 @@ export default function ClientVideoComments(props) {
 
     // Runs the Create Comment Mutation
     async function createCommentMutation(video){
+        console.log(video.id)
         return await createComment({
             variables: {
                 childCarePlanID: selectedClient.plan.id,
@@ -329,33 +330,11 @@ export default function ClientVideoComments(props) {
         })
     }
 
-    // Gets the new user object with the revised client
-    async function getAndSetUser(){
-        await apollo_client.query({
-            query: GET_USER,
-            fetchPolicy: 'network-only'  
-        })
-        .then((resolved) => {
-            setUser(resolved.data.getUser)
-            setClients(getAllTherapistClients(resolved.data.getUser))
-            let newClient = clients.find(thisClient => thisClient.id === selectedClient.user.id)
-            console.log("NEW::::::", newClient)
-        })
-        .then(() => {
-            return true
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }
 
     async function disperseComments(theseComments){
         theseComments.forEach(comment => {
-            if (comment.content === "TEST20"){
-                console.log("Hit dummy test")
-            }
             const videoId = comment.videoId
-        
+            console.log(videoId)
             // Enqueue functional state update
             setComments(comments => {
                 if (comments[videoId]) {
@@ -373,17 +352,28 @@ export default function ClientVideoComments(props) {
         setLoading(false)
     }
 
-    function findAndAddNewestComment(comments){
-        let newestTime = comments[0].createdAt
-        let newestComement = comments[0]
-        comments.forEach(comm => {
-            console.log(comm.content)
-            if (comm.createdAt > newestTime){
-                newestComement = comm
+    function hardDisperseComments(theseComments){
+        let dummyObj = { 
+            step_up: [],        toe_walking: [],
+            toe_touches: [],    squat: [],
+            side_to_side: [],   rolling: [],
+            leg_lifts: [],      hand_to_knees: [],
+            floor_to_stand: [], chair_elevation: [],    
+            jumping_jacks: [],  jump_rope: [],
+            bear_crawl: []
+        }
+        theseComments.forEach(comment => {
+            console.log(comment.videoId)
+            const videoId = comment.videoId
+            if (dummyObj[videoId]){
+                dummyObj[videoId].push(comment)
             }
-        })     
-        console.log(newestComement)   
+        })
+        setComments(dummyObj)
+        setLoading(false)
+
     }
+
 
     function clearComments(){
         setComments(comments => ({
