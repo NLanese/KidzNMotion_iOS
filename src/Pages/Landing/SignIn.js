@@ -170,25 +170,9 @@ export default function SignIn() {
     }, [])
 
     useEffect(() => {
-        if (first){
-            let remember = AsyncStorage.getItem('@remember')
-            if (remember === "true"){
-                setRememberMe(true)
-                setUsername(getData().email)
-                setPassword(getData().password)
-            }
-            setFirst[false]
-        }
-    }, [first])
-
-    // Handles Async
-    useEffect(() => {
-        if (rememberMe){
-            setUsername(getData().email)
-            setPassword(getData().password)
-        }
+        determineAndDistributeAsync()
         setLoading(false)
-    }, [rememberMe])
+    }, [])
 
 ///////////////////////////
 ///                     ///
@@ -311,18 +295,14 @@ export default function SignIn() {
         }
 
         // Process that occurs upon Sign-In attempt
-        const handleSignIn = async () => {
+        const handleSignIn = async (localEmail = false, localPassword = false) => {
             setLoading(true)
 
-            ///////////////////
-            // Async Storage //
-            if (rememberMe){
-                AsyncStorage.setItem('@email', username_or_email)
-                AsyncStorage.setItem('@password', password)
-            }
+            console.log(localEmail, " LOCAL EMAIL 1")
+            console.log(localPassword, " LOCAL PASSWORD 1")
 
             // MUTATION //
-            handleLoginMutation()
+            handleLoginMutation(localEmail, localPassword)
 
             //////////////////////
             // Successful Login //   
@@ -387,11 +367,47 @@ export default function SignIn() {
         }
 
         // Determines which login Mutation to use 
-        const handleLoginMutation = async () => {
+        const handleLoginMutation = async (localEmail = false, localPassword = false) => {
+
+            console.log(localEmail, " LOCAL EMAIL 2")
+            console.log(localPassword, " LOCAL PASSWORD 2")
+
+
+            let loginEmail 
+            let loginPassword
+
+            /////////////////
+            // REMEMBERED? //
+            if (localEmail){
+                setUsername(localEmail)
+                loginEmail = localEmail
+            }
+            else{
+                loginEmail = username_or_email
+            }
+            if (localPassword){
+                setPassword(localPassword)
+                loginPassword = localPassword
+            }
+            else{
+                loginPassword = password
+            }
+
+
+            ///////////////////
+            // Async Storage //
+            if (rememberMe){
+                AsyncStorage.setItem('@email', username_or_email)
+                AsyncStorage.setItem('@password', password)
+            }
+
+            console.log(password, " LOCAL EMAIL 3")
+            console.log(username_or_email, " LOCAL PASSWORD 3")
+
             return await userLogin({
                 variables: {
-                    username: username_or_email,
-                    password: password,
+                    username: loginEmail,
+                    password: loginPassword
                 }
             })
             ///////////////////
@@ -453,13 +469,23 @@ export default function SignIn() {
             try {
                 const email = await AsyncStorage.getItem('@email')
                 const password = await AsyncStorage.getItem('@password')
+                const remember = await AsyncStorage.getItem('@remember')
                 const data = {
                     email: email,
                     password: password,
+                    remember: remember
                 }
+                console.log("INSIDE GETDATA::::::" ,data)
                 return data
             } catch (error) {
                 throw new Error(error)
+            }
+        }
+
+        async function determineAndDistributeAsync(){
+            let asyncData = await getData()
+            if (asyncData.remember){
+                handleSignIn(asyncData.email, asyncData.password)
             }
         }
 
