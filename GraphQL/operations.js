@@ -11,6 +11,7 @@ import { gql } from '@apollo/client';
 const GET_USER = gql`
 query Query{
     getUser{
+      subscriptionStatus
       id
       fcmToken
       email
@@ -245,6 +246,13 @@ query Query{
           completed
         }
       }
+      therapist{
+        id
+        firstName,
+        lastName,
+        profilePic
+        email
+      }
     }
 
     patientCarePlans {
@@ -333,6 +341,7 @@ query Query{
             }
           }
         }
+
       }
     }
     
@@ -540,6 +549,7 @@ const SWAP_TO_CHILD_ACCOUNT = gql`
   }
 `
 
+
 //////////////////////////////////////////
 //                                      //
 //         EDITORS AND SETTINGS         //   
@@ -641,6 +651,16 @@ const EDIT_COLOR_SETTINGS = gql`
   ){
     editColorSettings(
       colorSettings: $colorSettings
+    )
+  }
+`
+
+const DELETE_PATIENT = gql`
+  mutation Mutation(
+    $patientUserID: String!
+  ){
+    deletePatient(
+      patientUserID: $patientUserID
     )
   }
 `
@@ -1015,6 +1035,7 @@ export {   //
   EDIT_USER_NOTIFICATION_SETTINGS,
   CHANGE_PROFILE_PICTURE,
   EDIT_COLOR_SETTINGS,
+  DELETE_PATIENT,
   
   REQUEST_RESET_PASSWORD,
   CHANGE_CHILD_PASSWORD,

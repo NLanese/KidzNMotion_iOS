@@ -97,6 +97,9 @@ const VisionComp = () => {
     // Camera Permission State
     const [cameraPerm, setCameraPerm] = useState(false)
 
+    // Makes sure to recheck permissions only once
+    const [checked, setChecked] = useState(false)
+
 ///////////////////////
 ///                 ///
 ///    useEffect    ///
@@ -109,8 +112,10 @@ useEffect(() => {
 
 useEffect(() => {
   console.log("CAMERAPERM::::::", cameraPerm)
-  if (cameraPerm === "denied"){
+  if (cameraPerm === "denied" && !checked){
     checkPermissions()
+    setChecked(true)
+    console.log("denied, check again")
   }
 }, [cameraPerm])
 
@@ -190,7 +195,7 @@ useEffect(() => {
     MailComposer.composeAsync({
       recipients: [therapist.email],
       subject: `Video Of Exercise From: ${user.firstName} ${user.lastName}`,
-      body: "Beta Testing",
+      body: "These are videos uploaded for your viewing",
       attachments: [videoPath]
     })
     .catch((err) => console.log(err))
@@ -407,26 +412,38 @@ useEffect(() => {
 
   // Main Render
   function Main(){
+
+    if (cameraPerm){
+      return(
+        <Gradient
+        colorOne={COLORS.gradientColor1}
+        colorTwo={COLORS.gradientColor2}
+        style={{height: '110%', paddingTop: 5}}
+        >
+          {renderEmailSentModal()}
+          {renderHeader()}
+          {renderOutterBorder()}
+          {renderSendOrReplace()}
+          <View>
+            <Text style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
+              {/* {cameraPerm} */}
+            </Text>
+          </View>
+        </Gradient>
+      )
+    }
     return(
       <Gradient
-      colorOne={COLORS.gradientColor1}
-      colorTwo={COLORS.gradientColor2}
-      style={{height: '110%', paddingTop: 5}}
-      >
-        {renderEmailSentModal()}
-        {renderHeader()}
-        {renderOutterBorder()}
-        {renderSendOrReplace()}
-        <View>
-          <Text style={{textAlign: 'center', fontSize: 30, marginTop: 30}}>
-            {/* {cameraPerm} */}
+        colorOne={COLORS.gradientColor1}
+        colorTwo={COLORS.gradientColor2}
+        style={{height: '110%', paddingTop: 5}}
+        >
+          {renderHeader()}
+          <Text style={{textAlign: 'center', ...FONTS.Title, color: COLORS.iconLight, marginTop: 35}}>
+            Please Enable Camera Permissions to use this feature!
           </Text>
-        </View>
-      </Gradient>
+        </Gradient>
     )
-    // <View style={{flex: 1, backgroundColor: 'blue'}}>
-
-    // </View>
   }
 
 

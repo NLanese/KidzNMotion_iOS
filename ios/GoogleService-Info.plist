@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>938145635927-bgdptpgm0k900pilktvmib74pdlvqa7g.apps.googleusercontent.com</string>
+	<string>376610884958-8ssv02r1c5liq7v66531rrlp1bhdsnr6.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.938145635927-bgdptpgm0k900pilktvmib74pdlvqa7g</string>
+	<string>com.googleusercontent.apps.376610884958-8ssv02r1c5liq7v66531rrlp1bhdsnr6</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAHDbOf4_u5EwdjijR2CGvAAEivG2ONkOE</string>
+	<string>AIzaSyCWdkfNL5uldSdJ0rXuv9l6yNjNwjEDR08</string>
 	<key>GCM_SENDER_ID</key>
-	<string>938145635927</string>
+	<string>376610884958</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.reactjs.native.example.KNM</string>
 	<key>PROJECT_ID</key>
-	<string>kidznmotionios</string>
+	<string>kidznmotion-7f5cf</string>
 	<key>STORAGE_BUCKET</key>
-	<string>kidznmotionios.appspot.com</string>
+	<string>kidznmotion-7f5cf.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:938145635927:ios:4537fa3f15fe93288e0d12</string>
+	<string>1:376610884958:ios:d736d2fc6a67535f1b13cf</string>
 </dict>
 </plist>

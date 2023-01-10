@@ -369,10 +369,24 @@ export default function SettingsLanding() {
                     <Text style={{...FONTS.Title, fontSize: 34, textAlign: 'center', color: COLORS.headerTitle, marginBottom: 15}}>
                         {user.firstName} {user.lastName}
                     </Text>
+                    {renderOrgCode()}
                 </View>
                 
             </View>
         )
+    }
+
+    function renderOrgCode(){
+        // if (user.role === "THERAPIST"){
+        //     console.log({...user, chatRooms: [], fcmToken: "", ownedOrganization: ""})
+        //     console.log(user.organizations)
+        //     return(
+        //         <Text style={{...FONTS.Title, fontSize: 28, textAlign: 'center', color: "#777", marginBottom: 15}}>
+        //             SignUp Code: 
+        //         </Text>
+        //     )
+        // }
+        return null
     }
 
     // Main Render Boi
@@ -465,7 +479,7 @@ export default function SettingsLanding() {
                     onSelect={() => navigation.navigate("ProfileEdit")}
                     plainCenter={true}
                 />
-                {renderOrganizationSettings()}
+                {/* {renderOrganizationSettings()} */}
                 <SelectionButton 
                     title={"Sign Out"}
                     plainCenter={true}

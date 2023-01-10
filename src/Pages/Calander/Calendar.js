@@ -598,6 +598,7 @@ export default function CalendarPage() {
         // Takes Assignments of Today to Set as Seen
         function handleSeenAssignment(date){
             let assignmentsToSeen = findAssignmentsToSee(assignments, date)
+            if (user.role === "CHILD")
             assignmentsToSeen.forEach((ass) => {
                 seeAssignmentMutation(ass)
             })
@@ -740,6 +741,7 @@ export default function CalendarPage() {
                             {renderAssignmentsOrMeetingsTab()}
                             {renderMeetingsOrAssignmnets()}
                         </View>
+                        <View style={{height: 120}}/>
                     </ScrollView>
                 </>
             )

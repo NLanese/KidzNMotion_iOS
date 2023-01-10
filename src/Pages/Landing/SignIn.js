@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // React
 import React, { useState, useEffect } from "react";
 import { View,Text, ImageBackground, SafeAreaView, Image, TouchableOpacity, Dimensions} from "react-native";
+import Modal from "react-native-modal";
 
 // Apollo graphQL
 import { useMutation, useQuery } from '@apollo/client';
@@ -95,7 +96,7 @@ export default function SignIn() {
         // Navigation Object
         const navigation = useNavigation();
 
-        const [loading, setLoading] = useState(false)
+        const [loading, setLoading] = useState(true)
 
         // Errors
         const [errors, setErrors] = useState({
@@ -134,6 +135,12 @@ export default function SignIn() {
         // Determmines whether or not we be splashing
         const [splashing, setSplashing] = useState(first)
 
+        // Triggers a pull up modal when users who have no valid subscription try to login
+        const [noSubModal, setNoSubModal] = useState(false)
+
+        // Type of no subscription error
+        const [noSubType, setNoSubType] = useState(false)
+
 ///////////////////////////
 ///                     ///
 ///      UseEffect      ///
@@ -147,6 +154,7 @@ export default function SignIn() {
         }
     }, [])
 
+    // Checks Notification Permissions
     useEffect(() => {
         async function checkFcmPermission(){
             let enabled = await messaging().hasPermission();
@@ -160,6 +168,12 @@ export default function SignIn() {
         }
         checkFcmPermission()
     }, [])
+
+    useEffect(() => {
+        determineAndDistributeAsync()
+        setLoading(false)
+    }, [])
+
 ///////////////////////////
 ///                     ///
 ///       Handler       ///
@@ -169,7 +183,6 @@ export default function SignIn() {
     ////////////////////
     // State Changers //
     ////////////////////
-
 
         // Alternates Eye on/off svg and show/hides password
         const togglePassword = () => {
@@ -282,14 +295,18 @@ export default function SignIn() {
         }
 
         // Process that occurs upon Sign-In attempt
-        const handleSignIn = async () => {
+        const handleSignIn = async (localEmail = false, localPassword = false) => {
             setLoading(true)
-            handleLoginMutation()
+
+            console.log(localEmail, " LOCAL EMAIL 1")
+            console.log(localPassword, " LOCAL PASSWORD 1")
+
+            // MUTATION //
+            handleLoginMutation(localEmail, localPassword)
 
             //////////////////////
             // Successful Login //   
             .then( async (resolved) => {
-
                 // Successful Login //
                 if (resolved){
 
@@ -331,6 +348,17 @@ export default function SignIn() {
                     return "Error, you done goofed"
                 }
 
+                /////////////////////////
+                // SUBSCRIPTION STATUS //
+                // if (user.subscriptionStatus !== "active"){
+                //     console.log(user.subscriptionStatus)
+                //     setLoading(false)
+                //     setNoSubModal(true)
+                //     setNoSubType(user.subscriptionStatus)
+                //     setUser(false)
+                //     return false
+                // }
+
                 // On Successful Login, reroute
                 setLoading(false)
                 navigation.navigate("Home")
@@ -339,11 +367,47 @@ export default function SignIn() {
         }
 
         // Determines which login Mutation to use 
-        const handleLoginMutation = async () => {
+        const handleLoginMutation = async (localEmail = false, localPassword = false) => {
+
+            console.log(localEmail, " LOCAL EMAIL 2")
+            console.log(localPassword, " LOCAL PASSWORD 2")
+
+
+            let loginEmail 
+            let loginPassword
+
+            /////////////////
+            // REMEMBERED? //
+            if (localEmail){
+                setUsername(localEmail)
+                loginEmail = localEmail
+            }
+            else{
+                loginEmail = username_or_email
+            }
+            if (localPassword){
+                setPassword(localPassword)
+                loginPassword = localPassword
+            }
+            else{
+                loginPassword = password
+            }
+
+
+            ///////////////////
+            // Async Storage //
+            if (rememberMe){
+                AsyncStorage.setItem('@email', username_or_email)
+                AsyncStorage.setItem('@password', password)
+            }
+
+            console.log(password, " LOCAL EMAIL 3")
+            console.log(username_or_email, " LOCAL PASSWORD 3")
+
             return await userLogin({
                 variables: {
-                    username: username_or_email,
-                    password: password,
+                    username: loginEmail,
+                    password: loginPassword
                 }
             })
             ///////////////////
@@ -358,7 +422,8 @@ export default function SignIn() {
                 else{
                 }
                 setLoading(false)
-               })
+               }
+            )
         }
 
         // Determines color based on input
@@ -384,9 +449,44 @@ export default function SignIn() {
         // Starts the Splash Countdown
         function startSplashCountdown(){
             setTimeout(function(){
-                console.log("hit splash stop")
                 setSplashing(false)
             }, 3000)
+        }
+
+        function toggleRememberMe(){
+            if (!rememberMe){
+                setRememberMe(true)
+                AsyncStorage.setItem("@remember", "true")
+            }
+            else{
+                setRememberMe(false)
+                AsyncStorage.setItem("@remember", "false")
+            }
+        }
+
+        // This pulls the Async Data from the Phone's Storage
+        const getData = async () => {
+            try {
+                const email = await AsyncStorage.getItem('@email')
+                const password = await AsyncStorage.getItem('@password')
+                const remember = await AsyncStorage.getItem('@remember')
+                const data = {
+                    email: email,
+                    password: password,
+                    remember: remember
+                }
+                console.log("INSIDE GETDATA::::::" ,data)
+                return data
+            } catch (error) {
+                throw new Error(error)
+            }
+        }
+
+        async function determineAndDistributeAsync(){
+            let asyncData = await getData()
+            if (asyncData.remember){
+                handleSignIn(asyncData.email, asyncData.password)
+            }
         }
 
 ///////////////////////////
@@ -465,26 +565,32 @@ export default function SignIn() {
                         marginBottom: 30,
                     }}
                 >
+
+                    {/* REMEMBER ME */}
                     <TouchableOpacity
-                        style={{ flexDirection: "row", alignItems: "center" }}
-                        onPress={() => setRememberMe(!rememberMe)}
+                    style={{ flexDirection: "row", alignItems: "center" }}
+                    onPress={() => toggleRememberMe()}
                     >
                         <View
-                            style={{
-                                width: 16,
-                                height: 16,
-                                borderWidth: 1,
-                                borderRadius: 4,
-                                marginRight: 8,
-                                borderColor: COLORS.buttonBorder,
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
+                        style={{
+                        width: 16,
+                        height: 16,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        marginRight: 8,
+                        borderColor: COLORS.buttonBorder,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        }}
                         >
                             {rememberMe && <CheckSmall fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
                         </View>
                         <Text style={{...FONTS.SubTitle, color: COLORS.headerTitle}} >Remember me</Text>
                     </TouchableOpacity>
+
+
+
+                    {/* FORGOT PASSWORD */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate("ForgotPassword")}
                     >
@@ -550,6 +656,40 @@ export default function SignIn() {
         }
     }
 
+    function renderNoSubscriptionModal(){
+        let sentence = "Your Trial period has ended! Please sign up for a full subscription at www.kidz-n-motion.app. There, you will be able to sign up so that you and your clients will enjoy the full Kidz-N-Motion experience!"
+        if (noSubType === "expiredNotOwner"){
+            sentence = "Your therapist's organization's trial has run out for Kidz-N-Motion. Please wait until they have resubscribed before logging in!"
+        }
+        return(
+            <Modal
+            isVisible={noSubModal}
+            onBackdropPress={() => setNoSubModal(!noSubModal)}
+            hideModalContentWhileAnimating={true}
+            backdropTransitionOutTiming={0}
+            style={{ margin: 0 }}
+            animationIn="zoomIn"
+            animationOut="zoomOut"
+            >
+                <View
+                style={{
+                width: SIZES.width - 40,
+                backgroundColor: COLORS.white,
+                marginHorizontal: 20,
+                borderRadius: 10,
+                paddingHorizontal: 20,
+                paddingTop: 40,
+                paddingBottom: 30,
+                }}
+                >
+                    <Text style={{...FONTS.Title, fontSize: 16,  lineHeight: 20, letterSpacing: 0.5, textAlign: 'center'}}>
+                        {sentence}
+                    </Text>
+                </View>
+            </Modal>
+        )
+    }
+
     // Main
     function MAIN(){
         if (splashing){
@@ -591,6 +731,7 @@ export default function SignIn() {
                     <View style={{marginTop: maxHeight * 0.05}} />
                     {renderHeader()}
                     {renderContent()}
+                    {renderNoSubscriptionModal()}
                 </Gradient>
             )
         }

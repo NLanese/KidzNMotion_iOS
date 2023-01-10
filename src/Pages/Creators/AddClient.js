@@ -363,6 +363,7 @@ export default function AddClient(props) {
                     }
                 }
             }).catch(error => console.log(error, "MUTATION"))
+            .then(resolved => console.log(resolved))
         }
 
         else{

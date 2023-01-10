@@ -1,6 +1,6 @@
 // React
 import { View, Text, SafeAreaView, ScrollView, Image, ImageBackground, TouchableOpacity, Dimensions, Switch} from "react-native";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 
@@ -12,28 +12,42 @@ import LoadingComponent from "../../Global/LoadingComponent"
 
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
-import {sizeState, clientListState, userState, colorState, fontState } from '../../../Recoil/atoms';
+import {sizeState, clientListState, userState, colorState, fontState, selectedClientState } from '../../../Recoil/atoms';
 
 // Mutations 
 import { useMutation } from "@apollo/client";
-import { REQUEST_RESET_PASSWORD, CHANGE_USER_NOTIFICATIONS, GET_USER } from "../../../GraphQL/operations";
+import { REQUEST_RESET_PASSWORD, CHANGE_USER_NOTIFICATIONS, GET_USER, DELETE_PATIENT } from "../../../GraphQL/operations";
 import apollo_client from "../../utils/apolloClient";
 
 // Ostrich
 import Gradient from "../../../OstrichComponents/Gradient";
 import SelectionButton from "../../../OstrichComponents/SelectionButton";
-import { useEffect } from "react";
+
+// Hooks
+import getAllTherapistClients from "../../Hooks/value_extractors/therapistValues/getAllTherapistClients"
+
 
 let maxWidth = Dimensions.get('window').width
 let maxHeight = Dimensions.get('window').height
 
 
-export default function EditClientSettings(props) {
+export default function EditClientSettings() {
 ///////////////////////
 ///                 ///
 ///   Preliminary   ///
 ///                 ///
 ///////////////////////
+
+    //////////////////
+    // Recoil State //
+    //////////////////
+
+        // User (Active)
+        const [user, setUser] = useRecoilState(userState)
+
+        const [clients, setClients] = useRecoilState(clientListState)
+
+        const [selectedClient, setSelectedClient] = useRecoilState(selectedClientState)
 
     ///////////////
     // Constants // 
@@ -43,12 +57,6 @@ export default function EditClientSettings(props) {
         const COLORS = useRecoilValue(colorState)
         const FONTS = useRecoilValue(fontState)
         const SIZES = useRecoilValue(sizeState)
-
-        // The Account Whose Settings You Are On
-        const client = props.route.params?.item
-
-        console.log("-=-=-=-=-=-=-=-=-=-=-")
-        console.log("THIS USER: ", {assignMuted: client.user.assignMuted, messagesMuted: client.user.messagesMuted})
 
     /////////////////
     // Local State //
@@ -68,23 +76,14 @@ export default function EditClientSettings(props) {
 
         // Message Notifications
         let msgOg = false
-        if (client.user.role === "GUARDIAN"){
-            msgOg = client.user.messagesMuted
+        if (selectedClient.user.role === "GUARDIAN"){
+            msgOg = selectedClient.user.messagesMuted
         }
-        const [messageNotis, setMessageNotis] = useState(!msgOg)
+        const [messageNotisMuted, setMessageNotisMuted] = useState(!msgOg)
 
         // Assignment Notifications
-        const [assNotis, setAssNotis] = useState(!client.user.assignMuted)
+        const [assNotisMuted, setassNotisMuted] = useState(selectedClient.user.assignMuted)
 
-
-    //////////////////
-    // Recoil State //
-    //////////////////
-
-        // User (Active)
-        const [user, setUser] = useRecoilState(userState)
-
-    
     //////////////////
     //   Mutation   //
     //////////////////
@@ -92,6 +91,8 @@ export default function EditClientSettings(props) {
         const [requestResetPassword, { loading: loadingType, error: errorType, data: typeData }] = useMutation(REQUEST_RESET_PASSWORD);
 
         const [changeUserNotifications, { loading: loadingN, error: errorN, data: typeN }] = useMutation(CHANGE_USER_NOTIFICATIONS);
+
+        const [deletePatient, { loading: loadingD, error: errorD, data: typeD }] = useMutation(DELETE_PATIENT);
 
     ////////////////
     // UseEffects //
@@ -144,7 +145,7 @@ export default function EditClientSettings(props) {
 
     // Renders the Reset Password button (Guardians Only)
     function renderResetButton() {
-        if (client.user.role === "CHILD"){
+        if (selectedClient.user.role === "CHILD"){
             return null
         }
         else{
@@ -191,7 +192,7 @@ export default function EditClientSettings(props) {
                             textTransform: "capitalize",
                         }}
                     >
-                        Send a Reset Password Email To {client.email}?
+                        Send a Reset Password Email To {selectedClient.email}?
                     </Text>
                     <View
                         style={{
@@ -283,13 +284,14 @@ export default function EditClientSettings(props) {
                     <Text
                         style={{
                             textAlign: "center",
-                            ...FONTS.H2,
-                            lineHeight: 20 * 1.5,
+                            fontFamily: "Gilroy-Bold",
                             marginBottom: 30,
-                            textTransform: "capitalize",
                         }}
                     >
-                        {`Do you really want to remove ${client.firstName} ${client.lastName} from your network? \n Warning: This cannot be undone`}
+                        {`Do you really want to remove ${selectedClient.user.firstName} ${selectedClient.user.lastName} from your network?`}
+                    </Text>
+                    <Text style={{ textAlign: "center", fontFamily: "Gilroy-SemiBold", marginBottom: 30, marginTop: -20}}>
+                        Warning: This cannot be undone
                     </Text>
                     <View
                         style={{
@@ -309,10 +311,11 @@ export default function EditClientSettings(props) {
                                 marginHorizontal: 7.5,
                                 borderColor: COLORS.buttonBorder,
                                 borderWidth: 1,
+                                borderColor: 'black',
+                                borderWidth: 1,
                             }}
                             onPress={() => {
-                                setShowDropClient(false);
-                                // navigation.navigate("SignIn");
+                                handleDelete()
                             }}
                         >
                             <Text
@@ -362,16 +365,23 @@ export default function EditClientSettings(props) {
         let existingValue = ""
         if (type === "message"){
             caption = "Message Notifications"
-            valueFunction = setMessageNotis 
-            existingValue = messageNotis
-            if (client.user.role === "CHILD"){
+            existingValue = messageNotisMuted
+            valueFunction = () => { 
+                setMessageNotisMuted(!messageNotisMuted)
+                setSelectedClient(selectedClient => ({...selectedClient, user: {...selectedClient.user, messagesMuted: !assNotisMuted}}))
+            } 
+            if (selectedClient.user.role === "CHILD"){
                 return null
             }
         }
         else if (type === "ass"){
-            caption = "Assignment Notifications"
-            valueFunction = setAssNotis 
-            existingValue = assNotis
+            caption = "Assignments Muted"
+            valueFunction = () => { 
+                setassNotisMuted(!assNotisMuted)
+                setSelectedClient(selectedClient => ({...selectedClient, user: {...selectedClient.user, assignMuted: !assNotisMuted}}))
+            } 
+            existingValue = assNotisMuted
+
         }
         return(
             <View style={{flexDirection: 'row', width: '90%', marginLeft: '3%', marginBottom: 15 }}>
@@ -411,17 +421,7 @@ export default function EditClientSettings(props) {
                     }}
                 >
                     {/* Announcement */}
-                    <Text
-                        style={{
-                            textAlign: "center",
-                            fontFamily: 'Gilroy-Bold',
-                            fontSize: 17,
-                            letterSpacing: 0.5,
-                            lineHeight: 20 * 1.5,
-                            marginBottom: 30,
-                            textTransform: "capitalize",
-                        }}
-                    >
+                    <Text style={{ textAlign: "center", fontFamily: 'Gilroy-Bold', fontSize: 17, letterSpacing: 0.5, lineHeight: 20 * 1.5, marginBottom: 30,  textTransform: "capitalize", }}>
                         Set your notifications for this user
                     </Text>
 
@@ -538,7 +538,7 @@ export default function EditClientSettings(props) {
     const handleResetMutation = async () => {
         return await requestResetPassword({
             variables: {
-                email: client.email
+                email: selectedClient.email
             }  
         })
     }
@@ -557,14 +557,14 @@ export default function EditClientSettings(props) {
 
     // Handles the Change Notifications Mutation
     function handleNotificationMutation(){
-        console.log("Messages Muted? :", messageNotis)
-        console.log("Assignment Muted? :", assNotis)
+        console.log("Messages Muted? :", messageNotisMuted)
+        console.log("Assignment Muted? :", assNotisMuted)
         setLoading(true)
         changeUserNotifications({
             variables: {
-                userID: client.user.id,
-                messagesMuted: messageNotis,
-                assignMuted: assNotis,
+                userID: selectedClient.user.id,
+                messagesMuted: messageNotisMuted,
+                assignMuted: assNotisMuted,
             }
         })
         .then(resolved => {
@@ -577,14 +577,35 @@ export default function EditClientSettings(props) {
         })
     }
 
+    function handleDelete(){
+        deleteMutation().then(resolved => {
+            getAndSetUser()
+            .then(() => {
+                navigation.navigate("Home")
+            })
+        })
+    }
+
+    async function deleteMutation(){
+        return await deletePatient({
+            variables: {
+                patientUserID: selectedClient.user.id
+            }
+        })
+    }
+
     // Gets the new user object with the revised client
     async function getAndSetUser(){
-        await apollo_client.query({
+        return await apollo_client.query({
             query: GET_USER,
             fetchPolicy: 'network-only'  
         })
-        .then(async (resolved) => {
-            await setUser(resolved.data.getUser)
+        .then((resolved) => {
+            setUser(resolved.data.getUser)
+            setClients(getAllTherapistClients(resolved.data.getUser))
+        })
+        .then(() => {
+            return true
         })
         .catch((error) => {
             console.log(error)

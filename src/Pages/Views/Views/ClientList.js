@@ -9,7 +9,7 @@ import { AndroidSafeArea } from "../../../../NutonConstants";
 
 // Recoil
 import { useRecoilValue, useRecoilState } from "recoil";
-import { colorState, sizeState, fontState, userState } from '../../../../Recoil/atoms';
+import { colorState, sizeState, fontState, userState, selectedClientState } from '../../../../Recoil/atoms';
 
 // Ostrich
 import Gradient from "../../../../OstrichComponents/Gradient";
@@ -52,6 +52,8 @@ export default function ClientList() {
         const [user, setUser] = useRecoilState(userState)
 
         const [clientPlans, setClientPlans] = useState(user.patientCarePlans)
+
+        const [selectedClient, setSelectedClient] = useRecoilState(selectedClientState)
         
         // 0 = Child 1 = Guardian
         const [clientType, setClientType] = useState(0)
@@ -96,7 +98,11 @@ export default function ClientList() {
         }
         let filterString = searchUser.toUpperCase()
         allClients.forEach( (client) => {
-            if (client.user.firstName.includes(filterString) || client.lastName.includes(filterString)){
+            let fn = client.user.firstName.toUpperCase()
+            let ln = client.user.lastName.toUpperCase()
+            console.log(fn, " ", ln)
+            console.log(filterString)
+            if (ln.includes(filterString) || fn.includes(filterString)){
                 filteredList.push(client)
             }
         })
@@ -253,11 +259,10 @@ export default function ClientList() {
                     subtitle={`${client.user.role}`}
                     hasProfilePic={true}
                     profilePic={client.user.profilePic}
-                    onSelect={() =>
-                        navigation.navigate("Profile", {
-                            item: client,
-                        })
-                    }
+                    onSelect={() => {
+                        setSelectedClient(client)
+                        navigation.navigate("Profile")
+                    }}
                 />
             )
         }) 

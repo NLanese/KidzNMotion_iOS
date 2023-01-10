@@ -362,6 +362,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
 
                             dropArray={clients}
                             dropTitleProp={"firstName"}
+                            secondDropTitleProp={"lastName"}
                             
                             onTitleClick={() => setShowClientDropdown(!showClientDropdown)}
                             onIndexClick={(content) => handleDropIndexClick(content, setSelectedClients, selectedClients)}
@@ -384,6 +385,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
 
                             dropArray={guardianClients}
                             dropTitleProp={"firstName"}
+                            secondDropTitleProp={"lastName"}
                             
                             onTitleClick={() => setShowClientDropdown(!showClientDropdown)}
                             onIndexClick={(content) => handleDropIndexClick(content, setSelectedClients, selectedClients)}
@@ -442,28 +444,21 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
                         justifyContent: "center",
                     }}
                 >
-                    <TouchableOpacity
-                        style={{width: 130, height: 48, backgroundColor: COLORS.buttonColorLight, borderRadius: 10, justifyContent: "center", alignItems: "center", marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1}}
-                        onPress={() => {handleMainSubmit("ass")}}
-                    >
-                        <Text style={{ color: COLORS.confirm, ...FONTS.Lato_700Bold, fontSize: 18, textTransform: "capitalize" }} >
-                            Assign
-                        </Text>
-                    </TouchableOpacity>
-
+                    
+                    {renderSubmitButton("ass")}
 
                     <TouchableOpacity
-                        style={{
-                            width: 130,
-                            height: 48,
-                            backgroundColor: COLORS.btnColor,
-                            borderRadius: 10,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginHorizontal: 7.5,
-                            marginTop: 10,
-                        }}
-                        onPress={() => setShowAssignmentsModal(false)}
+                    style={{
+                        width: 130,
+                        height: 48,
+                        backgroundColor: COLORS.btnColor,
+                        borderRadius: 10,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginHorizontal: 7.5,
+                        marginTop: 10,
+                    }}
+                    onPress={() => setShowAssignmentsModal(false)}
                     >
                         <Text
                             style={{
@@ -483,23 +478,9 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         // Renders the Assign or Cancel Buttons in the Assignment Modal
         function renderMeetingOrCancelForModal(){
             return(
-                <View
-                    style={{
-                        marginTop: 30,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    <TouchableOpacity
-                        style={{width: 130, height: 48, backgroundColor: COLORS.buttonColorLight, borderRadius: 10, justifyContent: "center", alignItems: "center", marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1}}
-                        onPress={() => {handleMainSubmit("meeting")}}
-                    >
-                        <Text style={{ color: COLORS.confirm, ...FONTS.Lato_700Bold, fontSize: 18, textTransform: "capitalize" }} >
-                            Assign
-                        </Text>
-                    </TouchableOpacity>
+                <View style={{marginTop: 30, flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
 
+                    {renderSubmitButton("meeting")}
 
                     <TouchableOpacity
                         style={{
@@ -527,6 +508,45 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
                     </TouchableOpacity>
                 </View>
             )
+        }
+
+        function renderSubmitButton(type){
+            if (selectedClients.length > 0){
+                if (type === "ass"){
+                    return(
+                        <TouchableOpacity
+                        style={{width: 130, height: 48, backgroundColor: COLORS.buttonColorLight, borderRadius: 10, justifyContent: "center", alignItems: "center", marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1}}
+                        onPress={() => {handleMainSubmit("ass")}}
+                        >
+                            <Text style={{ color: COLORS.confirm, ...FONTS.Lato_700Bold, fontSize: 18, textTransform: "capitalize" }} >
+                                Assign
+                            </Text>
+                        </TouchableOpacity>
+                    )
+                }
+                else if (type === "meeting"){
+                    return(
+                        <TouchableOpacity
+                        style={{width: 130, height: 48, backgroundColor: COLORS.buttonColorLight, borderRadius: 10, justifyContent: "center", alignItems: "center", marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1}}
+                        onPress={() => {handleMainSubmit("meeting")}}
+                        >
+                            <Text style={{ color: COLORS.confirm, ...FONTS.Lato_700Bold, fontSize: 18, textTransform: "capitalize" }} >
+                                Schedule
+                            </Text>
+                        </TouchableOpacity>
+                    )
+                }
+            }
+            else{
+                return(
+                    <View
+                    style={{width: 130, height: 48, backgroundColor: "grey", borderRadius: 10, justifyContent: "center", alignItems: "center", marginTop: 10, marginHorizontal: 7.5, borderColor: COLORS.buttonColorDark, borderWidth: 1}}>
+                        <Text style={{ color: COLORS.confirm, ...FONTS.Lato_700Bold, fontSize: 18, textTransform: "capitalize" }} >
+                            Needs Clients
+                        </Text>
+                    </View>
+                )
+            }
         }
 
 ///////////////////////
@@ -753,6 +773,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         let submissionDate = new Date(`${dateAsArray[2]}-${dateAsArray[0]}-${dateAsArray[1]}T${timeArray[0]}:${timeArray[1]}:${timeArray[2]}.00Z`)
         submissionDate = submissionDate.setHours(submissionDate.getHours() + 1)
         submissionDate = new Date(submissionDate)
+        // submissionDate = (submissionDate.toISOString().replace(".000Z", ""))
         return await createMeeting({
             variables: {
                 title: `${meetingDateObj} ${meetingType}`,
@@ -770,6 +791,7 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         })
     }
 
+    // Sends the Notification for the Scheduled Assignment
     function handleMadeAssignmentMutation(ass){
         return sendAssign({
             variables: {
@@ -784,6 +806,8 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         })
         .catch((err) => console.log(err))
     }
+
+
 
 
 ///////////////////////

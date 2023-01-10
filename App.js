@@ -199,17 +199,18 @@ const Stack = createNativeStackNavigator();
 
 
   // Firebase Push Notificiations
-
   useEffect(() => {
     handleUpdatePhoneToken()
     notificationConfigure()
   }, [])
 
+  // Handles FCM Token
   async function handleUpdatePhoneToken(){
     const fcmToken = await messaging().getToken();
-    // console.log("TOKEN:::: ", fcmToken)
+    console.log("TOKEN:::: ", fcmToken)
   }
 
+  // Configures Device to recieve Notifications
   notificationConfigure = async () => {
     // check if we have permissions
     let enabled = await messaging().hasPermission();
@@ -237,7 +238,7 @@ const Stack = createNativeStackNavigator();
 
   return(
     <ErrorBoundary
-    onError={(error) => console.log("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}
+    onError={(error) => console.error("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}
     >
       <NavigationContainer>
         <ApolloProvider client={client}>
