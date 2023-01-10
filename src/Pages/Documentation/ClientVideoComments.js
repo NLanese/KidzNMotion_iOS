@@ -64,6 +64,8 @@ export default function ClientVideoComments(props) {
         // Tracks all ids that have comments
         const [vidIds, setVidIds] = useState([])
 
+        const [first, setFirst] = useState(true)
+
         // Object with a key/value pair for each video/commentList
         const [comments, setComments] = useState({
             step_up: [],        toe_walking: [],
@@ -101,7 +103,10 @@ export default function ClientVideoComments(props) {
     }, [selectedClient])
 
     useEffect(() => {
-        disperseComments(selectedClient.plan.comments)
+        if (first){
+            disperseComments(selectedClient.plan.comments)
+            setFirst(false)
+        }
       }, []);
 
 
@@ -304,11 +309,9 @@ export default function ClientVideoComments(props) {
         await createCommentMutation(video)
         .then((resolved) => {
             disperseComments(resolved.data.createComment.comments)  
-            .then(() => {
-                setTextEntered("")
-                setModalOpen(false)
-                setLoading(false)
-            })  
+            setTextEntered("")
+            setModalOpen(false)
+            setLoading(false)
         })
     }
 
@@ -335,6 +338,8 @@ export default function ClientVideoComments(props) {
         .then((resolved) => {
             setUser(resolved.data.getUser)
             setClients(getAllTherapistClients(resolved.data.getUser))
+            let newClient = clients.find(thisClient => thisClient.id === selectedClient.user.id)
+            console.log("NEW::::::", newClient)
         })
         .then(() => {
             return true
@@ -366,6 +371,18 @@ export default function ClientVideoComments(props) {
             });
         });
         setLoading(false)
+    }
+
+    function findAndAddNewestComment(comments){
+        let newestTime = comments[0].createdAt
+        let newestComement = comments[0]
+        comments.forEach(comm => {
+            console.log(comm.content)
+            if (comm.createdAt > newestTime){
+                newestComement = comm
+            }
+        })     
+        console.log(newestComement)   
     }
 
     function clearComments(){
