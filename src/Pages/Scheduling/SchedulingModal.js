@@ -802,7 +802,6 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
             }
         })
         .then((resolved) => {
-            console.log("MADE ASSIGN MUTATION: ", resolved)
         })
         .catch((err) => console.log(err))
     }
