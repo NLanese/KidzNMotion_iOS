@@ -613,7 +613,7 @@ export default function CalendarPage() {
                 }
             })
             .then(resolved => {
-                console.log(resolved)
+                // console.log(resolved)
             })
         }
 
