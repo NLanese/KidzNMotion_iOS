@@ -63,7 +63,11 @@ export default function ClientList() {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         // Goes through each ChildCarePlan to extrapolate child users and their plans, as well as parents //
-        const childClients = clientPlans.map(cp => {
+        let childClients = []
+        if (clientPlans.length <= 0){
+            return null
+        }
+        childClients = clientPlans.map(cp => {
 
             if (!cp.child){
                 return 
