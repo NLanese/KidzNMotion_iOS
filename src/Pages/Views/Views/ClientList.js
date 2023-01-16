@@ -68,24 +68,18 @@ export default function ClientList() {
             return null
         }
         childClients = clientPlans.map(cp => {
-
             if (!cp.child){
                 return 
             }
-
             if (!(guardianClientIds.includes(cp.child.guardian.id))){
                 guardianClientIds.push(cp.child.guardian.id)
                 guardianClients.push({user: cp.child.guardian})
-            }
-            
+            }       
             return({
                 plan: cp,
                 user: cp.child
             })
         })
-
-
-
 
        
 ///////////////////////
@@ -299,7 +293,13 @@ export default function ClientList() {
             </View>
         );
     }
-  
+
+
+///////////////////////
+///                 ///
+///      MAIN       ///
+///                 ///
+///////////////////////
 
     return (
         // <SafeAreaView style={{ ...AndroidSafeArea.AndroidSafeArea }}>

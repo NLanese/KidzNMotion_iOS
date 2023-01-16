@@ -275,9 +275,9 @@ const Styles = StyleSheet.create({
             if (first){
                 return(
                     <View>
-                            <View style={{marginLeft: 210}}>
+                        <View style={{marginLeft: 210}}>
                             {renderTimeStamp(message.sentAt.timeStamp)}
-                            </View>
+                        </View>
                         <View style={{display: 'flex', flexDirection: 'row'}} key={i}>
                             <View style={Styles.messageProfilePic} />
 
@@ -531,6 +531,7 @@ const Styles = StyleSheet.create({
         let date = timeArr[2]
         let timeClock = timeArr[4] 
         let timeClockSplit = timeClock.split(":")
+        timeClockSplit[0] = parseInt(timeClockSplit[0], 10) + 6
         if (parseInt(timeClockSplit[0], 10) > 12){
             timeClockSplit[0] = parseInt(timeClockSplit[0], 10) - 12 
         }
