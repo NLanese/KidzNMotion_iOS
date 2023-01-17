@@ -301,25 +301,35 @@ export default function ClientList() {
 ///                 ///
 ///////////////////////
 
-    return (
-        // <SafeAreaView style={{ ...AndroidSafeArea.AndroidSafeArea }}>
-            <Gradient
-                colorOne={COLORS.gradientColor1}
-                colorTwo={COLORS.gradientColor2}
-                style={{height: '105%'}}
-            >
-                {renderHeader()}
-                <View style={{marginTop: -15}}>
-                    <ScrollView contentContainerStyle={{height: '120%'}}>
-                        {renderLogo()}
-                        {renderSearch()}
-                        {renderParentOrChildTabBar()}
-                        {renderContent()}
-                    </ScrollView>
-                </View>
-            </Gradient>
-        // </SafeAreaView>
-    );
+    return(
+        <View>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+            <Text>Test</Text>
+        </View>
+    )
+
+    // return (
+    //         <Gradient
+    //         colorOne={COLORS.gradientColor1}
+    //         colorTwo={COLORS.gradientColor2}
+    //         style={{height: '105%'}}
+    //         >
+    //             {/* {renderHeader()} */}
+    //             <View style={{marginTop: -15}}>
+    //                 <ScrollView contentContainerStyle={{height: '120%'}}>
+    //                     {/* {renderLogo()} */}
+    //                     {/* {renderSearch()} */}
+    //                     {/* {renderParentOrChildTabBar()} */}
+    //                     {/* {renderContent()} */}
+    //                 </ScrollView>
+    //             </View>
+    //         </Gradient>
+    // );
 }
 
 const styles = StyleSheet.create({
