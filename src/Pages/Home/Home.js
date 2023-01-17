@@ -512,7 +512,10 @@ export default function Home() {
                         title={"Clients"}
                         subtitle={"View or Add Clients"}
                         image={"client"}
-                        onSelect={() => navigation.navigate("ClientList")}
+                        onSelect={() => {
+                            console.log("Navigate to ClientList")
+                            navigation.navigate("ClientList")}
+                        }
                         icon={<UserTab fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
                     />
                     <SelectionButton
