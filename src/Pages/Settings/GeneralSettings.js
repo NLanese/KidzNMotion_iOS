@@ -60,10 +60,10 @@ export default function GeneralSettings() {
         const [token, setToken] = useRecoilState(tokenState)
 
         // Notification Settings
-        const [msgNotis, setMsgNotis] = useState(!user.muteAllMessages)
+        const [msgNotis, setMsgNotis] = useState(user.muteAllMessages)
 
         // Tracks whether assignment notifications are tracked
-        const [vidNotis, setVidNotis] = useState(!user.muteAllAssignments)
+        const [vidNotis, setVidNotis] = useState(user.muteAllAssignments)
 
         // Tracks the Notification Settings in an object for Mutation
         const [userSettingsBundle, setUserSettingsBundle] = useState({
@@ -443,8 +443,10 @@ export default function GeneralSettings() {
 
         // Renders the Parent Password Modal
         function renderParentPasswordModal(){
-            if (showParentPass){
+            if (!showParentPass){
+                return null
             }
+            console.log("should render password modal...")
             return(
                 <Modal
                     isVisible={showParentPass}
@@ -602,7 +604,7 @@ export default function GeneralSettings() {
                         </Text>
                         <Switch
                             onChange={() => makeToggle('muteMessage')}
-                            value={childLeave}
+                            value={userSettingsBundle.muteMessages}
                         />
                     </View>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between',  borderColor: COLORS.iconDark, borderWidth: 1, padding: 4, paddingLeft: 8, paddingRight: 8, borderRadius: 10, marginBottom: 15}}>
@@ -611,7 +613,7 @@ export default function GeneralSettings() {
                         </Text>
                         <Switch
                             onChange={() => makeToggle('muteAssign')}
-                            value={childLeave}
+                            value={userSettingsBundle.muteAssignments}
                         />
                     </View>
                 </View>
@@ -800,11 +802,11 @@ export default function GeneralSettings() {
                 setChangesMadeTo({...changesMadeTo, notifications: true})
             }
             else if (type === "muteMessage"){
-                setMuteMessages(!muteMessages)
+                setUserSettingsBundle(userSettingsBundle => ({...userSettingsBundle, muteMessages: !userSettingsBundle.muteMessages}))
                 setChangesMadeTo({...changesMadeTo, notifications: true})
             }
             else if (type === "muteAssign"){
-                setMuteAssignments(!muteAssignments)
+                setUserSettingsBundle(userSettingsBundle => ({...userSettingsBundle, muteAssignments: !userSettingsBundle.muteAssignments}))
                 setChangesMadeTo({...changesMadeTo, notifications: true})
             }
         }
@@ -821,6 +823,8 @@ export default function GeneralSettings() {
                 //////////////////////////////////////////
                 // In case password hasn't been entered //
                 if (!parentPassAdded){
+                    console.log("Need to add your password")
+                    console.log(showParentPass)
                     setShowParentPass(true)
                     return 
                 }
@@ -868,6 +872,8 @@ export default function GeneralSettings() {
             else if (user.role === "THERAPIST"){
                 handleUserSettingsMutation()
             }
+
+            getAndSetUser()
         }
 
         // Replaces the goBack() function in the back arrow to catch unsaved changes
@@ -900,8 +906,8 @@ export default function GeneralSettings() {
         async function handleUserSettingsMutation(){
             return await editNotificationSettings({
                 variables: {
-                    muteMessageNotifications: !userSettingsBundle.muteMessages,
-                    muteAssignmentNotifications: !userSettingsBundle.muteAssignments
+                    muteMessageNotifications: userSettingsBundle.muteMessages,
+                    muteAssignmentNotifications: userSettingsBundle.muteAssignments
                 }
             })
         }
@@ -923,6 +929,26 @@ export default function GeneralSettings() {
                     password: parentPass
                 }
             }).catch(err => console.log(err.toString()))
+        }
+
+        // Gets the new user object with the revised client
+        async function getAndSetUser(){
+            return await client.query({
+                query: GET_USER,
+                fetchPolicy: 'network-only'  
+            })
+            .then((resolved) => {
+                setUser(resolved.data.getUser)
+                return resolved
+            })
+            .then((resolved) => {
+                setUser(resolved.data.getUser)
+                navigation.navigate("Home")
+                return true
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         }
 
     

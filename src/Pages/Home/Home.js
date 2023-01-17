@@ -476,43 +476,46 @@ export default function Home() {
                 </>
             )
         }
-        else if(user.role === "ADMIN"){      // role === "ADMIN"
-            return(
-                <>
-                    <SelectionButton
-                        title={"Therapists"}
-                        subtitle={"View Therapists"}
-                        image={"therapist"}
-                        onSelect={() => navigation.navigate("TherapistList")}
-                        icon={<UserTab fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
-                    />
-                    <SelectionButton
-                        title={"Clients"}
-                        subtitle={"View or Add Clients"}
-                        image={"client"}
-                        onSelect={() => navigation.navigate("ClientList")}
-                        icon={<UserTab fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
-                    />
-                    <SelectionButton
-                        title={"Messaging"}
-                        subtitle={"Communicate with your Clients and Therapists"}
-                        image={"notification"}
-                        onSelect={() => navigation.navigate("/")}
-                        icon={<Bell fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} style={{transform: [{ scale: 2 }, {translateX: 3.5}]}}/>}
-                        notificationCount={msgNotisLen}
-                    />
+        // else if(user.role === "ADMIN"){      // role === "ADMIN"
+        //     return(
+        //         <>
+        //             <SelectionButton
+        //                 title={"Therapists"}
+        //                 subtitle={"View Therapists"}
+        //                 image={"therapist"}
+        //                 onSelect={() => navigation.navigate("TherapistList")}
+        //                 icon={<UserTab fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
+        //             />
+        //             <SelectionButton
+        //                 title={"Clients"}
+        //                 subtitle={"View or Add Clients"}
+        //                 image={"client"}
+        //                 onSelect={() => navigation.navigate("ClientList")}
+        //                 icon={<UserTab fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
+        //             />
+        //             <SelectionButton
+        //                 title={"Messaging"}
+        //                 subtitle={"Communicate with your Clients and Therapists"}
+        //                 image={"notification"}
+        //                 onSelect={() => navigation.navigate("/")}
+        //                 icon={<Bell fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight} style={{transform: [{ scale: 2 }, {translateX: 3.5}]}}/>}
+        //                 notificationCount={msgNotiLen}
+        //             />
                     
-                </>
-            )
-        }
-        else if (user.role === "THERAPIST"){ // role === "THERAPIST"
+        //         </>
+        //     )
+        // }
+        else if (user.role === "THERAPIST" || user.role === "ADMIN"){ // role === "THERAPIST"
             return(
                 <>
                     <SelectionButton
                         title={"Clients"}
                         subtitle={"View or Add Clients"}
                         image={"client"}
-                        onSelect={() => navigation.navigate("ClientList")}
+                        onSelect={() => {
+                            console.log("Navigate to ClientList")
+                            navigation.navigate("ClientList")}
+                        }
                         icon={<UserTab fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
                     />
                     <SelectionButton
@@ -949,3 +952,5 @@ export default function Home() {
         </Gradient>
     );
 }
+
+

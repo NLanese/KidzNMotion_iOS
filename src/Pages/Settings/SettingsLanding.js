@@ -25,6 +25,7 @@ import SelectionButton from "../../../OstrichComponents/SelectionButton";
 import PersonasAvatar from "./AvatarSettings/PersonasAvatar"
 
 import LoadingComponent from "../../Global/LoadingComponent"
+import AsyncStorage from "@react-native-community/async-storage";
 
 
 
@@ -528,6 +529,7 @@ export default function SettingsLanding() {
     function handleSignOut() {
         signOutMutation().then( resolved => {
             setToken(false)
+            AsyncStorage.setItem(`@token`, "none")
             navigation.navigate("SignIn")
         }).catch(err => {
             console.log(err)

@@ -207,7 +207,7 @@ const Stack = createNativeStackNavigator();
   // Handles FCM Token
   async function handleUpdatePhoneToken(){
     const fcmToken = await messaging().getToken();
-    console.log("TOKEN:::: ", fcmToken)
+    console.log("NOTIFICATION TOKEN:::: ", fcmToken)
   }
 
   // Configures Device to recieve Notifications

@@ -62,7 +62,6 @@ export default function InputField(props) {
                         placeholderTextColor={COLORS.inputPlaceholder}
                         secureTextEntry={secureTextEntry}
                         onChange={(val) => onChangeText(val.nativeEvent.text)}
-                        placeholderTextColor={(placeholderTextColor || COLORS.lightGray)}
                         multiline={multiline}
                         scrollEnabled={scrollEnabled || false}
                     />
