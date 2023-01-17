@@ -471,9 +471,6 @@ const Styles = StyleSheet.create({
         // Gets all consecutive message clumps //
         let messageClumps = chopAtDifferentSenders(messageArray)
 
-        console.log(messageClumps)
-
-
         //////////////////////////////////////////////////////////////////////////////////
         // Breaks up each message clump into an individual render to return all message //
         return messageClumps.map(messageClump => {
@@ -576,10 +573,6 @@ const Styles = StyleSheet.create({
         let returnArrayOfMessages = []
         let arrayOfSameSender = []
 
-        // messageArray.forEach( (msg, i) => {
-        //     console.log(i, " : ", msg.content, msg.createdAt)
-        //     console.log("\n---")
-        // })
 
         ///////////////////////////////////
         // Iterates through all messages //
@@ -588,8 +581,6 @@ const Styles = StyleSheet.create({
             ///////////////////////////////////////////////////////////////////////////
             // Final iteration, one beyond legth. This pushes all remaining messaged //
             if (!(i < messageArray.length)){
-                    console.log("Last iteration")
-                    console.log("-----")
                 returnArrayOfMessages.push(arrayOfSameSender)
             }
 
@@ -600,27 +591,18 @@ const Styles = StyleSheet.create({
                 /////////////////////////////////////
                 // First time accessing this array //
                 if (arrayOfSameSender.length === 0){
-                    console.log("First Dude")
-                    console.log(messageArray[i])
-                    console.log("-----")
                     arrayOfSameSender.push(messageArray[i])
                 }
 
                 ////////////////////////////////
                 // Another of the Same Sender //
                 else if (messageArray[i].sentBy.userID === arrayOfSameSender[0].sentBy.userID){
-                    console.log("Same Dude")
-                    console.log(messageArray[i])
-                    console.log("-----")
                     arrayOfSameSender.push(messageArray[i])
                 }
 
                 //////////////////////
                 // Different Sender //
                 else if (messageArray[i].sentBy.userID !== arrayOfSameSender[0].sentBy.userID){
-                    console.log("Different Dude")
-                    console.log(messageArray[i])
-                    console.log("-----")
                     returnArrayOfMessages.push(arrayOfSameSender)
                     arrayOfSameSender = []
                     arrayOfSameSender.push(messageArray[i])
@@ -642,6 +624,7 @@ const Styles = StyleSheet.create({
         }
         handleSendMessageMutation()
         .then( async (resolved) => {
+            console.log(resolved)
             setTextEntered("")
             await getAndSetUser()
             await fetchChatDetail()
