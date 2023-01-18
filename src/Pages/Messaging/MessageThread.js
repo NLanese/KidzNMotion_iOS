@@ -520,6 +520,13 @@ const Styles = StyleSheet.create({
     }
 
     function renderTimeStamp(time){
+        console.log("-=-=-=-=-=-=-=")
+        console.log(time)
+        console.log(time.toString())
+        let strDate = time.toString()
+        let localDate = new Date(strDate)
+        localDate = (localDate.toLocaleString())
+        console.log(localDate.toString())
         time = time.toString()
         time = time.slice(0, 25)
         timeArr = time.split(" ")
@@ -529,13 +536,14 @@ const Styles = StyleSheet.create({
         let timeClock = timeArr[4] 
         let timeClockSplit = timeClock.split(":")
         timeClockSplit[0] = parseInt(timeClockSplit[0], 10) + 6
+        console.log(parseInt(timeClockSplit[0]))
         if (parseInt(timeClockSplit[0], 10) > 12){
             timeClockSplit[0] = parseInt(timeClockSplit[0], 10) - 12 
         }
         time = `${day} ${month} ${date} - ${timeClockSplit[0]}:${timeClockSplit[2]}`
         return(
             <Text style={{marginBottom: 10, marginTop: 10, fontFamily: 'Gilroy-SemiBold'}}>
-                {time}
+                {localDate.toString()}
             </Text>
         )
     }
