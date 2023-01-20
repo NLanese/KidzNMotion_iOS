@@ -350,7 +350,7 @@ const Styles = StyleSheet.create({
 
             //////////////////////////////////// 
             // This is the first of the clump //
-            if (first){
+            if (true){
                 return(
                     <View>
                             <View style={{marginLeft: 30}}>
