@@ -480,7 +480,7 @@ export default function SettingsLanding() {
                     onSelect={() => navigation.navigate("ProfileEdit")}
                     plainCenter={true}
                 />
-                {/* {renderOrganizationSettings()} */}
+                {renderOrganizationSettings()}
                 <SelectionButton 
                     title={"Sign Out"}
                     plainCenter={true}

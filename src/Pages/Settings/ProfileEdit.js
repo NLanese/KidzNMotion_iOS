@@ -11,7 +11,7 @@ import { AREA, DEFAULT_AVATAR, FONTS,
 
 // Apollo / GraphQL
 import { useMutation, useQuery } from '@apollo/client';
-import { EDIT_USER, GET_USER, CHANGE_PROFILE_PICTURE } from "../../../GraphQL/operations";
+import { EDIT_USER, GET_USER, CHANGE_PROFILE_PICTURE, REQUEST_ACCOUNT_DELETION } from "../../../GraphQL/operations";
 import client from "../../utils/apolloClient";
 
 // Recoil
@@ -112,6 +112,7 @@ export default function ProfileEdit() {
 
     const [changeProfilePicture, { loading: loadingA, error: errorA, data: typeA }] = useMutation(CHANGE_PROFILE_PICTURE);
 
+    const [requestAccountDeletion, { loading: loadingD, error: errorD, data: typeD }] = useMutation(REQUEST_ACCOUNT_DELETION);
 ///////////////////////////
 ///                     ///
 ///     Renderings      ///

@@ -1,6 +1,6 @@
 // Reaact
 import { View, Text, SafeAreaView, ScrollView, Image, ImageBackground, TouchableOpacity } from "react-native";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigation } from "@react-navigation/native";
 
 // Nuton
@@ -35,12 +35,6 @@ export default function OrganizationSettings() {
         const SIZES = useRecoilValue(sizeState)
         const navigation = useNavigation();
 
-    /////////////////
-    // Local State //
-    /////////////////
-
-        const [newName, setNewName] = useState("")        
-
     //////////////////
     // Recoil State //
     //////////////////
@@ -50,6 +44,33 @@ export default function OrganizationSettings() {
 
         // Organization Settings
         const [org, setOrg] = useRecoilState(organizationState)
+
+
+    /////////////////
+    // Local State //
+    /////////////////
+
+        const [orgUsers, setOrgUsers] = useState(org.organizationUsers)
+
+        const [therapists, setTherapists] = useState([])
+        
+        useEffect(() => {
+            orgUsers.forEach(orgUser => {
+                if (orgUser.user.role === "THERAPIST"){
+                    if (orgUser.user.email === user.email){
+                        console.log("Thats me")
+                        return null
+                    }
+                    else{
+                        setTherapists(therapists => ([...therapists, orgUser.user]))
+                    }
+                }
+            });
+        }, [])
+
+        useEffect(() => {
+            console.log(therapists)
+        }, [therapists])
 
 //////////////////////
 ///                 ///
@@ -72,11 +93,11 @@ export default function OrganizationSettings() {
 
     // Renders any text fields for the org
     function renderOrganizationTextFields() {
-        return(
-            <View style={{width: '80%', marginLeft: '10%'}}>
+    return(
+            <View style={{width: '80%', marginLeft: '5%', marginRight: '10%'}}>
                 <ProfileEditCategoryComponent
                     title="Organization Name"
-                    placeholder={user.ownedOrganization.name}
+                    placeholder={org.name}
                     onChangeText={(e) => onChangeText(e,'phoneNumer')}
                 />
             </View>
@@ -94,6 +115,34 @@ export default function OrganizationSettings() {
             </View>
         )
     }
+
+        // Renders Clients
+        function renderTherapists() {
+            let clients
+            if (clientType === 0){
+                clients = childClients
+            }
+            else if (clientType === 1){
+                clients = guardianClients
+            }
+            return filterClients(clients).map( (client, index) => {
+                if (!client){
+                    return null
+                }
+                 return(
+                    <SelectionButton
+                        title={`${client.user.firstName} ${client.user.lastName}`}
+                        subtitle={`${client.user.role}`}
+                        hasProfilePic={true}
+                        profilePic={client.user.profilePic}
+                        onSelect={() => {
+                            setSelectedClient(client)
+                            navigation.navigate("Profile")
+                        }}
+                    />
+                )
+            }) 
+        } 
 
 ///////////////////////
 ///                 ///
@@ -126,11 +175,9 @@ export default function OrganizationSettings() {
 
             <View style={{marginLeft: '10%', marginRight: '10%', marginTop: 25, marginBottom: 40}}>
                 <Text style={{...FONTS.Title, color: COLORS.iconLight}}>
-                    Organization Code: {user.ownedOrganization.name}
+                    Organization Therapists: {user.ownedOrganization.name}
                 </Text>
-                <Text style={{...FONTS.Title, fontSize: 22, color: COLORS.iconDark}}>
-                    kjfhgoaeijrggoa
-                </Text>
+                
             </View>    
             <View style={{marginTop: '70%'}}>
                 {renderDissolveOrganization()}

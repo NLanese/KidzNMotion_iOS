@@ -665,6 +665,16 @@ const DELETE_PATIENT = gql`
   }
 `
 
+const REQUEST_ACCOUNT_DELETION = gql`
+  mutation Mutation(
+    $userId: String
+  ){
+    requestAccountDeletion(
+      userId: $userId
+    )
+  }
+`
+
 //////////////////////////////////////////
 //                                      //
 //              CREATORS                //   
@@ -1036,6 +1046,7 @@ export {   //
   CHANGE_PROFILE_PICTURE,
   EDIT_COLOR_SETTINGS,
   DELETE_PATIENT,
+  REQUEST_ACCOUNT_DELETION,
   
   REQUEST_RESET_PASSWORD,
   CHANGE_CHILD_PASSWORD,
