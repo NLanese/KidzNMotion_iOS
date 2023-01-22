@@ -150,7 +150,7 @@ export default function ProfileVideoSettings(props) {
         if (user.role === "GUARDIAN" || user.role === "CHILD"){  //role === "GUARDIAN"
 
         }
-        else if (user.role === "THERAPIST"){
+        else if (user.role === "THERAPIST" || user.role === "ADMIN"){
             return(
                 <View>
                     <SelectionButton

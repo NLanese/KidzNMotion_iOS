@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, ScrollView, Image, TouchableWithoutFeedback, 
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import AsyncStorage from "@react-native-community/async-storage";
 
 
 import { Header, Button, ProfileEditCategoryComponent } from "../../../NutonComponents";
@@ -11,7 +12,7 @@ import { AREA, DEFAULT_AVATAR, FONTS,
 
 // Apollo / GraphQL
 import { useMutation, useQuery } from '@apollo/client';
-import { EDIT_USER, GET_USER, CHANGE_PROFILE_PICTURE, REQUEST_ACCOUNT_DELETION } from "../../../GraphQL/operations";
+import { EDIT_USER, GET_USER, CHANGE_PROFILE_PICTURE, REQUEST_ACCOUNT_DELETION, LOGOUT_USER } from "../../../GraphQL/operations";
 import client from "../../utils/apolloClient";
 
 // Recoil
@@ -113,6 +114,9 @@ export default function ProfileEdit() {
     const [changeProfilePicture, { loading: loadingA, error: errorA, data: typeA }] = useMutation(CHANGE_PROFILE_PICTURE);
 
     const [requestAccountDeletion, { loading: loadingD, error: errorD, data: typeD }] = useMutation(REQUEST_ACCOUNT_DELETION);
+
+    const [logout, { loading: loadingL, error: errorL, data: dataL }] = useMutation(LOGOUT_USER)
+
 ///////////////////////////
 ///                     ///
 ///     Renderings      ///
@@ -593,7 +597,7 @@ export default function ProfileEdit() {
                         borderRadius: 10, marginHorizontal: 7.5,
                         justifyContent: "center", alignItems: "center",
                     }}
-                    onPress={() => { console.log("moo()") }}
+                    onPress={() => { handleDeletion() }}
                 >
                     <Text style={{ color: COLORS.white, ...FONTS.ModalButton, textAlign: 'center'}}>
                        Yes, I want to delete
@@ -711,7 +715,14 @@ export default function ProfileEdit() {
 
     // Handles Deletion
     async function handleDeletion(){
-
+        await deleteMutation()
+        .then(() => {
+            AsyncStorage.setItem(`@token`, "none")
+            navigation.navigate("SignIn")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     // Handles Deletion Mutation

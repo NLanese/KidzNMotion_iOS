@@ -116,33 +116,33 @@ export default function OrganizationSettings() {
         )
     }
 
-        // Renders Clients
-        function renderTherapists() {
-            let clients
-            if (clientType === 0){
-                clients = childClients
+    // Renders Clients
+    function renderTherapists() {
+        let clients
+        if (clientType === 0){
+            clients = childClients
+        }
+        else if (clientType === 1){
+            clients = guardianClients
+        }
+        return filterClients(clients).map( (client, index) => {
+            if (!client){
+                return null
             }
-            else if (clientType === 1){
-                clients = guardianClients
-            }
-            return filterClients(clients).map( (client, index) => {
-                if (!client){
-                    return null
-                }
-                 return(
-                    <SelectionButton
-                        title={`${client.user.firstName} ${client.user.lastName}`}
-                        subtitle={`${client.user.role}`}
-                        hasProfilePic={true}
-                        profilePic={client.user.profilePic}
-                        onSelect={() => {
-                            setSelectedClient(client)
-                            navigation.navigate("Profile")
-                        }}
-                    />
-                )
-            }) 
-        } 
+                return(
+                <SelectionButton
+                    title={`${client.user.firstName} ${client.user.lastName}`}
+                    subtitle={`${client.user.role}`}
+                    hasProfilePic={true}
+                    profilePic={client.user.profilePic}
+                    onSelect={() => {
+                        setSelectedClient(client)
+                        navigation.navigate("Profile")
+                    }}
+                />
+            )
+        }) 
+    } 
 
 ///////////////////////
 ///                 ///
@@ -174,14 +174,14 @@ export default function OrganizationSettings() {
             {renderOrganizationTextFields()}
 
             <View style={{marginLeft: '10%', marginRight: '10%', marginTop: 25, marginBottom: 40}}>
-                <Text style={{...FONTS.Title, color: COLORS.iconLight}}>
+                {/* <Text style={{...FONTS.Title, color: COLORS.iconLight}}>
                     Organization Therapists: {user.ownedOrganization.name}
-                </Text>
+                </Text> */}
                 
             </View>    
-            <View style={{marginTop: '70%'}}>
+            {/* <View style={{marginTop: '70%'}}>
                 {renderDissolveOrganization()}
-            </View>
+            </View> */}
         </Gradient>
     )
 }
