@@ -709,8 +709,25 @@ export default function ProfileEdit() {
         }).catch(err => console.log(err))
     }
 
-    // 
+    // Handles Deletion
+    async function handleDeletion(){
 
+    }
+
+    // Handles Deletion Mutation
+    async function deleteMutation(){
+        return await requestAccountDeletion({
+            variables: {
+                userId: user.id
+            }
+        })
+        .then((resolved) => {
+            console.log(resolved)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
 
 ///////////////////////////
 ///                     ///
