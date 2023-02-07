@@ -24,6 +24,7 @@
 #import <React/RCTSurfacePresenter.h>
 #import <React/RCTSurfacePresenterBridgeAdapter.h>
 #import <ReactCommon/RCTTurboModuleManager.h>
+#import <ReactCommon/LongLivedObject.h>
 
 // Firebase
 #import <GoogleAnalytics/GAI.h>
