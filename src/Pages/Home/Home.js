@@ -196,7 +196,7 @@ export default function Home() {
                     let assign = filterAssignments(getAllTherapistAssignments(user))
                     setAssign(assign)
                 }
-                setOrg(user.organizations[0].organization)
+                // setOrg(user.organizations[0].organization)
             }, [user])
 
         ///////////////////
