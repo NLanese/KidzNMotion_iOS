@@ -172,19 +172,6 @@ export default function SchedulingLanding() {
 
     // Triggers the Requery when refresh is changed post mutation
     useEffect(() => {
-        // const schedulingChannel = pusherClient.subscribe(
-        //     user.id.toString()
-        // )
-
-        // schedulingChannel.bind("updated-schedule", function(data){
-        //     getAndSetUser()
-        // })
-
-        // return () => {
-        //     pusherClient.unsubscribe(user.id.toString())
-        // }
-
-        // setLoading(false)
     }, [user.id])
 
     useEffect(() => {

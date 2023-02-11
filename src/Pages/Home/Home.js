@@ -203,6 +203,7 @@ export default function Home() {
         // NOTIFICATIONS //
         ///////////////////
 
+
             const [msgNotis, setMsgNotis] = useRecoilState(messageNotifications)
 
             const [schedNotis, setSchedNotis] = useRecoilState(scheduleNotifications)

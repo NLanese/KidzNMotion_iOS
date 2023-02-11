@@ -806,9 +806,6 @@ export default function SchedulingModal({showAssignmentsModal, setShowAssignment
         .catch((err) => console.log(err))
     }
 
-
-
-
 ///////////////////////
 ///                 ///
 ///    Main Render  ///
