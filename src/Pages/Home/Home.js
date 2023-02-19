@@ -99,6 +99,8 @@ export default function Home() {
             // Duh
             const [user, setUser] = useRecoilState(userState)
 
+            console.log(user)
+
             // Sets Selected Child if relevant
             let XSelected
             if (user.role === "GUARDIAN"){
