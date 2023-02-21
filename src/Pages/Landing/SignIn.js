@@ -217,6 +217,8 @@ export default function SignIn() {
 
         // Sets Tokens and Async Data
         async function setTokenAsyncAndRegular(resolved){
+            console.log("Resolved before token set")
+            console.log(resolved)
             await setToken(resolved.data.loginUser.token)
             return await AsyncStorage.setItem('@token', resolved.data.loginUser.token)
         }
@@ -298,9 +300,7 @@ export default function SignIn() {
         const handleSignIn = async (localEmail = false, localPassword = false) => {
             setLoading(true)
 
-            console.log(localEmail, " LOCAL EMAIL 1")
-            console.log(localPassword, " LOCAL PASSWORD 1")
-
+            //////////////
             // MUTATION //
             handleLoginMutation(localEmail, localPassword)
 
@@ -312,9 +312,6 @@ export default function SignIn() {
 
                     // Clears Login Errors //
                     await clearErrors()
-
-                    // Async Stuff and Token //
-                    await setTokenAsyncAndRegular(resolved)
                     
                     // Get User, Avatar, and Colors //
                     await getAndSetUserAndUserProps()
@@ -350,14 +347,12 @@ export default function SignIn() {
 
                 /////////////////////////
                 // SUBSCRIPTION STATUS //
-                // if (user.subscriptionStatus !== "active"){
-                //     console.log(user.subscriptionStatus)
-                //     setLoading(false)
-                //     setNoSubModal(true)
-                //     setNoSubType(user.subscriptionStatus)
-                //     setUser(false)
-                //     return false
-                // }
+                if (user.subscriptionStatus !== "active"){
+                    console.log(user.subscriptionStatus)
+                    setNoSubType(user.subscriptionStatus)
+                    return false
+                }
+                // else if ()
 
                 // On Successful Login, reroute
                 setLoading(false)
@@ -368,11 +363,8 @@ export default function SignIn() {
 
         // Determines which login Mutation to use 
         const handleLoginMutation = async (localEmail = false, localPassword = false) => {
-
-            console.log(localEmail, " LOCAL EMAIL 2")
-            console.log(localPassword, " LOCAL PASSWORD 2")
-
-
+            ////////////////
+            // INITIALIZE //
             let loginEmail 
             let loginPassword
 
@@ -393,7 +385,6 @@ export default function SignIn() {
                 loginPassword = password
             }
 
-
             ///////////////////
             // Async Storage //
             if (rememberMe){
@@ -401,15 +392,25 @@ export default function SignIn() {
                 AsyncStorage.setItem('@password', password)
             }
 
-            console.log(password, " LOCAL EMAIL 3")
-            console.log(username_or_email, " LOCAL PASSWORD 3")
+            console.log(localEmail, " LOCAL EMAIL")
+            console.log(localPassword, " LOCAL PASSWORD")
 
             return await userLogin({
                 variables: {
                     username: loginEmail,
                     password: loginPassword
                 }
+            }).then((resolved) => {
+                console.log("USER LOGIN SUCCESSFUL")
+                console.log(resolved)
+
+                 // Async Stuff and Token //
+                setTokenAsyncAndRegular(resolved)
+
+                return true
             })
+
+
             ///////////////////
             // Catches Error //
             .catch(error => {

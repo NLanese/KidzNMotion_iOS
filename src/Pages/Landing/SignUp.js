@@ -184,7 +184,7 @@ const SignUp = ({ navigation })  => {
 
         // Testing to remove token if needed
         useEffect(() => {
-            // AsyncStorage.clear()
+            AsyncStorage.clear()
         }, [])
 
     ///////////////////////
@@ -263,7 +263,7 @@ const SignUp = ({ navigation })  => {
             )
         }
 
-         // Renders Error Message
+        // Renders Error Message
         function renderErrorMessage(type, extra=0){
             let subTop = 5 + extra
             if (errors[type]){
