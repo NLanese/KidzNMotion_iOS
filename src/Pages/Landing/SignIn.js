@@ -217,8 +217,6 @@ export default function SignIn() {
 
         // Sets Tokens and Async Data
         async function setTokenAsyncAndRegular(resolved){
-            console.log("Resolved before token set")
-            console.log(resolved)
             await setToken(resolved.data.loginUser.token)
             return await AsyncStorage.setItem('@token', resolved.data.loginUser.token)
         }
@@ -229,7 +227,7 @@ export default function SignIn() {
                 query: GET_USER,
                 fetchPolicy: 'network-only'  
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {console.error(err)})
             .then(async(resolved) => {
                 // User //
                 await setUser(resolved.data.getUser)
@@ -265,7 +263,7 @@ export default function SignIn() {
                 await setAssign(assign)
             }
             else{
-                console.log("findUserAssignments failed, there was no user.role for some reason")
+                console.error("Invalid User Object-- no ROLE")
             }
         }
 
@@ -392,22 +390,14 @@ export default function SignIn() {
                 AsyncStorage.setItem('@email', username_or_email)
                 AsyncStorage.setItem('@password', password)
             }
-
-            console.log(localEmail, " LOCAL EMAIL")
-            console.log(localPassword, " LOCAL PASSWORD")
-
             return await userLogin({
                 variables: {
                     username: loginEmail,
                     password: loginPassword
                 }
             }).then((resolved) => {
-                console.log("USER LOGIN SUCCESSFUL")
-                console.log(resolved)
-
                  // Async Stuff and Token //
                 setTokenAsyncAndRegular(resolved)
-
                 return true
             })
 
@@ -477,7 +467,6 @@ export default function SignIn() {
                     password: password,
                     remember: remember
                 }
-                console.log("INSIDE GETDATA::::::" ,data)
                 return data
             } catch (error) {
                 throw new Error(error)

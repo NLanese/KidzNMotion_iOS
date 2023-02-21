@@ -184,7 +184,7 @@ const SignUp = ({ navigation })  => {
 
         // Testing to remove token if needed
         useEffect(() => {
-            AsyncStorage.clear()
+            // AsyncStorage.clear()
         }, [])
 
     ///////////////////////
