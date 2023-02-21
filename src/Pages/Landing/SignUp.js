@@ -965,8 +965,6 @@ const SignUp = ({ navigation })  => {
                     mutationObj.title = "Administrator"
                 }
 
-                console.log("MUTATION OBJECT:::::", mutationObj)
-
                 // MUTATION //
                 return handleMutation(mutationObj).then( async (resolved)=>  {
                     if (resolved){
@@ -1018,7 +1016,6 @@ const SignUp = ({ navigation })  => {
 
             // Determines which mutation to run based on userType
             const handleMutation = async (mutationObj) => {
-                console.log(mutationObj)
                 return await userSignupMutation({
                     variables: {
                         ...mutationObj
