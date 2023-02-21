@@ -182,6 +182,11 @@ const SignUp = ({ navigation })  => {
         useEffect(() => {
         }, [errors]) 
 
+        // Testing to remove token if needed
+        useEffect(() => {
+            AsyncStorage.clear()
+        }, [])
+
     ///////////////////////
     ///                 ///
     ///    Renderings   ///
@@ -965,13 +970,25 @@ const SignUp = ({ navigation })  => {
                     mutationObj.title = "Administrator"
                 }
 
+                console.log("Starting singup")
+
                 // MUTATION //
                 return handleMutation(mutationObj).then( async (resolved)=>  {
                     if (resolved){
+
+                        console.log("Signup completed")
+                        console.log("RESOLVED:::: \n", resolved)
+
                         clearErrors()
+
+                        console.log("Setting Login token...")
+                        console.log(resolved.data.signUpUser.token)
+
                         await AsyncStorage.setItem('@token', resolved.data.signUpUser.token)
                         setToken(resolved.data.signUpUser.token)
 
+
+                        console.log("Setting user")
                         //////////////
                         // Get User //
                         await client.query({
@@ -979,11 +996,13 @@ const SignUp = ({ navigation })  => {
                             fetchPolicy: 'network-only'  
                         })
                         .then(async (resolved) => {
+                            console.log("User object retrieved")
+                            console.log("User Object::::::: \n", resolved.data.getUser)
                             setUser(resolved.data.getUser)
 
                         })
                         .catch((error) => {
-                            console.log(error)
+                            console.error(error)
                         });
 
                         ////////////////
@@ -996,7 +1015,7 @@ const SignUp = ({ navigation })  => {
                             await setVideos(resolved.data.getAllVideoFiles)
                             await console.log("Setting Videos, moving on")
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => console.error(err))
 
                         // If Therapist User
                         if (user.role === "THERAPIST"){     
@@ -1008,7 +1027,7 @@ const SignUp = ({ navigation })  => {
                     }
                 }).catch(error => {
                     if (error === "Error: Email already exists"){
-                        console.log("EMAIL ALREADY EXISTS")
+                        console.error("EMAIL ALREADY EXISTS")
                         setError({...errors, email: "This Email is Taken" })
                     }
                 })
@@ -1021,7 +1040,7 @@ const SignUp = ({ navigation })  => {
                         ...mutationObj
                     }
                 }).catch(error => {
-                    console.log(error)
+                    console.error(error)
                 }).then((resolved) => {
                     console.log("handle mutation --- RESOLVED::::::", resolved)
                     return resolved

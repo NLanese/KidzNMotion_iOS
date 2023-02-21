@@ -153,8 +153,6 @@ export default function Home() {
 
             const [token, setToken] = useRecoilState(tokenState)
 
-            console.log("JWT TOKEN:::::: ", token)
-
             const [avatar, setAvatar] = useRecoilState(avatarState)
 
             const [colors, setColors] = useRecoilState(colorState)
