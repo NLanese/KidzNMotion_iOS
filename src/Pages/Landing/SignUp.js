@@ -999,10 +999,9 @@ const SignUp = ({ navigation })  => {
                             console.log("User object retrieved (6)")
                             console.log("User Object::::::: \n", resolved.data.getUser, "\n(7)")
                             setUser(resolved.data.getUser)
-
                         })
                         .catch((error) => {
-                            console.log("ERROR GETTING USER, (8)")
+                            console.log("ERROR GETTING USER, (6)")
                             console.error(error)
                         });
 
@@ -1024,7 +1023,7 @@ const SignUp = ({ navigation })  => {
                         }
 
                         // Navigation
-                        // navigation.navigate("Home")
+                        navigation.navigate("Home")
                     }
                 }).catch(error => {
                     if (error === "Error: Email already exists"){
