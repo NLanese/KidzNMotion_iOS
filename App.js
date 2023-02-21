@@ -174,8 +174,8 @@ const Stack = createNativeStackNavigator();
 
   // Create HttpLink for Apollo
   const httpLink = createHttpLink({
-    // uri: 'https://kids-in-motion.vercel.app/api/graphql' // Live
-    uri: 'http://localhost:3000/api/graphql' // KW Studio
+    uri: 'https://kids-in-motion.vercel.app/api/graphql' // Live
+    // uri: 'http://localhost:3000/api/graphql' // KW Studio
     // uri: 'http://192.168.1.85:5001/api/graphql' // KW Studio 5G
     // uri: 'http://10.0.0.46/api/graphql' // Home 
   });
