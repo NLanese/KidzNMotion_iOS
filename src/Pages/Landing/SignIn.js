@@ -347,11 +347,12 @@ export default function SignIn() {
 
                 /////////////////////////
                 // SUBSCRIPTION STATUS //
-                if (user.subscriptionStatus !== "active"){
-                    console.log(user.subscriptionStatus)
-                    setNoSubType(user.subscriptionStatus)
-                    return false
-                }
+                // if (user.subscriptionStatus !== "active"){
+                //     console.log()
+                //     console.log(user.subscriptionStatus)
+                //     setNoSubType(user.subscriptionStatus)
+                //     return false
+                // }
                 // else if ()
 
                 // On Successful Login, reroute
