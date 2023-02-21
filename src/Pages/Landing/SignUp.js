@@ -184,7 +184,7 @@ const SignUp = ({ navigation })  => {
 
         // Testing to remove token if needed
         useEffect(() => {
-            AsyncStorage.clear()
+            // AsyncStorage.clear()
         }, [])
 
     ///////////////////////
@@ -976,19 +976,19 @@ const SignUp = ({ navigation })  => {
                 return handleMutation(mutationObj).then( async (resolved)=>  {
                     if (resolved){
 
-                        console.log("Signup completed")
-                        console.log("RESOLVED:::: \n", resolved)
+                        console.log("Signup completed (1)")
+                        console.log("RESOLVED:::: \n", resolved, "\n(2)")
 
                         clearErrors()
 
-                        console.log("Setting Login token...")
-                        console.log(resolved.data.signUpUser.token)
+                        console.log("Setting Login token... (3)")
+                        console.log(resolved.data.signUpUser.token, "\n(4)")
 
                         await AsyncStorage.setItem('@token', resolved.data.signUpUser.token)
                         setToken(resolved.data.signUpUser.token)
 
 
-                        console.log("Setting user")
+                        console.log("Setting user (5)")
                         //////////////
                         // Get User //
                         await client.query({
@@ -996,12 +996,13 @@ const SignUp = ({ navigation })  => {
                             fetchPolicy: 'network-only'  
                         })
                         .then(async (resolved) => {
-                            console.log("User object retrieved")
-                            console.log("User Object::::::: \n", resolved.data.getUser)
+                            console.log("User object retrieved (6)")
+                            console.log("User Object::::::: \n", resolved.data.getUser, "\n(7)")
                             setUser(resolved.data.getUser)
 
                         })
                         .catch((error) => {
+                            console.log("ERROR GETTING USER, (8)")
                             console.error(error)
                         });
 
@@ -1013,7 +1014,7 @@ const SignUp = ({ navigation })  => {
                         })
                         .then(async (resolved) => {
                             await setVideos(resolved.data.getAllVideoFiles)
-                            await console.log("Setting Videos, moving on")
+                            await console.log("Setting Videos, moving on, (8)")
                         })
                         .catch(err => console.error(err))
 
@@ -1023,7 +1024,7 @@ const SignUp = ({ navigation })  => {
                         }
 
                         // Navigation
-                        navigation.navigate("Home")
+                        // navigation.navigate("Home")
                     }
                 }).catch(error => {
                     if (error === "Error: Email already exists"){
