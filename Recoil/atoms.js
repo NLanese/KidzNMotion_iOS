@@ -36,6 +36,12 @@ import { COLORS, FONTS, SIZES, DEFAULT_AVATAR } from '../NutonConstants';
 		default: true
 	})
 
+	// Tracks Subscription Status
+	export const subscriptionstate = atom({
+		key: "subscriptionState",
+		default: true
+	})
+
 /////////////////////
 // THERAPIST STATE //
 /////////////////////

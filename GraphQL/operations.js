@@ -527,6 +527,9 @@ const USER_LOGIN = gql`
       username: $username, password: $password
     ){
       token
+      user{
+        subscriptionStatus
+      }
     }
   }
 `

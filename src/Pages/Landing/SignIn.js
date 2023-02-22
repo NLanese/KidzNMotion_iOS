@@ -298,9 +298,6 @@ export default function SignIn() {
         const handleSignIn = async (localEmail = false, localPassword = false) => {
             setLoading(true)
 
-            console.log(localEmail, " LOCAL EMAIL 1")
-            console.log(localPassword, " LOCAL PASSWORD 1")
-
             // MUTATION //
             handleLoginMutation(localEmail, localPassword)
 
@@ -369,10 +366,8 @@ export default function SignIn() {
         // Determines which login Mutation to use 
         const handleLoginMutation = async (localEmail = false, localPassword = false) => {
 
-            console.log(localEmail, " LOCAL EMAIL 2")
-            console.log(localPassword, " LOCAL PASSWORD 2")
-
-
+            //////////////////////
+            // INIT CREDENTIALS //
             let loginEmail 
             let loginPassword
 
@@ -401,18 +396,20 @@ export default function SignIn() {
                 AsyncStorage.setItem('@password', password)
             }
 
-            console.log(password, " LOCAL EMAIL 3")
-            console.log(username_or_email, " LOCAL PASSWORD 3")
-
             return await userLogin({
                 variables: {
                     username: loginEmail,
                     password: loginPassword
                 }
             })
+            .then((resolved) => {
+                console.log(resolved)
+                return resolved
+            })
             ///////////////////
             // Catches Error //
             .catch(error => {
+                console.error(error)
                 if (error.toString().includes("Error: Email/Password are incorrect.")){
                     setErrors({
                         email: "Email and Password do not match any users",
