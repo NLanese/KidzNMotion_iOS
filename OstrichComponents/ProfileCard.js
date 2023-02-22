@@ -33,7 +33,7 @@ import React, {useState} from "react";
 export default function ProfileCard({
 
     selectable=false,
-    onSelect={function(){console.log("No onSelect prop provided!")}},
+    onSelect={function(){console.error("No onSelect prop provided!")}},
 
     defaultStyle={...Style},
 
@@ -121,7 +121,7 @@ export default function ProfileCard({
         if (!profilePicture){
             return avatarComponentFunction()
             .catch(err => {
-                console.log("There was an issue with the avatarComponentFunction. Please make sure what you entered is the declaration for a function that returns an avatar component. The error returned is as follows...", err)
+                console.error("There was an issue with the avatarComponentFunction. Please make sure what you entered is the declaration for a function that returns an avatar component. The error returned is as follows...", err)
             })
         }
         else{

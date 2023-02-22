@@ -969,8 +969,6 @@ const SignUp = ({ navigation })  => {
                     mutationObj.title = "Administrator"
                 }
 
-                console.log("MUTATION OBJECT:::::", mutationObj)
-
                 // MUTATION //
                 return handleMutation(mutationObj).then( async (resolved)=>  {
                     if (resolved){
@@ -989,7 +987,7 @@ const SignUp = ({ navigation })  => {
 
                         })
                         .catch((error) => {
-                            console.log(error)
+                            console.error(error)
                         });
 
                         ////////////////
@@ -1002,7 +1000,7 @@ const SignUp = ({ navigation })  => {
                             await setVideos(resolved.data.getAllVideoFiles)
                             await console.log("Setting Videos, moving on")
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => console.error(err))
 
                         // If Therapist User
                         if (user.role === "THERAPIST"){     
@@ -1014,7 +1012,7 @@ const SignUp = ({ navigation })  => {
                     }
                 }).catch(error => {
                     if (error === "Error: Email already exists"){
-                        console.log("EMAIL ALREADY EXISTS")
+                        console.error("EMAIL ALREADY EXISTS")
                         setError({...errors, email: "This Email is Taken" })
                     }
                 })
@@ -1022,15 +1020,13 @@ const SignUp = ({ navigation })  => {
 
             // Determines which mutation to run based on userType
             const handleMutation = async (mutationObj) => {
-                console.log(mutationObj)
                 return await userSignupMutation({
                     variables: {
                         ...mutationObj
                     }
                 }).catch(error => {
-                    console.log(error)
+                    console.error(error)
                 }).then((resolved) => {
-                    console.log("handle mutation --- RESOLVED::::::", resolved)
                     return resolved
                 })
             }

@@ -310,7 +310,7 @@ export default function ScheduleAMeeting(props) {
             }
         })
         .catch(err => {
-            console.log(err)
+            console.error(err)
             setDateOpen(false)
             setLoading(false)
         })

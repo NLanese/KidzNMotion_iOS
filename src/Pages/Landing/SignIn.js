@@ -17,7 +17,7 @@ import messaging from '@react-native-firebase/messaging';
 
 // Recoil
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState, tokenState, clientListState, colorState, fontState, sizeState, videoDataState, avatarState, meetingState, assignState, firstOpen} from "../../../Recoil/atoms";
+import { userState, tokenState, clientListState, colorState, fontState, sizeState, videoDataState, avatarState, meetingState, assignState, firstOpen, subscriptionstate} from "../../../Recoil/atoms";
 
 // Renderings / Nuton 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -132,6 +132,9 @@ export default function SignIn() {
         // First Open State
         const [first, setFirst] = useRecoilState(firstOpen)
 
+        // SubscriptionState
+        const [subState, setSubState] = useRecoilState(subscriptionstate)
+
         // Determmines whether or not we be splashing
         const [splashing, setSplashing] = useState(first)
 
@@ -227,7 +230,7 @@ export default function SignIn() {
                 query: GET_USER,
                 fetchPolicy: 'network-only'  
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {console.error(err)})
             .then(async(resolved) => {
                 // User //
                 await setUser(resolved.data.getUser)
@@ -263,7 +266,7 @@ export default function SignIn() {
                 await setAssign(assign)
             }
             else{
-                console.log("findUserAssignments failed, there was no user.role for some reason")
+                console.error("findUserAssignments failed, there was no user.role for some reason")
             }
         }
 
@@ -403,7 +406,6 @@ export default function SignIn() {
                 }
             })
             .then((resolved) => {
-                console.log(resolved)
                 return resolved
             })
             ///////////////////
@@ -472,7 +474,6 @@ export default function SignIn() {
                     password: password,
                     remember: remember
                 }
-                console.log("INSIDE GETDATA::::::" ,data)
                 return data
             } catch (error) {
                 throw new Error(error)

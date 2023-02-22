@@ -342,7 +342,7 @@ export default function AddClient(props) {
     // Fires on "Add CLient" Click
     function handleAddClient(){
         if (formData.email === ""){
-            console.log("ERROR")
+            console.error("ERROR")
         }
         handleAddMutation()
         .then( (resolved) => { 
@@ -362,8 +362,7 @@ export default function AddClient(props) {
                         childTherapistID: user.id
                     }
                 }
-            }).catch(error => console.log(error, "MUTATION"))
-            .then(resolved => console.log(resolved))
+            }).catch(error => console.error(error, "MUTATION"))
         }
 
         else{

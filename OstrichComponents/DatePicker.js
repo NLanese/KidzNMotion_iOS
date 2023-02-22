@@ -63,7 +63,7 @@ export default function DatePicker({
     onSelectMonth={function(){return null}},
     onSelectYear={function(){return null}},
 
-    onDateChange={function(returnDateObject){console.log("No 'onDateChange' function prop added")}},
+    onDateChange={function(returnDateObject){console.error("No 'onDateChange' function prop added")}},
 
     timeTitleStyle={...Styles.timeTitleStyle},
 

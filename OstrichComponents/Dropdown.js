@@ -58,7 +58,7 @@ export default function Dropdown({
     title="Untitled",                           // Main Button Text
     titleStyle={...Styles.titleStyle},          // Main Button Text Style
 
-    onTitleClick={function(object){console.log("No function assigned")}},
+    onTitleClick={function(object){console.error("No function assigned")}},
 
     indexText={...Styles.indexText},            // Index Button Text
     selectedIndexText={...Styles.indexText},    // Index ButtonText when Selected
@@ -85,7 +85,7 @@ export default function Dropdown({
     indexColor="#FFF",                          // Dropdown item color
     selectedIndexColor="coral",                  // Dropdown item color Selected
 
-    onIndexClick={function(object){console.log("No function assigned")}},       // Function on Dropdown Item click
+    onIndexClick={function(object){console.error("No function assigned")}},       // Function on Dropdown Item click
 
     search=false,                               // Boolean to toggle searchbar
     searchStyle={...Styles.searchStyle},        // Searchbar View Style

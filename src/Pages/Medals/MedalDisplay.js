@@ -76,7 +76,6 @@ export default function MedalDisplay(props) {
             // Renders all of the Medals
             function renderAllMedals(){
                 let filteredVideos = videos.filter(vid => {
-                    console.log(vid.title)
                     if (vid.title !== "Great Job"){
                         return vid
                     }                 
@@ -129,7 +128,6 @@ export default function MedalDisplay(props) {
                 if (color === "bronze"){
                     color = "brown"
                 }
-                console.log(video)
                 let title = convertSlugToName(video.id)
 
                 ///////////////

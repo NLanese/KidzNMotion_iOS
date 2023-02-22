@@ -317,7 +317,6 @@ export default function ClientVideoComments(props) {
 
     // Runs the Create Comment Mutation
     async function createCommentMutation(video){
-        console.log(video.id)
         return await createComment({
             variables: {
                 childCarePlanID: selectedClient.plan.id,
@@ -326,7 +325,7 @@ export default function ClientVideoComments(props) {
             }
         })
         .catch(err => {
-            console.log(error, "============323\n===========")
+            console.error(err, "============323\n===========")
         })
     }
 
@@ -334,7 +333,6 @@ export default function ClientVideoComments(props) {
     async function disperseComments(theseComments){
         theseComments.forEach(comment => {
             const videoId = comment.videoId
-            console.log(videoId)
             // Enqueue functional state update
             setComments(comments => {
                 if (comments[videoId]) {
@@ -363,7 +361,6 @@ export default function ClientVideoComments(props) {
             bear_crawl: []
         }
         theseComments.forEach(comment => {
-            console.log(comment.videoId)
             const videoId = comment.videoId
             if (dummyObj[videoId]){
                 dummyObj[videoId].push(comment)

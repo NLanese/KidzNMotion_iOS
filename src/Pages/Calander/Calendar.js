@@ -574,7 +574,7 @@ export default function CalendarPage() {
             .then((resolved) => {
                 getAndSetNotifications()
             })
-            .catch(err => console.log(err, "============\n614\n==========="))
+            .catch(err => console.error(err, "============\n614\n==========="))
         }
 
         // Gets and Sets Notifications, sets categorical notis too
@@ -584,7 +584,7 @@ export default function CalendarPage() {
                 query: GET_NOTIFICATIONS,
                 fetchPolicy: 'network-only'
             })
-            .catch(err => console.log(err, "============\n624\n==========="))
+            .catch(err => console.error(err, "============\n624\n==========="))
             .then((resolved) => {
                 let msgN = resolved.data.getNotifications.filter((noti, index) => {
                     if (noti.title.includes("New Message")){
@@ -611,9 +611,6 @@ export default function CalendarPage() {
                     assignmentID: ass.id,
                     hasSeen: true
                 }
-            })
-            .then(resolved => {
-                // console.log(resolved)
             })
         }
 

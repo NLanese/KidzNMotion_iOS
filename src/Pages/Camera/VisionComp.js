@@ -115,7 +115,7 @@ useEffect(() => {
   if (cameraPerm === "denied" && !checked){
     checkPermissions()
     setChecked(true)
-    console.log("denied, check again")
+    console.error("Camera Permissions Denied. Try Again")
   }
 }, [cameraPerm])
 
@@ -136,7 +136,6 @@ useEffect(() => {
 
     // Console log permissions
     const cameraPermission = await Camera.getCameraPermissionStatus();
-    console.log("CAMERA PERMISSION:::::: ", cameraPermission)
     setCameraPerm(cameraPermission)
     const microphonePermission = await Camera.getMicrophonePermissionStatus();
   };
@@ -198,7 +197,7 @@ useEffect(() => {
       body: "These are videos uploaded for your viewing",
       attachments: [videoPath]
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.error(err))
     .then(() => {
       setEmailSent(true)
     })
@@ -220,7 +219,7 @@ useEffect(() => {
               content: "Email of video sent",
               chatRoomID: chatroom.id
           }
-      }).catch(err => console.log(err))
+      }).catch(err => console.error(err))
   }
 
 ///////////////////////

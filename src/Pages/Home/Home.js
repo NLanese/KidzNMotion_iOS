@@ -99,8 +99,6 @@ export default function Home() {
             // Duh
             const [user, setUser] = useRecoilState(userState)
 
-            console.log(user.organizations)
-
             // Sets Selected Child if relevant
             let XSelected
             if (user.role === "GUARDIAN"){
@@ -482,7 +480,6 @@ export default function Home() {
                         subtitle={"View or Add Clients"}
                         image={"client"}
                         onSelect={() => {
-                            console.log("Navigate to ClientList")
                             navigation.navigate("ClientList")}
                         }
                         icon={<UserTab fillColor={COLORS.iconLight} strokeColor={COLORS.iconLight}/>}
@@ -639,9 +636,8 @@ export default function Home() {
                 }
             })
             .then((resolved) => {
-                console.log("MISSED ASSIGN MUTATION: ", resolved)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
         }
 
     /////////////////////
@@ -737,7 +733,7 @@ export default function Home() {
                     await handleColorInput(user.colorSettings)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    console.error(error)
                 })
 
 
@@ -810,7 +806,7 @@ export default function Home() {
                 setUser(resolved.data.getUser)
             })
             .catch((error) => {
-                console.log(error)
+                console.error(error)
             })
         }
 
@@ -821,7 +817,7 @@ export default function Home() {
                 query: GET_NOTIFICATIONS,
                 fetchPolicy: 'network-only'
             })
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
             .then((resolved) => {
                 let msgN = resolved.data.getNotifications.filter((noti, index) => {
                     if (noti.title.includes("New Message")){
@@ -879,9 +875,8 @@ export default function Home() {
                 }
             })
             .then((resolved) => {
-                // console.log("resolved updatePhoneToken Mutation:", resolved)
             })
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
         }
 
 
@@ -897,7 +892,6 @@ export default function Home() {
         await defaultAppMessaging.getToken()
         .then(resolved => {
             token = resolved
-            // console.log("TOKEN :", token)
         })
     }
 
