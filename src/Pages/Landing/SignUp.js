@@ -182,6 +182,10 @@ const SignUp = ({ navigation })  => {
         useEffect(() => {
         }, [errors]) 
 
+        useEffect(() => {
+            AsyncStorage.clear()
+        }, [])
+
     ///////////////////////
     ///                 ///
     ///    Renderings   ///

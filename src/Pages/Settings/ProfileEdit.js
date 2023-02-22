@@ -710,7 +710,9 @@ export default function ProfileEdit() {
             variables: {
                 profilePic: avatarSettings
             }
-        }).catch(err => console.log(err))
+        })
+        .then(resolved => console.log(resolved))
+        .catch(err => console.log(err))
     }
 
     // Handles Deletion
