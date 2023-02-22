@@ -39,6 +39,7 @@ import filterAssignments from '../../Hooks/value_extractors/filterAssignments';
 
 // Loading
 import LoadingComponent from "./LoadingComponent"
+import { err } from 'react-native-svg/lib/typescript/xml';
 
 
 let maxHeight = Dimensions.get('window').height
@@ -396,6 +397,9 @@ export default function SignIn() {
                     password: loginPassword
                 }
             }).then((resolved) => {
+
+                console.log(resolved)
+
                  // Async Stuff and Token //
                 setTokenAsyncAndRegular(resolved)
                 return true
@@ -405,6 +409,7 @@ export default function SignIn() {
             ///////////////////
             // Catches Error //
             .catch(error => {
+                console.error(error)
                 if (error.toString().includes("Error: Email/Password are incorrect.")){
                     setErrors({
                         email: "Email and Password do not match any users",

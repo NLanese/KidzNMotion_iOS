@@ -182,9 +182,7 @@ const Stack = createNativeStackNavigator();
 
   // Creates the Authorization Link
   const authLink = setContext( async (_, { headers }) => {
-    console.log("**Inside of Auth Link**")
     const token = await AsyncStorage.getItem('@token')
-    console.log("Login Token valur found: ", token)
     return {
       headers: {
         ...headers,

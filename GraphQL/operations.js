@@ -530,6 +530,7 @@ const USER_LOGIN = gql`
       username: $username, password: $password
     ){
       token
+      subscriptionStatus
     }
   }
 `
