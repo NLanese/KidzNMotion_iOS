@@ -405,6 +405,7 @@ export default function SignIn() {
                 }
             })
             .then((resolved) => {
+                console.log(resolved.data)
                 return resolved
             })
             ///////////////////
