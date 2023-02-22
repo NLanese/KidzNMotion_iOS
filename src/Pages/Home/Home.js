@@ -99,7 +99,7 @@ export default function Home() {
             // Duh
             const [user, setUser] = useRecoilState(userState)
 
-            console.log(user)
+            console.log(user.organizations)
 
             // Sets Selected Child if relevant
             let XSelected
