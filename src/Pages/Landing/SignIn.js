@@ -3,16 +3,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // React
 import React, { useState, useEffect } from "react";
-import { View,Text, ImageBackground, SafeAreaView, Image, TouchableOpacity, Dimensions} from "react-native";
+import { View,Text, Image, TouchableOpacity, Dimensions} from "react-native";
 import Modal from "react-native-modal";
 
 // Apollo graphQL
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { USER_LOGIN, GET_USER, GET_VIDEOS, GET_MEETINGS } from "../../../GraphQL/operations";
 import client from '../../utils/apolloClient';
 
 // Firebase
-import { firebase } from '@react-native-firebase/messaging';
 import messaging from '@react-native-firebase/messaging';
 
 // Recoil
@@ -23,7 +22,7 @@ import { userState, tokenState, clientListState, colorState, fontState, sizeStat
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 import { Header, InputField, Button } from "../../../NutonComponents";
-import { Check, EyeOff, CheckSmall, Facebook, Twitter, Google, Eye } from "../../../svg";
+import { Check, EyeOff, CheckSmall, Eye } from "../../../svg";
 import { DEFAULT_AVATAR } from '../../../NutonConstants';
 import { COLORS as colorConstant }  from "../../../NutonConstants"
 
