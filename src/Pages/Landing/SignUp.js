@@ -182,7 +182,6 @@ const SignUp = ({ navigation })  => {
         useEffect(() => {
         }, [errors]) 
 
-        // Testing to remove token if needed
         useEffect(() => {
             AsyncStorage.clear()
         }, [])
@@ -263,7 +262,7 @@ const SignUp = ({ navigation })  => {
             )
         }
 
-        // Renders Error Message
+         // Renders Error Message
         function renderErrorMessage(type, extra=0){
             let subTop = 5 + extra
             if (errors[type]){
@@ -970,25 +969,15 @@ const SignUp = ({ navigation })  => {
                     mutationObj.title = "Administrator"
                 }
 
-                console.log("Starting singup")
+                console.log("MUTATION OBJECT:::::", mutationObj)
 
                 // MUTATION //
                 return handleMutation(mutationObj).then( async (resolved)=>  {
                     if (resolved){
-
-                        console.log("Signup completed (1)")
-                        console.log("RESOLVED:::: \n", resolved, "\n(2)")
-
                         clearErrors()
-
-                        console.log("Setting Login token... (3)")
-                        console.log(resolved.data.signUpUser.token, "\n(4)")
-
                         await AsyncStorage.setItem('@token', resolved.data.signUpUser.token)
                         setToken(resolved.data.signUpUser.token)
 
-
-                        console.log("Setting user (5)")
                         //////////////
                         // Get User //
                         await client.query({
@@ -996,13 +985,11 @@ const SignUp = ({ navigation })  => {
                             fetchPolicy: 'network-only'  
                         })
                         .then(async (resolved) => {
-                            console.log("User object retrieved (6)")
-                            console.log("User Object::::::: \n", resolved.data.getUser, "\n(7)")
                             setUser(resolved.data.getUser)
+
                         })
                         .catch((error) => {
-                            console.log("ERROR GETTING USER, (6)")
-                            console.error(error)
+                            console.log(error)
                         });
 
                         ////////////////
@@ -1013,9 +1000,9 @@ const SignUp = ({ navigation })  => {
                         })
                         .then(async (resolved) => {
                             await setVideos(resolved.data.getAllVideoFiles)
-                            await console.log("Setting Videos, moving on, (8)")
+                            await console.log("Setting Videos, moving on")
                         })
-                        .catch(err => console.error(err))
+                        .catch(err => console.log(err))
 
                         // If Therapist User
                         if (user.role === "THERAPIST"){     
@@ -1027,7 +1014,7 @@ const SignUp = ({ navigation })  => {
                     }
                 }).catch(error => {
                     if (error === "Error: Email already exists"){
-                        console.error("EMAIL ALREADY EXISTS")
+                        console.log("EMAIL ALREADY EXISTS")
                         setError({...errors, email: "This Email is Taken" })
                     }
                 })
@@ -1035,12 +1022,13 @@ const SignUp = ({ navigation })  => {
 
             // Determines which mutation to run based on userType
             const handleMutation = async (mutationObj) => {
+                console.log(mutationObj)
                 return await userSignupMutation({
                     variables: {
                         ...mutationObj
                     }
                 }).catch(error => {
-                    console.error(error)
+                    console.log(error)
                 }).then((resolved) => {
                     console.log("handle mutation --- RESOLVED::::::", resolved)
                     return resolved

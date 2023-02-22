@@ -12,8 +12,6 @@ const GET_USER = gql`
 query Query{
     getUser{
       subscriptionStatus
-      soloStripeSubscriptionID
-      soloSubscriptionStatus
       id
       fcmToken
       email
@@ -323,7 +321,6 @@ query Query{
         id
         name
         phoneNumber
-        subscriptionStatus
       	organizationUsers{
           id
           userId
@@ -530,7 +527,9 @@ const USER_LOGIN = gql`
       username: $username, password: $password
     ){
       token
-      subscriptionStatus
+      user{
+        subscriptionStatus
+      }
     }
   }
 `

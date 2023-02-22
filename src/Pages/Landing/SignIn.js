@@ -39,7 +39,6 @@ import filterAssignments from '../../Hooks/value_extractors/filterAssignments';
 
 // Loading
 import LoadingComponent from "./LoadingComponent"
-import { err } from 'react-native-svg/lib/typescript/xml';
 
 
 let maxHeight = Dimensions.get('window').height
@@ -228,7 +227,7 @@ export default function SignIn() {
                 query: GET_USER,
                 fetchPolicy: 'network-only'  
             })
-            .catch(err => {console.error(err)})
+            .catch(err => {console.log(err)})
             .then(async(resolved) => {
                 // User //
                 await setUser(resolved.data.getUser)
@@ -264,7 +263,7 @@ export default function SignIn() {
                 await setAssign(assign)
             }
             else{
-                console.error("Invalid User Object-- no ROLE")
+                console.log("findUserAssignments failed, there was no user.role for some reason")
             }
         }
 
@@ -299,7 +298,6 @@ export default function SignIn() {
         const handleSignIn = async (localEmail = false, localPassword = false) => {
             setLoading(true)
 
-            //////////////
             // MUTATION //
             handleLoginMutation(localEmail, localPassword)
 
@@ -311,6 +309,9 @@ export default function SignIn() {
 
                     // Clears Login Errors //
                     await clearErrors()
+
+                    // Async Stuff and Token //
+                    await setTokenAsyncAndRegular(resolved)
                     
                     // Get User, Avatar, and Colors //
                     await getAndSetUserAndUserProps()
@@ -347,12 +348,13 @@ export default function SignIn() {
                 /////////////////////////
                 // SUBSCRIPTION STATUS //
                 // if (user.subscriptionStatus !== "active"){
-                //     console.log()
                 //     console.log(user.subscriptionStatus)
+                //     setLoading(false)
+                //     setNoSubModal(true)
                 //     setNoSubType(user.subscriptionStatus)
+                //     setUser(false)
                 //     return false
                 // }
-                // else if ()
 
                 // On Successful Login, reroute
                 setLoading(false)
@@ -363,8 +365,9 @@ export default function SignIn() {
 
         // Determines which login Mutation to use 
         const handleLoginMutation = async (localEmail = false, localPassword = false) => {
-            ////////////////
-            // INITIALIZE //
+
+            //////////////////////
+            // INIT CREDENTIALS //
             let loginEmail 
             let loginPassword
 
@@ -385,27 +388,24 @@ export default function SignIn() {
                 loginPassword = password
             }
 
+
             ///////////////////
             // Async Storage //
             if (rememberMe){
                 AsyncStorage.setItem('@email', username_or_email)
                 AsyncStorage.setItem('@password', password)
             }
+
             return await userLogin({
                 variables: {
                     username: loginEmail,
                     password: loginPassword
                 }
-            }).then((resolved) => {
-
-                console.log(resolved)
-
-                 // Async Stuff and Token //
-                setTokenAsyncAndRegular(resolved)
-                return true
             })
-
-
+            .then((resolved) => {
+                console.log(resolved)
+                return resolved
+            })
             ///////////////////
             // Catches Error //
             .catch(error => {
@@ -472,6 +472,7 @@ export default function SignIn() {
                     password: password,
                     remember: remember
                 }
+                console.log("INSIDE GETDATA::::::" ,data)
                 return data
             } catch (error) {
                 throw new Error(error)
