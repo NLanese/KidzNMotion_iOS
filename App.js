@@ -186,7 +186,7 @@ const Stack = createNativeStackNavigator();
     return {
       headers: {
         ...headers,
-        authorization: token ? `${token}` : ''
+        authorization: token
       }
     }
   })
@@ -207,7 +207,6 @@ const Stack = createNativeStackNavigator();
   // Handles FCM Token
   async function handleUpdatePhoneToken(){
     const fcmToken = await messaging().getToken();
-    console.log("NOTIFICATION TOKEN:::: ", fcmToken)
   }
 
   // Configures Device to recieve Notifications
@@ -237,9 +236,7 @@ const Stack = createNativeStackNavigator();
 
 
   return(
-    <ErrorBoundary
-    onError={(error) => console.error("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}
-    >
+    <ErrorBoundary onError={(error) => console.error("\n===========================\nAPP.JS ERROR REPORTING REPORTING\n===========================\n", error)}>
       <NavigationContainer>
         <ApolloProvider client={client}>
         <RecoilRoot>

@@ -321,6 +321,8 @@ query Query{
         id
         name
         phoneNumber
+        subscriptionStatus
+        createdAt
       	organizationUsers{
           id
           userId
@@ -528,7 +530,7 @@ const USER_LOGIN = gql`
     ){
       token
       user{
-        subscriptionStatus
+        soloSubscriptionStatus
       }
     }
   }

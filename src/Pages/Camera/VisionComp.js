@@ -111,7 +111,6 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  console.log("CAMERAPERM::::::", cameraPerm)
   if (cameraPerm === "denied" && !checked){
     checkPermissions()
     setChecked(true)

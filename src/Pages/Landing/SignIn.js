@@ -229,7 +229,10 @@ export default function SignIn() {
                 query: GET_USER,
                 fetchPolicy: 'network-only'  
             })
-            .catch(err => {console.error(err)})
+            .catch(err => {
+                console.error(err)
+                setLoading(false)
+            })
             .then(async(resolved) => {
                 // User //
                 await setUser(resolved.data.getUser)
@@ -266,6 +269,7 @@ export default function SignIn() {
             }
             else{
                 console.error("findUserAssignments failed, there was no user.role for some reason")
+                setLoading(false)
             }
         }
 
@@ -306,6 +310,7 @@ export default function SignIn() {
             //////////////////////
             // Successful Login //   
             .then( async (resolved) => {
+
                 // Successful Login //
                 if (resolved){
 
@@ -350,7 +355,6 @@ export default function SignIn() {
                 /////////////////////////
                 // SUBSCRIPTION STATUS //
                 // if (user.subscriptionStatus !== "active"){
-                //     console.log(user.subscriptionStatus)
                 //     setLoading(false)
                 //     setNoSubModal(true)
                 //     setNoSubType(user.subscriptionStatus)
@@ -405,7 +409,6 @@ export default function SignIn() {
                 }
             })
             .then((resolved) => {
-                console.log(resolved.data)
                 return resolved
             })
             ///////////////////

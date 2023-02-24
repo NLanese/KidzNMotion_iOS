@@ -183,7 +183,7 @@ const SignUp = ({ navigation })  => {
         }, [errors]) 
 
         useEffect(() => {
-            AsyncStorage.clear()
+            // AsyncStorage.clear()
         }, [])
 
     ///////////////////////
@@ -984,9 +984,9 @@ const SignUp = ({ navigation })  => {
                         })
                         .then(async (resolved) => {
                             setUser(resolved.data.getUser)
-
                         })
                         .catch((error) => {
+                            console.error("GET_USER failed!")
                             console.error(error)
                         });
 
@@ -998,7 +998,6 @@ const SignUp = ({ navigation })  => {
                         })
                         .then(async (resolved) => {
                             await setVideos(resolved.data.getAllVideoFiles)
-                            await console.log("Setting Videos, moving on")
                         })
                         .catch(err => console.error(err))
 

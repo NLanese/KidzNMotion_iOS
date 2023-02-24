@@ -10,7 +10,7 @@ import Modal from "react-native-modal";
 
 // Recoil
 import { useRecoilState, useRecoilValue } from "recoil";
-import { colorState, fontState, sizeState, userState, avatarState, tokenState, videoDataState, assignState, meetingState, activeChatroom, messageNotifications, scheduleNotifications, organizationState, accessibleVideos } from '../../../Recoil/atoms';
+import { colorState, fontState, sizeState, userState, avatarState, tokenState, videoDataState, assignState, meetingState, activeChatroom, messageNotifications, scheduleNotifications, organizationState, accessibleVideos, subscriptionstate } from '../../../Recoil/atoms';
 
 // Nuton
 import { Header, ProfileCategoryComponent, Button } from "../../../NutonComponents";
@@ -163,6 +163,8 @@ export default function Home() {
 
             const [validVids, setValidVids] = useRecoilState(accessibleVideos)
 
+            const [subState, setSubState] = useRecoilState(subscriptionstate)
+
             // Fires wehen switching accounts
             useEffect(() => {
                 handleColorInput(user.colorSettings)
@@ -253,6 +255,13 @@ export default function Home() {
         /////////////
         // Testing //
         /////////////
+
+        useEffect(() => {
+            // console.log(user.organizations[0].organization)
+            // if (!user.organizations[0].organization.subscriptionStatus){
+                
+            // }
+        })
 
 ///////////////////////
 ///                 ///

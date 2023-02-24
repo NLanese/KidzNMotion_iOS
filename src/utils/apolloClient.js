@@ -12,10 +12,11 @@ const httpLink = createHttpLink({
   
   const authLink = setContext( async (_, { headers }) => {
     const token = await AsyncStorage.getItem('@token')
+    console.log("TOKEN IN HEADER ::: ", token)
     return {
       headers: {
         ...headers,
-        authorization: token ? `${token}` : ''
+        authorization: token 
       }
     }
   })
