@@ -7,7 +7,7 @@ import React, {useState, useEffect} from "react";
 
 // Recoil
 import { useRecoilState, useRecoilValue } from "recoil";
-import { colorState, fontState, sizeState, userState, tokenState, clientListState, videoDataState } from  "../../../Recoil/atoms";
+import { colorState, fontState, sizeState, userState, tokenState, clientListState, videoDataState, subscriptionstate } from  "../../../Recoil/atoms";
 
 // Mutations
 import { useMutation, useQuery } from '@apollo/client';
@@ -67,6 +67,9 @@ const SignUp = ({ navigation })  => {
 
             // Video
             const [videos, setVideos] = useRecoilState(videoDataState)
+
+            // Subscription
+            const [subState, setSubState] = useRecoilState(subscriptionstate)
 
         /////////////////
         // Local State //
@@ -1005,6 +1008,9 @@ const SignUp = ({ navigation })  => {
                         if (user.role === "THERAPIST"){     
                             setClientList(user.patientCarePlans)     // Sets Client List
                         }
+
+                        // SubState
+                        setSubState("trial")
 
                         // Navigation
                         navigation.navigate("Home")
