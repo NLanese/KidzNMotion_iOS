@@ -311,6 +311,10 @@ export default function SignIn() {
             // Successful Login //   
             .then( async (resolved) => {
 
+                console.log("Login Resolved: ", resolved.data.loginUser.user)
+
+                setSubState(resolved.data.loginUser.user.soloSubscriptionStatus)
+
                 // Successful Login //
                 if (resolved){
 

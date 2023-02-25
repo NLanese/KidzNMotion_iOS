@@ -18,6 +18,8 @@ import { Heart, Logo, CalendarTab, Bell, Play, MedalTab, UserTab, SettingsLarge,
 import { COLORS as colorConstant }  from "../../../NutonConstants"
 import { DEFAULT_AVATAR } from '../../../NutonConstants';
 
+import NoAccess from './NoAccess';
+
 // Firebase
 import { firebase } from '@react-native-firebase/messaging';
 import messaging from '@react-native-firebase/messaging';
@@ -252,16 +254,13 @@ export default function Home() {
             }, [missedAss])
 
 
-        /////////////
-        // Testing //
-        /////////////
+        ////////////////
+        // Sub Status //
+        ////////////////
 
         useEffect(() => {
-            // console.log(user.organizations[0].organization)
-            // if (!user.organizations[0].organization.subscriptionStatus){
-                
-            // }
-        })
+            console.log(subState)
+        }, [subState])
 
 ///////////////////////
 ///                 ///
@@ -285,6 +284,10 @@ export default function Home() {
             return(
                 <View />
             )
+        }
+
+        if (subState.includes("expire")){
+            return <NoAccess expiredStatus={subState} />
         }
 
         if (user.role === "GUARDIAN" || user.role === "CHILD"){
