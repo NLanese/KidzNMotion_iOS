@@ -74,6 +74,27 @@ export default function NoAccess({expiredStatus}) {
                 </View>
             )
         }
+        else if (expiredStatus === "expiredUser"){
+            return(
+                <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
+                    <Text style={{...FONTS.SubTitle, color: COLORS.iconLight, fontSize: 22, textAlign: 'center'}}>
+                        Your trial period has ended!
+                    </Text>
+                    <Text style={{fontFamily: 'Gilroy-Medium', color: COLORS.iconLight, marginTop: 20, fontSize: 18, textAlign: 'center'}}>
+                        Please navigate to the Online Web Portal and add payment information to continue with your Kidz-N-Motion experience!
+                    </Text>
+                    <Text style={{justifyContent: 'center', alignItems: 'center', fontFamily: 'Gilroy-Medium', color: COLORS.iconLight, marginTop: 20, fontSize: 18, width: 300, textAlign: 'center'}}>
+                        Please go to 
+                    </Text>
+                    <Text style={{marginTop: 10, fontFamily: 'Gilroy-Bold', fontSize: 20}}>
+                        https://kids-in-motion.vercel.app
+                    </Text>
+                    <Text style={{justifyContent: 'center', alignItems: 'center', fontFamily: 'Gilroy-Medium', color: COLORS.iconLight, marginTop: 20, fontSize: 18, width: 300, textAlign: 'center'}}>
+                        And enter in your payment information to continue
+                    </Text>
+                </View>
+            )
+        }
     }
 
 
