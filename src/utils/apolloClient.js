@@ -5,8 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 const httpLink = createHttpLink({
-    uri: 'https://kids-in-motion.vercel.app/api/graphql' // Live
-    // uri: 'http://localhost:3000/api/graphql' // KW Studio
+    // uri: 'https://kids-in-motion.vercel.app/api/graphql' // Live
+    uri: 'http://localhost:3000/api/graphql' // KW Studio
   });
 
   
