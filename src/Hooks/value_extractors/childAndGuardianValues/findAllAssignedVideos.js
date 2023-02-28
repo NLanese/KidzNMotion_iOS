@@ -15,6 +15,15 @@ export default function findAllAssignedVideos(user){
     }
 
     // PArse Assignments
+    if (! target.childCarePlans){
+        return []
+    }
+
+    if (target.childCarePlans.length < 1){
+        return []
+    }
+
+
     let assignments =  target.childCarePlans[0].assignments
     assignments.forEach(ass => {
         ass.videos.forEach(vid => {
