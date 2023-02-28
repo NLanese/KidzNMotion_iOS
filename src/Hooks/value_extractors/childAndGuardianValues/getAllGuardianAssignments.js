@@ -1,5 +1,9 @@
 export default function getAllGuardianAssignments(user){
-    return user.children.map(child => {
-        return child.childCarePlans[0].assignments
+    let rArray = []
+    user.children.map(child => {
+        if (child.childCarePlans.length > 0){
+            rArray.push(child.childCarePlans[0].assignments)
+        }
     })
+    return rArray
 }

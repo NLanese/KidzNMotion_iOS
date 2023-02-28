@@ -339,6 +339,7 @@ export default function SignIn() {
                     }
 
                     // Positive Return
+                    console.log("Successful Login, NavigatingHome...")
                     return true
                 }
                 

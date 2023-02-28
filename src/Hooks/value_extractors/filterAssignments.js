@@ -1,6 +1,15 @@
 import convertMonthToNumber from "../date_and_time/convertMonthIntoNumber"
 
 export default function filterAssignments(ass){
+
+    if (!ass){
+        return []
+    }
+
+    if (ass.length < 1){
+        return []
+    }
+
     return ass.filter(assign => {
         let dt = assign.dateDue
 

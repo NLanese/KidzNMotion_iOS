@@ -972,6 +972,8 @@ const SignUp = ({ navigation })  => {
                     mutationObj.title = "Administrator"
                 }
 
+                console.log(mutationObj)
+
                 // MUTATION //
                 return handleMutation(mutationObj).then( async (resolved)=>  {
                     if (resolved){
