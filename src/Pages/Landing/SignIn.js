@@ -235,6 +235,7 @@ export default function SignIn() {
             })
             .then(async(resolved) => {
                 // User //
+                console.log("GET USER RESOLVED ::: \n", resolved.data.getUser)
                 await setUser(resolved.data.getUser)
 
                 // Avatar //
@@ -310,8 +311,6 @@ export default function SignIn() {
             //////////////////////
             // Successful Login //   
             .then( async (resolved) => {
-
-                console.log("Login Resolved: ", resolved.data.loginUser.user)
 
                 setSubState(resolved.data.loginUser.user.soloSubscriptionStatus)
 
@@ -414,6 +413,7 @@ export default function SignIn() {
                 }
             })
             .then((resolved) => {
+                console.log("LOGIN MUTATION RESPOLVED.DATA.LOGINUSER.USER ::: \n", resolved.data.loginUser.user)
                 return resolved
             })
             ///////////////////
