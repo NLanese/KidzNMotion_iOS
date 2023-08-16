@@ -1,7 +1,7 @@
 import numberToMonth from "./numberIntoMonth";
 import numToDayOfTheWeek from "./numToDayOfWeek";
 
-const getTodaysDate = (daysAdded=0) => {
+const getTodaysDate = (daysAdded=0, format="Object") => {
     var today = new Date();
     today.setDate(today.getDate() + daysAdded)
     var dd = String(today.getDate()).padStart(2, '0');
@@ -13,6 +13,10 @@ const getTodaysDate = (daysAdded=0) => {
     let dayOfWeek = numToDayOfTheWeek(nameDate.getDay())
     
     today = mm + '/' + dd + '/' + yyyy;
+    if (format === "MMM-DD-YYYY"){
+        let Mmm = numberToMonth(mm).substring(0, 3)
+        return `${Mmm}-${dd}-${yyyy}`
+    }
     return {
         date: today, 
         day: dd, 
