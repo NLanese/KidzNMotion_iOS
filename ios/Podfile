@@ -11,9 +11,9 @@ pod 'FBReactNativeSpec', :path => "../node_modules/react-native/React/FBReactNat
 # 
 
 # Standard for my use
-podfile_properties = JSON.parse(File.read(File.join(__dir__, ‘Podfile.properties.json’))) rescue {}
-platform :ios, podfile_properties[‘ios.deploymentTarget’] || ‘13.0’
-install! ‘cocoapods’, :deterministic_uuids => false
+podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}
+platform :ios, podfile_properties['ios.deploymentTarget'] || '13.0'
+install! 'cocoapods', :deterministic_uuids => false
 #
 
 target 'KidzNMotion_iOS' do
