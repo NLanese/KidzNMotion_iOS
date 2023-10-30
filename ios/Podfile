@@ -10,6 +10,11 @@ target 'KidzNMotion_iOS' do
   # Flags change depending on the env values.
   flags = get_default_flags()
 
+  # Firebase
+  pod 'FBReactNativeSpec', :path => "../node_modules/react-native/React/FBReactNativeSpec"
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
+# 
+
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
@@ -30,6 +35,17 @@ target 'KidzNMotion_iOS' do
     inherit! :complete
     # Pods for testing
   end
+
+  # Firebase
+    pod 'PushNotifications', :modular_headers => true
+    pod 'Firebase/Messaging', :modular_headers => true
+    pod 'Firebase/Crashlytics', :modular_headers => true
+    pod 'Firebase/Analytics', :modular_headers => true
+    pod 'FirebaseCoreInternal', :modular_headers => true
+    pod 'FirebaseCore', :modular_headers => true
+    pod 'Firebase', :modular_headers => true
+    pod 'GoogleUtilities', :modular_headers => true
+  # 
 
   post_install do |installer|
     react_native_post_install(
