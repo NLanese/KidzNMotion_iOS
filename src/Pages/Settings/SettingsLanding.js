@@ -25,7 +25,9 @@ import SelectionButton from "../../../OstrichComponents/SelectionButton";
 import PersonasAvatar from "./AvatarSettings/PersonasAvatar"
 
 import LoadingComponent from "../../Global/LoadingComponent"
-import AsyncStorage from "@react-native-community/async-storage";
+// import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
