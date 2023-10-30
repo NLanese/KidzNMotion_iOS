@@ -1,16 +1,5 @@
 #import "AppDelegate.h"
 
-
-// Orientation
-#import "Orientation.h"
-//
-
-// Firebase
-#import <Firebase.h>
-// #import <FirebaseCare/FirebaseCore.h>
-// #import <FirebaseMessaging/FirebaseMessaging.h>
-//
-
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -24,12 +13,6 @@
 #import <React/RCTSurfacePresenter.h>
 #import <React/RCTSurfacePresenterBridgeAdapter.h>
 #import <ReactCommon/RCTTurboModuleManager.h>
-
-// Firebase
-#import <GoogleAnalytics/GAI.h>
-#import <GoogleAnalytics/GAIDictionaryBuilder.h>
-//
-
 
 #import <react/config/ReactNativeConfig.h>
 
@@ -45,18 +28,12 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
 @implementation AppDelegate
-- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window 
-{
-  return [Orientation getOrientation];
-}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
-  [FIRApp configure];
-
   RCTAppSetupPrepareApp(application);
 
-  RCTBridge *bridge = [self.reactDelegate createBridgeWithDelegate:self launchOptions:launchOptions];
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 
 #if RCT_NEW_ARCH_ENABLED
   _contextContainer = std::make_shared<facebook::react::ContextContainer const>();
@@ -67,7 +44,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
   NSDictionary *initProps = [self prepareInitialProps];
-  UIView *rootView = [self.reactDelegate createRootViewWithBridge:bridge moduleName:@"KidzNMotion_iOS" initialProperties:initProps];
+  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"KidzNMotion_iOS", initProps);
 
   if (@available(iOS 13.0, *)) {
     rootView.backgroundColor = [UIColor systemBackgroundColor];
@@ -76,11 +53,10 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   }
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [self.reactDelegate createRootViewController];
+  UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [super application:application didFinishLaunchingWithOptions:launchOptions];
   return YES;
 }
 
@@ -153,6 +129,5 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 }
 
 #endif
-
 
 @end
