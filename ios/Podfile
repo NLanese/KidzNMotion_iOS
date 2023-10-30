@@ -1,10 +1,13 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+
 
 platform :ios, '13.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'KidzNMotion_iOS' do
+  use_expo_modules!
   config = use_native_modules!
 
   # Flags change depending on the env values.
