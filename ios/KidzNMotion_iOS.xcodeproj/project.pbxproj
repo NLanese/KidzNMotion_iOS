@@ -12,6 +12,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		405ACED02AF29B18003D7157 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 405ACECF2AF29B18003D7157 /* FirebaseAnalytics */; };
+		405ACED22AF29B18003D7157 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 405ACED12AF29B18003D7157 /* FirebaseAuth */; };
+		405ACED42AF29B18003D7157 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 405ACED32AF29B18003D7157 /* FirebaseFirestore */; };
+		405ACED62AF29B18003D7157 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 405ACED52AF29B18003D7157 /* FirebaseFunctions */; };
+		405ACED82AF29B18003D7157 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 405ACED72AF29B18003D7157 /* FirebaseStorage */; };
+		405ACEDA2AF29B49003D7157 /* libFirebaseMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405ACED92AF29B49003D7157 /* libFirebaseMessaging.a */; };
 		51533486D2DD3CABB9FE0C00 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9202F79A6568FCE6814F2C4 /* ExpoModulesProvider.swift */; };
 		7699B88040F8A987B510C191 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -41,6 +47,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = KidzNMotion_iOS/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-KidzNMotion_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		405ACED92AF29B49003D7157 /* libFirebaseMessaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseMessaging.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5709B34CF0A7D63546082F79 /* Pods-KidzNMotion_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS.release.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS/Pods-KidzNMotion_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests/Pods-KidzNMotion_iOS-KidzNMotion_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-KidzNMotion_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KidzNMotion_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +70,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				405ACED02AF29B18003D7157 /* FirebaseAnalytics in Frameworks */,
+				405ACED42AF29B18003D7157 /* FirebaseFirestore in Frameworks */,
+				405ACED62AF29B18003D7157 /* FirebaseFunctions in Frameworks */,
+				405ACEDA2AF29B49003D7157 /* libFirebaseMessaging.a in Frameworks */,
+				405ACED22AF29B18003D7157 /* FirebaseAuth in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-KidzNMotion_iOS.a in Frameworks */,
+				405ACED82AF29B18003D7157 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +132,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				405ACED92AF29B49003D7157 /* libFirebaseMessaging.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-KidzNMotion_iOS.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-KidzNMotion_iOS-KidzNMotion_iOSTests.a */,
@@ -222,6 +236,13 @@
 			dependencies = (
 			);
 			name = KidzNMotion_iOS;
+			packageProductDependencies = (
+				405ACECF2AF29B18003D7157 /* FirebaseAnalytics */,
+				405ACED12AF29B18003D7157 /* FirebaseAuth */,
+				405ACED32AF29B18003D7157 /* FirebaseFirestore */,
+				405ACED52AF29B18003D7157 /* FirebaseFunctions */,
+				405ACED72AF29B18003D7157 /* FirebaseStorage */,
+			);
 			productName = KidzNMotion_iOS;
 			productReference = 13B07F961A680F5B00A75B9A /* KidzNMotion_iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -252,6 +273,9 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				405ACECE2AF29B18003D7157 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -762,6 +786,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		405ACECE2AF29B18003D7157 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		405ACECF2AF29B18003D7157 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 405ACECE2AF29B18003D7157 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		405ACED12AF29B18003D7157 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 405ACECE2AF29B18003D7157 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		405ACED32AF29B18003D7157 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 405ACECE2AF29B18003D7157 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		405ACED52AF29B18003D7157 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 405ACECE2AF29B18003D7157 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		405ACED72AF29B18003D7157 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 405ACECE2AF29B18003D7157 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
