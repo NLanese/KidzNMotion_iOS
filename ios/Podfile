@@ -14,7 +14,7 @@ target 'KidzNMotion_iOS' do
   flags = get_default_flags()
 
   # Firebase
-  pod 'FBReactNativeSpec', :path => "../node_modules/react-native/React/FBReactNativeSpec"
+  # pod 'FBReactNativeSpec', :path => "../node_modules/react-native/React/FBReactNativeSpec"
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
 # 
 
