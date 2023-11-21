@@ -10,7 +10,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		405ACEDA2AF29B49003D7157 /* libFirebaseMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405ACED92AF29B49003D7157 /* libFirebaseMessaging.a */; };
+		404B0E682AF534A30025E112 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 404B0E672AF534A30025E112 /* FirebaseMessaging */; };
 		51533486D2DD3CABB9FE0C00 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9202F79A6568FCE6814F2C4 /* ExpoModulesProvider.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B17EA95482BBA14BD1703684 /* Pods_KidzNMotion_iOS_KidzNMotion_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CCA4E72CF022C27ECB024C /* Pods_KidzNMotion_iOS_KidzNMotion_iOSTests.framework */; };
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				405ACEDA2AF29B49003D7157 /* libFirebaseMessaging.a in Frameworks */,
+				404B0E682AF534A30025E112 /* FirebaseMessaging in Frameworks */,
 				DAFEC7517E71794B0371BB69 /* Pods_KidzNMotion_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +206,9 @@
 			dependencies = (
 			);
 			name = KidzNMotion_iOS;
+			packageProductDependencies = (
+				404B0E672AF534A30025E112 /* FirebaseMessaging */,
+			);
 			productName = KidzNMotion_iOS;
 			productReference = 13B07F961A680F5B00A75B9A /* KidzNMotion_iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -683,10 +686,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
@@ -765,10 +765,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -817,6 +814,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		404B0E672AF534A30025E112 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 405ACECE2AF29B18003D7157 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
